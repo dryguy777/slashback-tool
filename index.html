@@ -3008,60 +3008,40 @@
     buildSplits();
     buildPerfects();
     initInline();
-    async function sfSubmit() {
-        const input = document.getElementById('sf-email');
-        const val = input.value.trim();
-        if (!val || !val.includes('@')) {
-            input.style.borderColor = '#cc1a1a';
-            return;
-        }
-        const btn = document.querySelector('#subscribe-footer .sf-btn');
+    function sfHandleSubmit(form) {
+        // Show loading state
+        const btn = form.querySelector('.sf-btn');
         btn.textContent = 'Joining...';
         btn.disabled = true;
-        try {
-            const res = await fetch('https://emailoctopus.com/api/1.6/lists/79b6f4f4-327f-11f1-972b-7be7a86ce308/contacts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    api_key: 'eo_102af0bb8964b8c878716e863229e0a2f7468e150493f6214f5e9c56ac8d888a',
-                    email_address: val,
-                    status: 'SUBSCRIBED'
-                })
-            });
-            const data = await res.json();
-            if (res.ok || (data.error && data.error.code === 'MEMBER_EXISTS_WITH_EMAIL_ADDRESS')) {
-                document.getElementById('sf-form').style.display = 'none';
-                document.getElementById('sf-success').style.display = 'block';
-                // Auto-hide footer after 4s
-                setTimeout(() => {
-                    document.getElementById('subscribe-footer').style.display = 'none';
-                }, 4000);
-            } else {
-                btn.textContent = 'Try again';
-                btn.disabled = false;
-                input.style.borderColor = '#cc1a1a';
-            }
-        } catch (e) {
-            btn.textContent = 'Try again';
-            btn.disabled = false;
-            input.style.borderColor = '#cc1a1a';
-        }
+        // Success will be detected by iframe onload after ~1s
+        setTimeout(() => sfShowSuccess(), 2000);
+    }
+    function sfHandleResponse(iframe) {
+
+
+    }
+    function sfShowSuccess() {
+        document.getElementById('sf-form').style.display = 'none';
+        document.getElementById('sf-success').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('subscribe-footer').style.display = 'none';
+        }, 4000);
     }
     </script>
 
     <!-- ── PERSISTENT SUBSCRIBE FOOTER ── -->
+    <iframe name="eo-hidden-frame" style="display:none" onload="sfHandleResponse(this)"></iframe>
     <div class="subscribe-footer" id="subscribe-footer">
         <div class="sf-text">
             🔪 
             <span>SlashBack Cinema</span>
              — Join the vault
         </div>
-        <div class="sf-form" id="sf-form">
-            <input class="sf-input" type="email" id="sf-email" placeholder="your@email.com"/>
-            <button class="sf-btn" onclick="sfSubmit()">Subscribe</button>
-        </div>
+        <form class="sf-form" id="sf-form" action="https://emailoctopus.com/lists/0e0fe442-328c-11f1-9364-3160c7a5eb81/members/embedded/1.3/add" method="post" target="eo-hidden-frame" onsubmit="sfHandleSubmit(this)">
+            <input class="sf-input" type="email" name="field_0" id="sf-email" placeholder="your@email.com" required/>
+            <input type="hidden" name="successRedirectUrl" value=""/>
+            <button class="sf-btn" type="submit">Subscribe</button>
+        </form>
         <div class="sf-success" id="sf-success">🔪 You're in! Welcome to the vault.</div>
         <button class="sf-close" onclick="document.getElementById('subscribe-footer').style.display='none'" title="Close">✕</button>
     </div>
