@@ -1429,6 +1429,122 @@
     .email-capture .eo-form, .email-capture form {
         background: transparent !important;
         padding: 0 !important;
+    }/* ── PERSISTENT SUBSCRIBE FOOTER ─────────────────────────────────── */
+    .subscribe-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        background: #0d0208;
+        border-top: 1px solid #2a0a1a;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        box-shadow: 0 -4px 24px rgba(232, 24, 109, 0.12);
+    }
+
+    .sf-text {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #aaa;
+        white-space: nowrap
+    }
+
+    .sf-text span {
+        color: var(--pink)
+    }
+
+    .sf-form {
+        display: flex;
+        gap: 8px;
+        align-items: center
+    }
+
+    .sf-input {
+        background: #111;
+        border: 1.5px solid #2a1020;
+        border-radius: 3px;
+        padding: 9px 14px;
+        font-size: 13px;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        outline: none;
+        width: 220px;
+        transition: border-color 0.15s
+    }
+
+    .sf-input:focus {
+        border-color: var(--pink)
+    }
+
+    .sf-input::placeholder {
+        color: #444
+    }
+
+    .sf-btn {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        padding: 9px 18px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s
+    }
+
+    .sf-btn:hover {
+        background: var(--pink-dark)
+    }
+
+    .sf-success {
+        display: none;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        color: var(--pink);
+        letter-spacing: 0.1em;
+        text-transform: uppercase
+    }
+
+    .sf-close {
+        background: transparent;
+        border: none;
+        color: #444;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0 4px;
+        line-height: 1;
+        transition: color 0.15s;
+        flex-shrink: 0
+    }
+
+    .sf-close:hover {
+        color: #aaa
+    }/* Push page content up so footer doesn't cover it */
+
+    body {
+        padding-bottom: 58px
+    }
+
+    @media (max-width: 480px) {
+        .sf-input {
+            width: 160px
+        }
+
+        .sf-text {
+            display: none
+        }
     }
     </style>
 </head>
@@ -1636,7 +1752,7 @@
         scale: 5,
         desc: "A Japanese art-film haunted-house psychedelic masterpiece that breaks every rule. Seven girls, a witch, a piano that eats people. Both Ryan and Shanny gave it a unanimous 5/5 — 'one of the most original movies ever made.'",
         quote: "House deserves five stabbies unquestionably. I felt like my life had become a little bit better now that I had seen this movie. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17348046",
         jw: "https://www.justwatch.com/us/search?q=House+1977+Nobuhiko",
         poster: "https://storage.buzzsprout.com/mohb6cs0s5buiojgu6fyqn7rkvrr?.jpg"
     },
@@ -1651,7 +1767,7 @@
         scale: 5,
         desc: "The one everyone's seen — but is it actually good? Hosts and guests mostly said no. Worth it for the fly scene and a great first half. Don't expect the second half to deliver.",
         quote: "I was gonna give it a three... but the score kept going down. Just watch the first half. That's the best part. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17772581",
         jw: "https://www.justwatch.com/us/search?q=Amityville+Horror+1979",
         poster: "https://storage.buzzsprout.com/l5pfqvkfnnbmck55xm3ufg132jyn?.jpg"
     },
@@ -1666,7 +1782,7 @@
         scale: 5,
         desc: "The Tall Man. Silver balls. Jawas. It doesn't fully work — but something about it gets its hooks in you and doesn't let go. Ryan gave it 3/5 because he immediately wanted to watch all four sequels.",
         quote: "I'll watch Phantasm 2 tonight. It got its hooks in me — I need more information. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17392653",
         jw: "https://www.justwatch.com/us/search?q=Phantasm+1979",
         poster: "https://storage.buzzsprout.com/rixsmef02zf80alefm9zxzkdrutd?.jpg"
     },
@@ -1681,7 +1797,7 @@
         scale: 5,
         desc: "The one that launched a thousand sequels — and the killer isn't even Jason. Still holds up 45 years later. The final slap-fight drains some tension but the first two acts are legit terrifying.",
         quote: "I want to give it four stabbies. The effects still work 45 years later. Before the killer shows up it's genuinely psychotic. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17511427",
         jw: "https://www.justwatch.com/us/search?q=Friday+the+13th+1980",
         poster: "https://storage.buzzsprout.com/h9xbnvijlqb8em1ahu7fnlgyqmh4?.jpg"
     },
@@ -1696,7 +1812,7 @@
         scale: 5,
         desc: "The gold standard for practical transformation effects. Pitch-black British humor meets genuine body horror. Shanny 4/5, Ryan 5/5. The transformation scene still holds up completely.",
         quote: "I'm going to land this one at five out of five wolf bites. Top of the line. Full praise. I'm all in. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17584398",
         jw: "https://www.justwatch.com/us/search?q=American+Werewolf+in+London",
         poster: "https://storage.buzzsprout.com/7e3d6pz68c08bm8to0poccb3v77g?.jpg"
     },
@@ -1711,7 +1827,7 @@
         scale: 5,
         desc: "Power drill. Slumber party. All three reviewers landed at 3/5. Fun, a bit different from the formula, more memorable cast than usual. The feminist subtext snuck in anyway.",
         quote: "I wrote this was going to be a two, but you've influenced me. There's more cleverness here than I realized. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17646973",
         jw: "https://www.justwatch.com/us/search?q=Slumber+Party+Massacre+1982",
         poster: "https://storage.buzzsprout.com/64l194ynq3spzh5kjdviml84g8hi?.jpg"
     },
@@ -1726,7 +1842,7 @@
         scale: 4,
         desc: "Joe Dante's scrappy Jaws riff. Genetically engineered killer fish devour a summer camp. Shanny watched it twice and gave it 4/4. Guest Jeff called it 'the Citizen Kane of trashy 70s creature features.'",
         quote: "It's better than you heard it was. It gets better when you watch it more. Four bites — highest level of quality. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/piranha-1978-this-movie-bites-killer-fish-and-summer/id1776917613?i=1000753093659",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18788426",
         jw: "https://www.justwatch.com/us/search?q=Piranha+1978",
         poster: "https://storage.buzzsprout.com/y0vtb6ktnoz1eo5xt2xuldafbc1e?.jpg"
     },
@@ -1741,7 +1857,7 @@
         scale: 5,
         desc: "A mute, traumatized girl at summer camp. Kills that barely make sense. An ending that comes from nowhere and still shocks 40 years later. Both hosts gave it 3.5/5.",
         quote: "Not since this movie have we watched an ending so bonkers you had to rewind the tape just to be sure you didn't hallucinate it. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17426501",
         jw: "https://www.justwatch.com/us/search?q=Sleepaway+Camp+1983",
         poster: "https://storage.buzzsprout.com/bjdfz698sa08qozn5rjv8say51v1?.jpg"
     },
@@ -1756,7 +1872,7 @@
         scale: 5,
         desc: "A pumpkin-obsessed grandpa runs a satanic cult. The Halloween party has a stripper, a belly dancer, and a stand-up comedian. Ryan gave it 4/5 because he watched it twice in a week.",
         quote: "It is garbage, but it is enjoyable garbage. So many moments made me laugh. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18110341",
         jw: "https://www.justwatch.com/us/search?q=Hack-O-Lantern+1988",
         poster: "https://storage.buzzsprout.com/rbc01d063hho3erhgt4ur2a496zp?.jpg"
     },
@@ -1771,7 +1887,7 @@
         scale: 5,
         desc: "Elite prep school. Creative kills (the shish kebab is unforgettable). A Trans Am bridge stunt that wrecked 15 cars. An ending so deranged it rivals Sleepaway Camp.",
         quote: "If someone wants to watch a bonkers 80s movie: first watch Sleepaway Camp, then watch this. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17854394",
         jw: "https://www.justwatch.com/us/search?q=Happy+Birthday+to+Me+1981",
         poster: "https://storage.buzzsprout.com/i0l3luvmr8dakdv3slwsoe8bt0hl?.jpg"
     },
@@ -1786,7 +1902,7 @@
         scale: 5,
         desc: "A mutant creature lives inside a regular house cat and crawls out to kill people on a yacht. The creature is bigger than the cat. So bad it circles back around to great.",
         quote: "This movie is so bad it's good — it circles around itself. I found it highly enjoyable. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17942178",
         jw: "https://www.justwatch.com/us/search?q=Uninvited+1987+horror",
         poster: "https://storage.buzzsprout.com/nrpto51tq4r62tn7avn48ng0xdr5?.jpg"
     },
@@ -1801,7 +1917,7 @@
         scale: 5,
         desc: "Lucio Fulci's Italian gore masterpiece. A zombie fights a shark. A worm crawls through an eyeball. Style over plot in the absolute best way.",
         quote: "Really gross, but gorgeous. Some of the best zombie design ever committed to film. Four zombie bites out of five. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17739375",
         jw: "https://www.justwatch.com/us/search?q=Zombie+1979+Fulci",
         poster: "https://storage.buzzsprout.com/e5slzvcr9zmsyc239ctish1i8m39?.jpg"
     },
@@ -1816,7 +1932,7 @@
         scale: 5,
         desc: "Horror-comedy perfection. The film that created the PG-13 rating. Mom goes full butcher knife in the kitchen. A SlashBack first — unanimous 5/5 from both hosts.",
         quote: "I realized horror comedy is actually my favorite kind of movie. Five stabs. No hesitation. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16215524",
         jw: "https://www.justwatch.com/us/search?q=Gremlins+1984",
         poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM2MDEzNDI1LCJwdXIiOiJibG9iX2lkIn19--a345b8717a815c1d776ea76319e820a10925f7ad/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-thumb-SQ-06-gremlins.png"
     },
@@ -1831,7 +1947,7 @@
         scale: 4,
         desc: "Cannibalistic Humanoid Underground Dwellers prowl the NYC sewers. Ryan gave it a brutal 1/4. Shanny showed mercy at 2.5/4. Great John Goodman cameo and an unforgettable poster.",
         quote: "There's two things I liked about this movie. In my heart CHUD is a three... but I'm clawing back some stabs. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/c-h-u-d-1984-the-80s-sewer-dweller-toxic-waste-cult-classic/id1776917613?i=1000750359600",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18706713",
         jw: "https://www.justwatch.com/us/search?q=C.H.U.D.",
         poster: "https://storage.buzzsprout.com/j0kwarptpv00mqm6iwjd4j7c7fnc?.jpg"
     },
@@ -1846,7 +1962,7 @@
         scale: 4,
         desc: "The Taxi Driver of Christmas horror. A man slowly losing his mind. Watch the last 10 minutes and the torch scene. The rest is slow.",
         quote: "Is it possible to go lower than one? I was at one until the last 10 minutes. That last scene? I'd rewatch just that. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18364800",
         jw: "https://www.justwatch.com/us/search?q=Christmas+Evil+1980",
         poster: "https://storage.buzzsprout.com/97w6tyv2pxy5w9pg7ytbexs7xxvw?.jpg"
     },
@@ -1861,7 +1977,7 @@
         scale: 4,
         desc: "Med students stop their hearts to peek at the afterlife. Glossy, over-produced, a little boring — but Kevin Bacon keeps punching Kiefer Sutherland in the chest.",
         quote: "The number of beeps were dropping... like this patient was slowly expiring. Two beeps. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/flatliners-1990-because-med-school-wasn-t-scary-enough/id1776917613?i=1000744201047",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18464937",
         jw: "https://www.justwatch.com/us/search?q=Flatliners+1990",
         poster: "https://storage.buzzsprout.com/hpbsyu7eza0ftbb2u81w8pst9goj?.jpg"
     },
@@ -1876,7 +1992,7 @@
         scale: 4,
         desc: "A comet wipes out humanity and two Valley Girl sisters get the run of an empty LA. Two badass female leads, a DMK license plate callback, and genuine wit.",
         quote: "You might need to sit down for this. I'm going four stabbies. This movie punches above its pay grade. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16471595",
         jw: "https://www.justwatch.com/us/search?q=Night+of+the+Comet+1984",
         poster: "https://storage.buzzsprout.com/9u7i0eu3f28zfg1oa6nyenze2rdz?.jpg"
     },
@@ -1891,7 +2007,7 @@
         scale: 4,
         desc: "Alien brain slugs turn frat boys into tuxedo-wearing zombies. Detective Tom Atkins delivers one-liners that ended up on the poster. The last 30 minutes are a 4/4.",
         quote: "I've got good news and bad news, girls. — Detective Cameron (best line on the poster)",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18293272",
         jw: "https://www.justwatch.com/us/search?q=Night+of+the+Creeps+1986",
         poster: "https://storage.buzzsprout.com/90m2h5bkluwt0j19cc6tyqqppxbd?.jpg"
     },
@@ -1906,7 +2022,7 @@
         scale: 4,
         desc: "The Christmas slasher that made parents protest outside theaters. Ryan enjoyed the lore (3/4). Shanny called it worthless and stood firm at 1/4.",
         quote: "Three stabbies for me — it checks every box and it has lore. — Ryan (Shanny disagreed strongly)",
-        ep: "https://podcasts.apple.com/us/podcast/silent-night-deadly-night-1984-santa-trauma-one-naughty/id1776917613?i=1000742637999",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18402088",
         jw: "https://www.justwatch.com/us/search?q=Silent+Night+Deadly+Night+1984",
         poster: "https://storage.buzzsprout.com/5fpvs4kxzpy3zj6jwdr6i1o5rz1s?.jpg"
     },
@@ -1921,7 +2037,7 @@
         scale: 5,
         desc: "John Carpenter's practical effects masterpiece. A shape-shifting alien in an Antarctic research station. Trashed on release, now universally recognized as a gold standard. Unanimous 5/5.",
         quote: "It's the gold standard for 80s horror. The story, the cast, the special effects — everything held up. Five stabbies. No controversy. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16178288",
         jw: "https://www.justwatch.com/us/search?q=The+Thing+1982",
         poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1NjI5MjE5LCJwdXIiOiJibG9iX2lkIn19--a75544d934386ff425a234afd775ed833d584486/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-SQ-05-thething.png"
     },
@@ -1936,7 +2052,7 @@
         scale: 5,
         desc: "The original slasher — predates Halloween by 4 years. A sorority house, anonymous phone calls, a killer you never fully see. Ryan 4/5 for genuine terror. Shanny 2/5 — too unpleasant to revisit.",
         quote: "I was genuinely surprised how scary this movie was. Four stabs — truly original in the way it builds tension. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16256955",
         jw: "https://www.justwatch.com/us/search?q=Black+Christmas+1974",
         poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NDg2OTU4LCJwdXIiOiJibG9iX2lkIn19--61bfe1b1b5e7fcbc65f7070306d1c0aa0e5392d9/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-07-IG-07-SQ.png"
     },
@@ -1951,7 +2067,7 @@
         scale: 5,
         desc: "Someone murders everyone in London dressed as Santa. One of the lowest-rated films in SlashBack history — Shanny 0.5/5, Ryan 1.5/5. The individual Santa kills are gems in a sea of sloppy filmmaking.",
         quote: "It's a loose sketch of a film peppered with gruesome Santa-killing gems. One and a half stabs, reluctantly. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16297253",
         jw: "https://www.justwatch.com/us/search?q=Don't+Open+Till+Christmas+1984",
         poster: "https://storage.buzzsprout.com/xq9lpq305spb33q3fm9bz7sh0ddi?.jpg"
     },
@@ -1966,7 +2082,7 @@
         scale: 5,
         desc: "A modern Christmas horror-comedy that plays like a lost 80s Gremlins spin-off. Incredible practical creature effects. Ryan 4/5. Shanny 3/5 (lost steam in the third act).",
         quote: "It's an 80s film brought into a modern era — all the stuff we loved about Gremlins shows up here. Four stabs. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16324341",
         jw: "https://www.justwatch.com/us/search?q=Krampus+2015",
         poster: "https://storage.buzzsprout.com/ay4t5662wnw4o9ftqml8lvz5635x?.jpg"
     },
@@ -1981,7 +2097,7 @@
         scale: 5,
         desc: "Stephen King writes, George Romero directs — EC Comics anthology horror. Five stories of wildly varying quality. The roach segment nearly broke Ryan. Ryan 3.5/5, Shanny 2.5/5.",
         quote: "I wanted to give it four, but I don't know that it merits it. Three and a half stabs — some stories really land. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16398368",
         jw: "https://www.justwatch.com/us/search?q=Creepshow+1982",
         poster: "https://storage.buzzsprout.com/6xfj6hwn832mp3i5spz77fjz7f5g?.jpg"
     },
@@ -1996,7 +2112,7 @@
         scale: 5,
         desc: "Clive Barker's S&M nightmare dimension. Pinhead. Frank reconstituting from a puddle of blood. Shanny 3.5/5, Ryan 4/5.",
         quote: "I'm charmed by a movie that doesn't have a big budget but can do a lot. Four stabs — the horror scenes work. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16435845",
         jw: "https://www.justwatch.com/us/search?q=Hellraiser+1987",
         poster: "https://storage.buzzsprout.com/sochhylr75616ryqe57wvtlvpsv0?.jpg"
     },
@@ -2011,7 +2127,7 @@
         scale: 5,
         desc: "Italian splatter film set inside a movie theater. Makes zero sense. Ryan watched thinking it was a 2/5 — then a character on a dirt bike with a katana showed up. Score: 3/5.",
         quote: "Two stabbies, two stabbies... and then that motorcycle scene happened. You get an extra stabby for that. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16671067",
         jw: "https://www.justwatch.com/us/search?q=Demons+1985+Lamberto+Bava",
         poster: "https://storage.buzzsprout.com/8exaj70ih9axzy6w03cp9r411t2p?.jpg"
     },
@@ -2026,7 +2142,7 @@
         scale: 5,
         desc: "Peter Jackson's zero-budget debut. Aliens harvest humans as fast food. Shot over four years on weekends, Jackson playing multiple roles. Shanny 3.5/5, Ryan 3/5.",
         quote: "Props to little Peter Jackson for pulling this off. Three and a half stabs. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16728616",
         jw: "https://www.justwatch.com/us/search?q=Bad+Taste+1987",
         poster: "https://storage.buzzsprout.com/9z6kmjh8y9n1an8jfvq7uwax5vme?.jpg"
     },
@@ -2041,7 +2157,7 @@
         scale: 5,
         desc: "Punk rock zombies who want to eat BRAINS. Shanny loved it (4/5). Ryan was surprised to give it only 2/5 — historically interesting but not rewatchable for him.",
         quote: "Punk rock, zombies, humor, horror — what's not to like? I'm giving this four stabs. — Shanny (Ryan shockingly gave it a 2)",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16771607",
         jw: "https://www.justwatch.com/us/search?q=Return+of+the+Living+Dead+1985",
         poster: "https://storage.buzzsprout.com/ai8zcislgfop5bvb3trq93nhjnd4?.jpg"
     },
@@ -2056,7 +2172,7 @@
         scale: 5,
         desc: "Cotton candy cocoons, shadow puppet dinosaurs, popcorn guns. Both hosts landed at 3/5: funny, goofy, wears thin toward the end but a uniquely entertaining idea.",
         quote: "They fully committed to this thing. Definitely entertaining, a lot of laughs — three stabs. — Ryan (Shanny agreed exactly)",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16815217",
         jw: "https://www.justwatch.com/us/search?q=Killer+Klowns+from+Outer+Space",
         poster: "https://storage.buzzsprout.com/2ageri5lspu2afxtbalkal4ge8ii?.jpg"
     },
@@ -2071,7 +2187,7 @@
         scale: 5,
         desc: "A man carries his deformed conjoined twin in a wicker basket through NYC. Shot for $35,000. Shanny loved its heart (4/5). Ryan was put off by one key scene (2.5/5).",
         quote: "I'm giving this four out of five stabs. So much joy in every scene. It's like ET written by a psycho. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16135702",
         jw: "https://www.justwatch.com/us/search?q=Basket+Case+1982",
         poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1MTUxMzY1LCJwdXIiOiJibG9iX2lkIn19--d487a5c0c29e58e62d66288b16cf7802795c4788/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-SQ-04-BasketCase.png"
     },
@@ -2086,7 +2202,7 @@
         scale: 5,
         desc: "George C. Scott in a haunted Victorian mansion. The direct predecessor to The Sixth Sense. Less horror film than haunted mystery. Shanny 3/5, Ryan 3.5/5.",
         quote: "Three and a half stabs — great story, really well acted. A classic haunted house film that really takes its time. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16557998",
         jw: "https://www.justwatch.com/us/search?q=The+Changeling+1980",
         poster: "https://storage.buzzsprout.com/as1034sol5gpigbacux6g2uygunc?.jpg"
     },
@@ -2101,7 +2217,7 @@
         scale: 5,
         desc: "Underground graboids terrorize a small Nevada town. Kevin Bacon. Reba McEntire. Shanny 3/5 enjoyed the puzzle-solving vibe. Ryan 2/5 found the middle stretches genuinely frustrating.",
         quote: "Good clean family fun. I'd watch it again — it wasn't cream of the crop, but it plays well as a creature feature. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17023358",
         jw: "https://www.justwatch.com/us/search?q=Tremors+1990",
         poster: "https://storage.buzzsprout.com/xu4geadw1hxmii1otyxejijhiufw?.jpg"
     },
@@ -2116,7 +2232,7 @@
         scale: 5,
         desc: "Security robots malfunction and start killing teenagers. Exploding heads, laser beams, gloriously bad acting. Ryan 4/5 compares it to Reanimator for entertainment value. Shanny a surprising 2.5/5.",
         quote: "Chopping Mall deserves four stabbies. If you want a fun 80s horror recommendation, this is up there with Reanimator. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17067893",
         jw: "https://www.justwatch.com/us/search?q=Chopping+Mall+1986",
         poster: "https://storage.buzzsprout.com/0ox8l71jm7ww2o2q9423s1mxjyj5?.jpg"
     },
@@ -2131,7 +2247,7 @@
         scale: 5,
         desc: "Santa Carla's half-vampire biker gang. Kiefer Sutherland at peak cool. The Frog brothers. Only the third unanimous 5/5 in SlashBack history. Ryan called it the reason they started the podcast.",
         quote: "This is the first movie where I thought — this is the reason we decided to do this podcast. Five stabs. — Ryan (Shanny: 'I'm also there with five.')",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17232730",
         jw: "https://www.justwatch.com/us/search?q=The+Lost+Boys+1987",
         poster: "https://storage.buzzsprout.com/l5m4nfniulcysczgawqsbrm5mtsj?.jpg"
     },
@@ -2146,7 +2262,7 @@
         scale: 5,
         desc: "Dario Argento's ballet school fever dream. The colors, the Goblin score, the kills — nothing else looks or sounds like it. Both hosts 4/5, docking a point for dubbing.",
         quote: "I'm saying Suspiria is a four stabby movie. The colors, the atmosphere — you won't forget a single scene. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17193712",
         jw: "https://www.justwatch.com/us/search?q=Suspiria+1977",
         poster: "https://storage.buzzsprout.com/yqr5zxh7djgn4vsrykz9j47xptt7?.jpg"
     },
@@ -2161,7 +2277,7 @@
         scale: 5,
         desc: "Freddy Krueger kills teenagers in their dreams. Wes Craven's ultimate work. Better acting and tighter script than most 80s horror. Both hosts 4/5.",
         quote: "Four stabbies. Wes Craven, top of the list — this was probably his ultimate work. Great cast, well acted, tight script. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16513847",
         jw: "https://www.justwatch.com/us/search?q=A+Nightmare+on+Elm+Street+1984",
         poster: "https://storage.buzzsprout.com/heoiehwb37svrza00rjqf89fdw55?.jpg"
     },
@@ -2176,7 +2292,7 @@
         scale: 5,
         desc: "A medical student discovers a reagent that reanimates the dead. Ryan was convinced it was 4/5 until the last 15 minutes. Both gave it 5/5 — up there with The Thing.",
         quote: "I was very convinced this was a four stabby movie until the last 15 minutes. Five stabbies — up there with The Thing. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16602383",
         jw: "https://www.justwatch.com/us/search?q=Re-Animator+1985",
         poster: "https://storage.buzzsprout.com/o0khha0xeb0chk1ttvmtrzhbpk3b?.jpg"
     },
@@ -2191,7 +2307,7 @@
         scale: 5,
         desc: "A cable TV programmer discovers a signal that blurs flesh and technology. Cronenberg's most prophetic film. Ryan 5/5, couldn't let it go. Shanny 4/5.",
         quote: "Incredibly inventive, original, so relevant to what's going on today. I'm giving this one five stabs. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16631957",
         jw: "https://www.justwatch.com/us/search?q=Videodrome+1983",
         poster: "https://storage.buzzsprout.com/rkqhia9bxw9ey66q7lvsok1hf444?.jpg"
     },
@@ -2206,7 +2322,7 @@
         scale: 5,
         desc: "A scientist uses sensory deprivation tanks and psychedelics to physically regress. Ken Russell's most unhinged film. Shanny 1/5 — zero likable characters. Ryan 3/5 for visual ambition.",
         quote: "I give Altered States just one stab. Zero likable characters — the movie was very cold. — Shanny (Ryan gave it three.)",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16091841",
         jw: "https://www.justwatch.com/us/search?q=Altered+States+1980",
         poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM0NzI1OTAxLCJwdXIiOiJibG9iX2lkIn19--2253474366d79c72bbf4faea614919e2baf3755b/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-Post-tem-03-ig-sq.png"
     },
@@ -2221,7 +2337,7 @@
         scale: 5,
         desc: "Stephen King's coming-of-age werewolf story. A disabled kid, Gary Busey, and a werewolf playing the church organ. Both hosts agreed it works better as a comedy than horror.",
         quote: "I'm landing this one at three and a half steps. Rewatchable, fun, campy — quintessential 80s. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/17151032",
         jw: "https://www.justwatch.com/us/search?q=Silver+Bullet+1985",
         poster: "https://storage.buzzsprout.com/n36cn5zf6r6kr3de4wwln4ddjxfr?.jpg"
     },
@@ -2236,7 +2352,7 @@
         scale: 4,
         desc: "HBO's modern horror-comedy channeling 80s creature feature energy. Unanimous 4/4 from both hosts — 'a classic four stabby movie.' Compared directly to Krampus.",
         quote: "Good jokes, good writing, fantastic cast — all game to play. This is a classic four stabby movie. — Ryan (Shanny agreed.)",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16897108",
         jw: "https://www.justwatch.com/us/search?q=The+Parenting+HBO+2025",
         poster: "https://storage.buzzsprout.com/jv9pf58kj4trjhw3627uk2fe3rk2?.jpg"
     },
@@ -2251,7 +2367,7 @@
         scale: 4,
         desc: "Furry alien murderballs escape intergalactic prison and land on a Kansas farm. Two shape-shifting bounty hunters follow. Peak 80s creature feature with a warm family core.",
         quote: "Grab your pipe bombs and hold on — Critters still packs a bite. — SlashBack Cinema",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16856223",
         jw: "https://www.justwatch.com/us/search?q=Critters+1986",
         poster: "https://storage.buzzsprout.com/dgtbrthlr3cgvlqb689zhpxgg2zp?.jpg"
     },
@@ -2266,7 +2382,7 @@
         scale: 5,
         desc: "Gregory Peck discovers his adopted son might be the Antichrist. Evil Mary Poppins nanny. Both hosts 3/5 — seminal and influential, but showing its age.",
         quote: "Three stabs. Seminal movie, iconic scenes — but getting a little long in the tooth. — Shanny (Ryan agreed.)",
-        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        ep: "https://www.buzzsprout.com/2419299/episodes/16021907",
         jw: "https://www.justwatch.com/us/search?q=The+Omen+1976",
         poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1NjMyNTIwLCJwdXIiOiJibG9iX2lkIn19--4ef022e5c141bb15f11be82f10ade3a52dfb924e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-01-omen-ig-SQ.png"
     },
@@ -2281,7 +2397,7 @@
         scale: 4,
         desc: "A horror novelist in his aunt's haunted house processing Vietnam War trauma. Part haunted house, part monster movie, part after-school special. Creative rubber monster suits can't quite save it.",
         quote: "It felt like a sitcom meets after-school special slash horror. I started at one... but I'm landing at two. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/house-1985-haunted-house-chaos-interdimensional-closet/id1776917613?i=1000746051338",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18542492",
         jw: "https://www.justwatch.com/us/search?q=House+1986+horror",
         poster: "https://storage.buzzsprout.com/s4pj5nrki8e2yvsbir6c8jgv37i9?.jpg"
     },
@@ -2296,7 +2412,7 @@
         scale: 4,
         desc: "A pickaxe-wielding killer terrorizes a mining town on Valentine's Day. Quentin Tarantino's favourite slasher. Well-shot, solid cast, genuinely mean kills. Both hosts 3/4 — better than expected.",
         quote: "A pretty damn solid slasher. Well shot, well written, great backdrop — the kills are mean and creative. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/my-bloody-valentine-1981-the-slasher-that-ruined/id1776917613?i=1000748246821",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18620372",
         jw: "https://www.justwatch.com/us/search?q=My+Bloody+Valentine+1981",
         poster: "https://storage.buzzsprout.com/3pejrr6aasu1pe5l60d5nj76wlhj?.jpg"
     },
@@ -2311,7 +2427,7 @@
         scale: 4,
         desc: "A suburban family's daughter gets pulled into the TV. Real skeletons, face-ripping, the clown. Shanny 4/4. Ryan 3.5/4 — would have been 4 if seen as a kid.",
         quote: "I am giving this a four out of four. One of the great haunted house movies. Every single actor is incredible. — Shanny",
-        ep: "https://podcasts.apple.com/us/podcast/poltergeist-1982-suburban-hell-real-skeletons-and/id1776917613?i=1000756008373",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18869445",
         jw: "https://www.justwatch.com/us/search?q=Poltergeist+1982",
         poster: "https://storage.buzzsprout.com/9dh0nc7ic4rd4c6hxzvfmgahmw9k?.jpg"
     },
@@ -2326,7 +2442,7 @@
         scale: 4,
         desc: "A mysterious dessert product takes over America — and eats its consumers from the inside. Sharp satire on consumerism. Ryan loved it (3.5/4). Shanny split the difference at 2.5/4.",
         quote: "The satire is super sharp and so on point. I'm bringing this in at three and a half stabs. — Ryan",
-        ep: "https://podcasts.apple.com/us/podcast/the-stuff-1985-you-ate-it-it-ate-you-back/id1776917613?i=1000758746024",
+        ep: "https://www.buzzsprout.com/2419299/episodes/18942162",
         jw: "https://www.justwatch.com/us/search?q=The+Stuff+1985",
         poster: "https://storage.buzzsprout.com/6utic5umhq7dwonicniepu0ijrwx?.jpg"
     }
@@ -2892,6 +3008,62 @@
     buildSplits();
     buildPerfects();
     initInline();
+    async function sfSubmit() {
+        const input = document.getElementById('sf-email');
+        const val = input.value.trim();
+        if (!val || !val.includes('@')) {
+            input.style.borderColor = '#cc1a1a';
+            return;
+        }
+        const btn = document.querySelector('#subscribe-footer .sf-btn');
+        btn.textContent = 'Joining...';
+        btn.disabled = true;
+        try {
+            const res = await fetch('https://emailoctopus.com/api/1.6/lists/79b6f4f4-327f-11f1-972b-7be7a86ce308/contacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    api_key: 'eo_102af0bb8964b8c878716e863229e0a2f7468e150493f6214f5e9c56ac8d888a',
+                    email_address: val,
+                    status: 'SUBSCRIBED'
+                })
+            });
+            const data = await res.json();
+            if (res.ok || (data.error && data.error.code === 'MEMBER_EXISTS_WITH_EMAIL_ADDRESS')) {
+                document.getElementById('sf-form').style.display = 'none';
+                document.getElementById('sf-success').style.display = 'block';
+                // Auto-hide footer after 4s
+                setTimeout(() => {
+                    document.getElementById('subscribe-footer').style.display = 'none';
+                }, 4000);
+            } else {
+                btn.textContent = 'Try again';
+                btn.disabled = false;
+                input.style.borderColor = '#cc1a1a';
+            }
+        } catch (e) {
+            btn.textContent = 'Try again';
+            btn.disabled = false;
+            input.style.borderColor = '#cc1a1a';
+        }
+    }
     </script>
+
+    <!-- ── PERSISTENT SUBSCRIBE FOOTER ── -->
+    <div class="subscribe-footer" id="subscribe-footer">
+        <div class="sf-text">
+            🔪 
+            <span>SlashBack Cinema</span>
+             — Join the vault
+        </div>
+        <div class="sf-form" id="sf-form">
+            <input class="sf-input" type="email" id="sf-email" placeholder="your@email.com"/>
+            <button class="sf-btn" onclick="sfSubmit()">Subscribe</button>
+        </div>
+        <div class="sf-success" id="sf-success">🔪 You're in! Welcome to the vault.</div>
+        <button class="sf-close" onclick="document.getElementById('subscribe-footer').style.display='none'" title="Close">✕</button>
+    </div>
 </body>
 </html>
