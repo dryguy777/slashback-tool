@@ -1459,59 +1459,61 @@
 
     .sf-text span {
         color: var(--pink)
-    }/* EO form inside footer - override EO default styles */
+    }/* EO form inside subscribe modal */
 
-    #sf-eo-placeholder form, #sf-eo-placeholder .eo-form {
+    #sf-modal-form-placeholder form {
         background: transparent !important;
         padding: 0 !important;
-        margin: 0 !important;
-        display: flex !important;
-        gap: 8px !important;
-        align-items: center !important;
-        flex-wrap: nowrap !important;
     }
 
-    #sf-eo-placeholder h2, #sf-eo-placeholder h3, #sf-eo-placeholder p, #sf-eo-placeholder label {
-        display: none !important;
+    #sf-modal-form-placeholder h2, #sf-modal-form-placeholder h3 {
+        color: #fff !important;
+        font-family: 'Oswald', sans-serif !important;
     }
 
-    #sf-eo-placeholder input[type="email"] {
-        background: #111 !important;
+    #sf-modal-form-placeholder input[type="email"] {
+        background: #0a0a0a !important;
         border: 1.5px solid #2a1020 !important;
         border-radius: 3px !important;
-        padding: 9px 14px !important;
-        font-size: 13px !important;
         color: #fff !important;
-        width: 220px !important;
-        outline: none !important;
-        font-family: 'Open Sans', sans-serif !important;
+        font-size: 14px !important;
+        padding: 12px 14px !important;
+        width: 100% !important;
     }
 
-    #sf-eo-placeholder input[type="email"]::placeholder {
-        color: #444 !important;
-    }
-
-    #sf-eo-placeholder input[type="email"]:focus {
-        border-color: var(--pink) !important;
-    }
-
-    #sf-eo-placeholder button[type="submit"], #sf-eo-placeholder input[type="submit"] {
+    #sf-modal-form-placeholder button[type="submit"] {
         background: var(--pink) !important;
         color: #fff !important;
         border: none !important;
-        padding: 9px 18px !important;
-        border-radius: 3px !important;
         font-family: 'Oswald', sans-serif !important;
-        font-size: 13px !important;
         font-weight: 700 !important;
+        font-size: 14px !important;
         letter-spacing: 0.08em !important;
         text-transform: uppercase !important;
         cursor: pointer !important;
-        white-space: nowrap !important;
+        padding: 12px 24px !important;
+        border-radius: 3px !important;
+        margin-top: 8px !important;
     }
 
-    #sf-eo-placeholder button[type="submit"]:hover {
-        background: var(--pink-dark) !important;
+    .sf-btn {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        padding: 9px 20px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s
+    }
+
+    .sf-btn:hover {
+        background: var(--pink-dark)
     }
 
     .sf-close {
@@ -3005,17 +3007,21 @@
     buildSplits();
     buildPerfects();
     initInline();
-    // Inject EmailOctopus form into footer on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const placeholder = document.getElementById('sf-eo-placeholder');
-        if (placeholder) {
+    // Inject EmailOctopus form into subscribe modal when it opens
+    function sfOpenModal() {
+        const modal = document.getElementById('sf-modal');
+        modal.style.display = 'flex';
+        // Inject EO form script once
+        const ph = document.getElementById('sf-modal-form-placeholder');
+        if (ph && !ph.dataset.loaded) {
             const s = document.createElement('script');
             s.src = 'https://eomail5.com/form/0e0fe442-328c-11f1-9364-3160c7a5eb81.js';
             s.setAttribute('data-form', '0e0fe442-328c-11f1-9364-3160c7a5eb81');
             s.async = true;
-            placeholder.appendChild(s);
+            ph.appendChild(s);
+            ph.dataset.loaded = 'true';
         }
-    });
+    }
     </script>
 
     <!-- ── PERSISTENT SUBSCRIBE FOOTER ── -->
@@ -3025,8 +3031,19 @@
             <span>SlashBack Cinema</span>
              — Join the vault
         </div>
-        <div id="sf-eo-placeholder"></div>
+        <button class="sf-btn" onclick="sfOpenModal()">Subscribe Free</button>
         <button class="sf-close" onclick="document.getElementById('subscribe-footer').style.display='none'" title="Close">✕</button>
+    </div>
+
+    <!-- Subscribe modal -->
+    <div id="sf-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1001;align-items:center;justify-content:center;flex-direction:column;padding:20px">
+        <div style="background:#111;border:1px solid #2a0a1a;border-radius:8px;padding:32px;max-width:500px;width:100%;position:relative">
+            <button onclick="document.getElementById('sf-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:transparent;border:none;color:#555;font-size:22px;cursor:pointer;line-height:1">✕</button>
+            <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E8186D;margin-bottom:8px">SlashBack Cinema Newsletter</div>
+            <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:#fff;text-transform:uppercase;margin-bottom:6px">Get Top Picks Weekly</div>
+            <div style="font-size:13px;color:#666;margin-bottom:20px">More recommendations from Ryan & Shanny. No spam, just horror.</div>
+            <div id="sf-modal-form-placeholder"></div>
+        </div>
     </div>
 </body>
 </html>
