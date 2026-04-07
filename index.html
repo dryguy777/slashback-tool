@@ -1,431 +1,2311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Should I Watch Tonight? — SlashBack Cinema</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d0d0d;font-family:'Open Sans',Arial,sans-serif;min-height:100vh;color:#ccc}
-:root{--pink:#E8186D;--pink-dark:#b50f54;--pink-glow:rgba(232,24,109,0.2)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Should I Watch Tonight? — SlashBack Cinema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
 
-/* ── LAYOUT ─────────────────────────────────────────────────────── */
-.page{display:flex;justify-content:center;padding:36px 20px 60px;min-height:100vh}
-.inner{width:100%;max-width:1140px;display:grid;grid-template-columns:1fr;gap:0}
-@media(min-width:820px){.inner{grid-template-columns:480px 1fr;gap:52px;align-items:start}}
-@media(min-width:1100px){.inner{grid-template-columns:520px 1fr;gap:64px}}
+    body {
+        background: #0d0d0d;
+        font-family: 'Open Sans', Arial, sans-serif;
+        min-height: 100vh;
+        color: #ccc
+    }
 
-/* ── LEFT COL ────────────────────────────────────────────────────── */
-.col-left{}
-@media(min-width:820px){.col-left{position:sticky;top:36px}}
+    :root {
+        --pink: #E8186D;
+        --pink-dark: #b50f54;
+        --pink-glow: rgba(232, 24, 109, 0.2)
+    }/* ── LAYOUT ─────────────────────────────────────────────────────── */
+    .page {
+        display: flex;
+        justify-content: center;
+        padding: 36px 20px 60px;
+        min-height: 100vh
+    }
 
-/* ── HEADER ──────────────────────────────────────────────────────── */
-.header{margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid #1e1e1e}
-.eyebrow{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.22em;color:var(--pink);text-transform:uppercase;margin-bottom:8px}
-.sb-logo{font-family:'Oswald',sans-serif;font-size:44px;font-weight:700;color:#fff;line-height:1;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px}
-.sb-logo span{color:var(--pink)}
-.tagline{font-family:'Oswald',sans-serif;font-size:20px;font-weight:400;color:#aaa;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
-.sub{font-size:15px;color:#555;line-height:1.5}
-@media(min-width:820px){.sb-logo{font-size:52px}.tagline{font-size:22px}}
+    .inner {
+        width: 100%;
+        max-width: 1140px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0
+    }
 
-/* ── PROGRESS ────────────────────────────────────────────────────── */
-.prog-row{display:flex;gap:6px;margin-bottom:24px}
-.prog-bar{flex:1;height:3px;background:#222;border-radius:2px;transition:background 0.3s}
-.prog-bar.done{background:var(--pink-dark)}
-.prog-bar.active{background:var(--pink)}
+    @media (min-width: 820px) {
+        .inner {
+            grid-template-columns: 480px 1fr;
+            gap: 52px;
+            align-items: start
+        }
+    }
 
-/* ── STEPS ───────────────────────────────────────────────────────── */
-.step{display:none}.step.active{display:block}
-.q-num{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.15em;color:var(--pink);text-transform:uppercase;margin-bottom:8px}
-.q-text{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:20px;line-height:1.25;text-transform:uppercase;letter-spacing:0.02em}
-@media(min-width:820px){.q-text{font-size:28px}}
+    @media (min-width: 1100px) {
+        .inner {
+            grid-template-columns: 520px 1fr;
+            gap: 64px
+        }
+    }/* ── LEFT COL ────────────────────────────────────────────────────── */
+    .col-left {
+    }
 
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-@media(max-width:480px){.opts{grid-template-columns:1fr}}
-.opt{background:#111;border:1.5px solid #1e1e1e;border-radius:6px;padding:16px 18px;cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s}
-.opt:hover{border-color:var(--pink);background:#180810}
-.opt.selected{border-color:var(--pink);background:#180810}
-.opt-title{display:block;font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.03em}
-.opt-sub{font-size:13px;color:#555;line-height:1.4}
-.opt.selected .opt-sub{color:#888}
+    @media (min-width: 820px) {
+        .col-left {
+            position: sticky;
+            top: 36px
+        }
+    }/* ── HEADER ──────────────────────────────────────────────────────── */
+    .header {
+        margin-bottom: 24px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid #1e1e1e
+    }
 
-.next-btn{background:var(--pink);color:#fff;border:none;padding:14px 32px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s}
-.next-btn:hover{background:var(--pink-dark)}
-.next-btn.show{display:inline-block}
+    .eyebrow {
+        font-family: 'Oswald', sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        color: var(--pink);
+        text-transform: uppercase;
+        margin-bottom: 8px
+    }
 
-/* ── RESULT ──────────────────────────────────────────────────────── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.result-wrap{animation:fadeUp 0.35s ease}
-.result-card{background:#111;border:1px solid #222;border-radius:8px;overflow:hidden;margin-bottom:12px}
-.poster-bg{width:100%;height:240px;background-color:#180810;background-size:cover;background-position:center top;background-repeat:no-repeat;position:relative}
-@media(min-width:820px){.poster-bg{height:300px}}
-.thumb-year-badge{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.85);border:1px solid #333;color:#aaa;font-family:'Oswald',sans-serif;font-size:13px;padding:4px 10px;border-radius:2px;letter-spacing:0.08em}
-.result-body{padding:22px 24px}
-@media(min-width:820px){.result-body{padding:28px 32px}}
-.rec-badge{display:inline-block;background:var(--pink);color:#fff;font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:14px}
-.result-title{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:18px;line-height:1.05}
-@media(min-width:820px){.result-title{font-size:36px}}
+    .sb-logo {
+        font-family: 'Oswald', sans-serif;
+        font-size: 44px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px
+    }
 
-.stabby-block{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:16px 18px;margin-bottom:18px;display:flex;align-items:stretch;gap:18px}
-.stabby-score-col{text-align:center;min-width:68px}
-.stabby-lbl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin-bottom:4px}
-.stabby-num{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;color:var(--pink);line-height:1}
-.stabby-denom{font-family:'Oswald',sans-serif;font-size:15px;color:#333}
-.stabby-divider{width:1px;background:#1e1e1e;flex-shrink:0}
-.stabby-detail{flex:1}
-.verdict-pill{display:inline-block;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:10px}
-.host-scores{font-size:14px;color:#555;margin-bottom:6px;line-height:1.8}
-.host-scores strong{color:#888;font-size:12px;font-family:'Oswald',sans-serif;letter-spacing:0.06em;text-transform:uppercase}
-.disagreed-note{font-size:12px;color:#8b2040;font-style:italic}
+    .sb-logo span {
+        color: var(--pink)
+    }
 
-.ep-quote{background:#0a0a0a;border-left:3px solid var(--pink);border-radius:0 4px 4px 0;padding:12px 16px;margin-bottom:18px;font-size:14px;color:#777;line-height:1.65;font-style:italic}
-.result-desc{font-size:15px;color:#888;line-height:1.8;margin-bottom:20px}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.tag{background:#0a0a0a;border:1px solid #1e1e1e;border-radius:2px;padding:5px 12px;font-family:'Oswald',sans-serif;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.1em}
+    .tagline {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 8px
+    }
 
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-@media(max-width:380px){.btn-row{grid-template-columns:1fr}}
-.btn-ep{display:block;background:var(--pink);color:#fff;text-align:center;padding:14px 12px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:background 0.15s;border:none;cursor:pointer}
-.btn-ep:hover{background:var(--pink-dark)}
-.btn-watch{display:block;background:transparent;color:#bbb;text-align:center;padding:14px 12px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;border:1.5px solid #333;transition:border-color 0.15s,color 0.15s;cursor:pointer}
-.btn-watch:hover{border-color:#666;color:#fff}
+    .sub {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.5
+    }
 
-/* ── EMAIL CAPTURE ───────────────────────────────────────────────── */
-.email-capture{background:#0f0008;border:1px solid #2a0a1a;border-radius:8px;padding:20px 22px;margin-bottom:14px}
-.email-eyebrow{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:6px}
-.email-heading{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px}
-.email-sub{font-size:13px;color:#666;line-height:1.5;margin-bottom:14px}
-.email-form{display:flex;gap:8px;flex-wrap:wrap}
-.email-input{flex:1;min-width:180px;background:#111;border:1.5px solid #2a1020;border-radius:3px;padding:12px 14px;font-size:14px;color:#fff;font-family:'Open Sans',sans-serif;outline:none;transition:border-color 0.15s}
-.email-input:focus{border-color:var(--pink)}
-.email-input::placeholder{color:#444}
-.email-submit{background:var(--pink);color:#fff;border:none;padding:12px 20px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background 0.15s}
-.email-submit:hover{background:var(--pink-dark)}
-.email-success{display:none;font-family:'Oswald',sans-serif;font-size:15px;color:var(--pink);text-transform:uppercase;letter-spacing:0.08em;text-align:center;padding:8px 0}
+    @media (min-width: 820px) {
+        .sb-logo {
+            font-size:52px
+        }
 
-/* Share row */
-.share-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
-.share-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#444}
-.share-btn{background:#111;border:1px solid #222;color:#888;border-radius:3px;padding:8px 14px;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:border-color 0.15s,color 0.15s;text-decoration:none;display:inline-block}
-.share-btn:hover{border-color:#555;color:#fff}
+        .tagline {
+            font-size: 22px
+        }
+    }/* ── PROGRESS ────────────────────────────────────────────────────── */
+    .prog-row {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 24px
+    }
 
-/* Runner up */
-.runner{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:14px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:center}
-.runner-img-bg{width:56px;height:56px;border-radius:4px;flex-shrink:0;background-color:#180810;background-size:cover;background-position:center top}
-.runner-lbl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin-bottom:3px}
-.runner-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:2px}
-.runner-score{font-size:13px;color:var(--pink);font-family:'Oswald',sans-serif}
+    .prog-bar {
+        flex: 1;
+        height: 3px;
+        background: #222;
+        border-radius: 2px;
+        transition: background 0.3s
+    }
 
-/* PICK ANOTHER button — prominent */
-.pick-another-btn{display:block;width:100%;background:#111;color:var(--pink);text-align:center;padding:15px;border-radius:4px;font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;cursor:pointer;border:2px solid var(--pink);transition:background 0.15s,color 0.15s;margin-top:4px}
-.pick-another-btn:hover{background:var(--pink);color:#fff}
+    .prog-bar.done {
+        background: var(--pink-dark)
+    }
 
-/* ── RIGHT COL ───────────────────────────────────────────────────── */
-.col-right{display:none}
-@media(min-width:820px){.col-right{display:block}}
+    .prog-bar.active {
+        background: var(--pink)
+    }/* ── STEPS ───────────────────────────────────────────────────────── */
+    .step {
+        display:none
+    }
 
-/* Tab bar */
-.panel-tabs{display:flex;gap:0;border-bottom:1px solid #1e1e1e;margin-bottom:0}
-.ptab{background:transparent;border:none;padding:11px 16px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#555;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;white-space:nowrap}
-.ptab:hover{color:#aaa}
-.ptab.active{color:var(--pink);border-bottom-color:var(--pink)}
+    .step.active {
+        display: block
+    }
 
-/* Panel content */
-.panel-body{padding:20px 0}
-.panel-section{display:none}
-.panel-section.active{display:block}
+    .q-num {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        color: var(--pink);
+        text-transform: uppercase;
+        margin-bottom: 8px
+    }
 
-/* Split cards */
-.split-card{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #111;cursor:default;transition:background 0.1s}
-.split-card:last-child{border-bottom:none}
-.split-thumb{width:52px;height:52px;border-radius:4px;flex-shrink:0;background-size:cover;background-position:center top;background-color:#180810}
-.split-info{flex:1;min-width:0}
-.split-title{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:#ddd;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.split-scores{display:flex;gap:10px;align-items:center;font-size:13px;margin-bottom:3px}
-.score-s{color:#aaa}.score-r{color:#aaa}
-.score-lbl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#444}
-.split-badge{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;border:1px solid #8b2040;color:#8b2040}
-.split-badge.big{border-color:#cc1a1a;color:#cc1a1a}
-.card-links{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.card-link{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:5px 10px;border-radius:2px;text-decoration:none;display:inline-block;transition:background 0.15s,color 0.15s}
-.card-link-ep{background:var(--pink);color:#fff}
-.card-link-ep:hover{background:var(--pink-dark)}
-.card-link-watch{background:transparent;color:#666;border:1px solid #2a2a2a}
-.card-link-watch:hover{border-color:#555;color:#bbb}
+    .q-text {
+        font-family: 'Oswald', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 20px;
+        line-height: 1.25;
+        text-transform: uppercase;
+        letter-spacing: 0.02em
+    }
 
-/* Perfect 5/5 cards */
-.perfect-card{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #111}
-.perfect-card:last-child{border-bottom:none}
-.perfect-thumb{width:70px;height:70px;border-radius:4px;flex-shrink:0;background-size:cover;background-position:center top;background-color:#180810;border:1px solid #2a1020}
-.perfect-info{flex:1}
-.perfect-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px}
-.perfect-year{font-family:'Oswald',sans-serif;font-size:12px;color:#555;letter-spacing:0.1em;margin-bottom:6px}
-.perfect-crown{display:inline-flex;align-items:center;gap:5px;background:rgba(232,24,109,0.1);border:1px solid var(--pink);border-radius:2px;padding:3px 10px;font-family:'Oswald',sans-serif;font-size:11px;color:var(--pink);letter-spacing:0.1em;text-transform:uppercase}
-.perfect-quote{font-size:12px;color:#555;font-style:italic;margin-top:6px;line-height:1.5}
+    @media (min-width: 820px) {
+        .q-text {
+            font-size: 28px
+        }
+    }
 
-/* Wheel panel */
-.wheel-panel-inner{display:flex;flex-direction:column;align-items:center;padding:24px 0}
-.wheel-panel-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;text-align:center}
-.wheel-panel-sub{font-size:13px;color:#555;text-align:center;margin-bottom:20px}
-.wheel-container-inline{position:relative;width:280px;height:280px;margin-bottom:20px}
-#wheel-inline{width:280px;height:280px;transition:none}
-.wheel-spin-inline{animation:wheelSpin var(--spin-dur,4s) cubic-bezier(0.17,0.67,0.12,1) forwards}
-@keyframes wheelSpin{from{transform:rotate(0deg)}to{transform:rotate(var(--spin-deg,1440deg))}}
-.mask-wrap-inline{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:106px;height:106px;pointer-events:none}
-.wheel-ptr-inline{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:20px solid var(--pink);filter:drop-shadow(0 0 4px var(--pink))}
-.spin-btn-inline{background:var(--pink);color:#fff;border:none;padding:13px 40px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.15s}
-.spin-btn-inline:hover{background:var(--pink-dark)}
-.spin-btn-inline:disabled{opacity:0.5;cursor:not-allowed}
-.wheel-result-inline{display:none;text-align:center;margin-top:16px;animation:fadeUp 0.4s ease}
-.wheel-result-inline.show{display:block}
-.wri-title{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
-.wri-year{font-size:13px;color:var(--pink);font-family:'Oswald',sans-serif;letter-spacing:0.1em;margin-bottom:14px}
-.wri-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.wri-btn{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:9px 16px;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-block}
-.wri-btn-primary{background:var(--pink);color:#fff;border:none}
-.wri-btn-primary:hover{background:var(--pink-dark)}
-.wri-btn-secondary{background:transparent;color:#888;border:1.5px solid #2a2a2a}
-.wri-btn-secondary:hover{border-color:#555;color:#fff}
-.wri-again{margin-top:12px;background:transparent;border:none;color:#444;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
-.wri-again:hover{color:#888}
+    .opts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px
+    }
 
-/* Lucky button (mobile only, below questions) */
-.lucky-mobile{margin-top:8px;margin-bottom:0;display:block}
-@media(min-width:820px){.lucky-mobile{display:none}}
-.lucky-btn{width:100%;background:transparent;border:1.5px solid #2a2a2a;color:#666;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:12px 20px;border-radius:3px;cursor:pointer;transition:border-color 0.15s,color 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.lucky-btn:hover{border-color:var(--pink);color:var(--pink)}
-.lucky-btn svg{width:15px;height:15px;fill:currentColor}
+    @media (max-width: 480px) {
+        .opts {
+            grid-template-columns: 1fr
+        }
+    }
 
-/* Mobile wheel modal */
-.wheel-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:1000;align-items:center;justify-content:center;flex-direction:column;padding:20px}
-.wheel-overlay.active{display:flex}
-.wheel-container-modal{position:relative;width:300px;height:300px;margin-bottom:22px}
-#wheel-modal{width:300px;height:300px;transition:none}
-.wheel-spin-modal{animation:wheelSpin var(--spin-dur-m,4s) cubic-bezier(0.17,0.67,0.12,1) forwards}
-.mask-wrap-modal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:116px;height:116px;pointer-events:none}
-.wheel-ptr-modal{position:absolute;top:-13px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:22px solid var(--pink);filter:drop-shadow(0 0 4px var(--pink))}
-.modal-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;text-align:center}
-.modal-sub{font-size:13px;color:#555;text-align:center;margin-bottom:18px}
-.spin-btn-modal{background:var(--pink);color:#fff;border:none;padding:13px 40px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.15s}
-.spin-btn-modal:hover{background:var(--pink-dark)}
-.spin-btn-modal:disabled{opacity:0.5;cursor:not-allowed}
-.close-modal{position:absolute;top:16px;right:16px;background:transparent;border:1px solid #333;color:#555;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:7px 13px;border-radius:3px;cursor:pointer}
-.close-modal:hover{color:#fff;border-color:#666}
-.modal-result{display:none;text-align:center;animation:fadeUp 0.4s ease}
-.modal-result.show{display:block}
-.mr-title{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
-.mr-year{font-size:13px;color:var(--pink);font-family:'Oswald',sans-serif;letter-spacing:0.1em;margin-bottom:16px}
-.mr-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.mr-btn{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:10px 18px;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-block}
-.mr-btn-p{background:var(--pink);color:#fff;border:none}
-.mr-btn-p:hover{background:var(--pink-dark)}
-.mr-btn-s{background:transparent;color:#888;border:1.5px solid #333}
-.mr-btn-s:hover{border-color:#555;color:#fff}
-.mr-again{margin-top:12px;background:transparent;border:none;color:#444;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
-.mr-again:hover{color:#888}
+    .opt {
+        background: #111;
+        border: 1.5px solid #1e1e1e;
+        border-radius: 6px;
+        padding: 16px 18px;
+        cursor: pointer;
+        text-align: left;
+        transition: border-color 0.15s, background 0.15s
+    }
 
-/* ── FOOTER ──────────────────────────────────────────────────────── */
-.footer{text-align:center;margin-top:28px;padding-top:20px;border-top:1px solid #1a1a1a}
-.footer p{font-size:13px;color:#333}
-.footer a{color:var(--pink);text-decoration:none}
-</style>
+    .opt:hover {
+        border-color: var(--pink);
+        background: #180810
+    }
+
+    .opt.selected {
+        border-color: var(--pink);
+        background: #180810
+    }
+
+    .opt-title {
+        display: block;
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em
+    }
+
+    .opt-sub {
+        font-size: 13px;
+        color: #555;
+        line-height: 1.4
+    }
+
+    .opt.selected .opt-sub {
+        color: #888
+    }
+
+    .next-btn {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: none;
+        transition: background 0.15s
+    }
+
+    .next-btn:hover {
+        background: var(--pink-dark)
+    }
+
+    .next-btn.show {
+        display: inline-block
+    }/* ── RESULT ──────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform:translateY(10px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    .result-wrap {
+        animation: fadeUp 0.35s ease
+    }
+
+    .result-card {
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 12px
+    }
+
+    .poster-bg {
+        width: 100%;
+        height: 240px;
+        background-color: #180810;
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+        position: relative
+    }
+
+    @media (min-width: 820px) {
+        .poster-bg {
+            height: 300px
+        }
+    }
+
+    .thumb-year-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.85);
+        border: 1px solid #333;
+        color: #aaa;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        padding: 4px 10px;
+        border-radius: 2px;
+        letter-spacing: 0.08em
+    }
+
+    .result-body {
+        padding: 22px 24px
+    }
+
+    @media (min-width: 820px) {
+        .result-body {
+            padding: 28px 32px
+        }
+    }
+
+    .rec-badge {
+        display: inline-block;
+        background: var(--pink);
+        color: #fff;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 2px;
+        margin-bottom: 14px
+    }
+
+    .result-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 18px;
+        line-height: 1.05
+    }
+
+    @media (min-width: 820px) {
+        .result-title {
+            font-size: 36px
+        }
+    }
+
+    .stabby-block {
+        background: #0a0a0a;
+        border: 1px solid #1a1a1a;
+        border-radius: 6px;
+        padding: 16px 18px;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: stretch;
+        gap: 18px
+    }
+
+    .stabby-score-col {
+        text-align: center;
+        min-width: 68px
+    }
+
+    .stabby-lbl {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #444;
+        margin-bottom: 4px
+    }
+
+    .stabby-num {
+        font-family: 'Oswald', sans-serif;
+        font-size: 40px;
+        font-weight: 700;
+        color: var(--pink);
+        line-height: 1
+    }
+
+    .stabby-denom {
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+        color: #333
+    }
+
+    .stabby-divider {
+        width: 1px;
+        background: #1e1e1e;
+        flex-shrink: 0
+    }
+
+    .stabby-detail {
+        flex: 1
+    }
+
+    .verdict-pill {
+        display: inline-block;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 2px;
+        margin-bottom: 10px
+    }
+
+    .host-scores {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 6px;
+        line-height: 1.8
+    }
+
+    .host-scores strong {
+        color: #888;
+        font-size: 12px;
+        font-family: 'Oswald', sans-serif;
+        letter-spacing: 0.06em;
+        text-transform: uppercase
+    }
+
+    .disagreed-note {
+        font-size: 12px;
+        color: #8b2040;
+        font-style: italic
+    }
+
+    .ep-quote {
+        background: #0a0a0a;
+        border-left: 3px solid var(--pink);
+        border-radius: 0 4px 4px 0;
+        padding: 12px 16px;
+        margin-bottom: 18px;
+        font-size: 14px;
+        color: #777;
+        line-height: 1.65;
+        font-style: italic
+    }
+
+    .result-desc {
+        font-size: 15px;
+        color: #888;
+        line-height: 1.8;
+        margin-bottom: 20px
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 22px
+    }
+
+    .tag {
+        background: #0a0a0a;
+        border: 1px solid #1e1e1e;
+        border-radius: 2px;
+        padding: 5px 12px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.1em
+    }
+
+    .btn-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 14px
+    }
+
+    @media (max-width: 380px) {
+        .btn-row {
+            grid-template-columns: 1fr
+        }
+    }
+
+    .btn-ep {
+        display: block;
+        background: var(--pink);
+        color: #fff;
+        text-align: center;
+        padding: 14px 12px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: background 0.15s;
+        border: none;
+        cursor: pointer
+    }
+
+    .btn-ep:hover {
+        background: var(--pink-dark)
+    }
+
+    .btn-watch {
+        display: block;
+        background: transparent;
+        color: #bbb;
+        text-align: center;
+        padding: 14px 12px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1.5px solid #333;
+        transition: border-color 0.15s, color 0.15s;
+        cursor: pointer
+    }
+
+    .btn-watch:hover {
+        border-color: #666;
+        color: #fff
+    }/* ── EMAIL CAPTURE ───────────────────────────────────────────────── */
+    .email-capture {
+        background: #0f0008;
+        border: 1px solid #2a0a1a;
+        border-radius: 8px;
+        padding: 20px 22px;
+        margin-bottom: 14px
+    }
+
+    .email-eyebrow {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--pink);
+        margin-bottom: 6px
+    }
+
+    .email-heading {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 4px
+    }
+
+    .email-sub {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 14px
+    }
+
+    .email-form {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap
+    }
+
+    .email-input {
+        flex: 1;
+        min-width: 180px;
+        background: #111;
+        border: 1.5px solid #2a1020;
+        border-radius: 3px;
+        padding: 12px 14px;
+        font-size: 14px;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        outline: none;
+        transition: border-color 0.15s
+    }
+
+    .email-input:focus {
+        border-color: var(--pink)
+    }
+
+    .email-input::placeholder {
+        color: #444
+    }
+
+    .email-submit {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s
+    }
+
+    .email-submit:hover {
+        background: var(--pink-dark)
+    }
+
+    .email-success {
+        display: none;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+        color: var(--pink);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+        padding: 8px 0
+    }/* Share row */
+    .share-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+        align-items: center
+    }
+
+    .share-lbl {
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #444
+    }
+
+    .share-btn {
+        background: #111;
+        border: 1px solid #222;
+        color: #888;
+        border-radius: 3px;
+        padding: 8px 14px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: border-color 0.15s, color 0.15s;
+        text-decoration: none;
+        display: inline-block
+    }
+
+    .share-btn:hover {
+        border-color: #555;
+        color: #fff
+    }/* Runner up */
+    .runner {
+        background: #0a0a0a;
+        border: 1px solid #1a1a1a;
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin-bottom: 12px;
+        display: flex;
+        gap: 14px;
+        align-items: center
+    }
+
+    .runner-img-bg {
+        width: 56px;
+        height: 56px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        background-color: #180810;
+        background-size: cover;
+        background-position: center top
+    }
+
+    .runner-lbl {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #444;
+        margin-bottom: 3px
+    }
+
+    .runner-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #bbb;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 2px
+    }
+
+    .runner-score {
+        font-size: 13px;
+        color: var(--pink);
+        font-family: 'Oswald', sans-serif
+    }/* PICK ANOTHER button — prominent */
+    .pick-another-btn {
+        display: block;
+        width: 100%;
+        background: #111;
+        color: var(--pink);
+        text-align: center;
+        padding: 15px;
+        border-radius: 4px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        border: 2px solid var(--pink);
+        transition: background 0.15s, color 0.15s;
+        margin-top: 4px
+    }
+
+    .pick-another-btn:hover {
+        background: var(--pink);
+        color: #fff
+    }/* ── RIGHT COL ───────────────────────────────────────────────────── */
+    .col-right {
+        display: none
+    }
+
+    @media (min-width: 820px) {
+        .col-right {
+            display: block
+        }
+    }/* Tab bar */
+    .panel-tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 1px solid #1e1e1e;
+        margin-bottom: 0
+    }
+
+    .ptab {
+        background: transparent;
+        border: none;
+        padding: 11px 16px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #555;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        transition: color 0.15s, border-color 0.15s;
+        white-space: nowrap
+    }
+
+    .ptab:hover {
+        color: #aaa
+    }
+
+    .ptab.active {
+        color: var(--pink);
+        border-bottom-color: var(--pink)
+    }/* Panel content */
+    .panel-body {
+        padding: 20px 0
+    }
+
+    .panel-section {
+        display: none
+    }
+
+    .panel-section.active {
+        display: block
+    }/* Split cards */
+    .split-card {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #111;
+        cursor: default;
+        transition: background 0.1s
+    }
+
+    .split-card:last-child {
+        border-bottom: none
+    }
+
+    .split-thumb {
+        width: 52px;
+        height: 52px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center top;
+        background-color: #180810
+    }
+
+    .split-info {
+        flex: 1;
+        min-width: 0
+    }
+
+    .split-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #ddd;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        margin-bottom: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis
+    }
+
+    .split-scores {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 13px;
+        margin-bottom: 3px
+    }
+
+    .score-s {
+        color:#aaa
+    }
+
+    .score-r {
+        color: #aaa
+    }
+
+    .score-lbl {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #444
+    }
+
+    .split-badge {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 2px;
+        border: 1px solid #8b2040;
+        color: #8b2040
+    }
+
+    .split-badge.big {
+        border-color: #cc1a1a;
+        color: #cc1a1a
+    }
+
+    .card-links {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+        flex-wrap: wrap
+    }
+
+    .card-link {
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border-radius: 2px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.15s, color 0.15s
+    }
+
+    .card-link-ep {
+        background: var(--pink);
+        color: #fff
+    }
+
+    .card-link-ep:hover {
+        background: var(--pink-dark)
+    }
+
+    .card-link-watch {
+        background: transparent;
+        color: #666;
+        border: 1px solid #2a2a2a
+    }
+
+    .card-link-watch:hover {
+        border-color: #555;
+        color: #bbb
+    }/* Perfect 5/5 cards */
+    .perfect-card {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid #111
+    }
+
+    .perfect-card:last-child {
+        border-bottom: none
+    }
+
+    .perfect-thumb {
+        width: 70px;
+        height: 70px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center top;
+        background-color: #180810;
+        border: 1px solid #2a1020
+    }
+
+    .perfect-info {
+        flex: 1
+    }
+
+    .perfect-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 4px
+    }
+
+    .perfect-year {
+        font-family: 'Oswald', sans-serif;
+        font-size: 12px;
+        color: #555;
+        letter-spacing: 0.1em;
+        margin-bottom: 6px
+    }
+
+    .perfect-crown {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(232, 24, 109, 0.1);
+        border: 1px solid var(--pink);
+        border-radius: 2px;
+        padding: 3px 10px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        color: var(--pink);
+        letter-spacing: 0.1em;
+        text-transform: uppercase
+    }
+
+    .perfect-quote {
+        font-size: 12px;
+        color: #555;
+        font-style: italic;
+        margin-top: 6px;
+        line-height: 1.5
+    }/* Wheel panel */
+    .wheel-panel-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 0
+    }
+
+    .wheel-panel-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        text-align: center
+    }
+
+    .wheel-panel-sub {
+        font-size: 13px;
+        color: #555;
+        text-align: center;
+        margin-bottom: 20px
+    }
+
+    .wheel-container-inline {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        margin-bottom: 20px
+    }
+
+    #wheel-inline {
+        width: 280px;
+        height: 280px;
+        transition: none
+    }
+
+    .wheel-spin-inline {
+        animation: wheelSpin var(--spin-dur, 4s) cubic-bezier(0.17, 0.67, 0.12, 1) forwards
+    }
+
+    @keyframes wheelSpin {
+        from {
+            transform:rotate(0deg)
+        }
+
+        to {
+            transform: rotate(var(--spin-deg, 1440deg))
+        }
+    }
+
+    .mask-wrap-inline {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 106px;
+        height: 106px;
+        pointer-events: none
+    }
+
+    .wheel-ptr-inline {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 20px solid var(--pink);
+        filter: drop-shadow(0 0 4px var(--pink))
+    }
+
+    .spin-btn-inline {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        padding: 13px 40px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.15s
+    }
+
+    .spin-btn-inline:hover {
+        background: var(--pink-dark)
+    }
+
+    .spin-btn-inline:disabled {
+        opacity: 0.5;
+        cursor: not-allowed
+    }
+
+    .wheel-result-inline {
+        display: none;
+        text-align: center;
+        margin-top: 16px;
+        animation: fadeUp 0.4s ease
+    }
+
+    .wheel-result-inline.show {
+        display: block
+    }
+
+    .wri-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 4px
+    }
+
+    .wri-year {
+        font-size: 13px;
+        color: var(--pink);
+        font-family: 'Oswald', sans-serif;
+        letter-spacing: 0.1em;
+        margin-bottom: 14px
+    }
+
+    .wri-btns {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap
+    }
+
+    .wri-btn {
+        font-family: 'Oswald', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 9px 16px;
+        border-radius: 3px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block
+    }
+
+    .wri-btn-primary {
+        background: var(--pink);
+        color: #fff;
+        border: none
+    }
+
+    .wri-btn-primary:hover {
+        background: var(--pink-dark)
+    }
+
+    .wri-btn-secondary {
+        background: transparent;
+        color: #888;
+        border: 1.5px solid #2a2a2a
+    }
+
+    .wri-btn-secondary:hover {
+        border-color: #555;
+        color: #fff
+    }
+
+    .wri-again {
+        margin-top: 12px;
+        background: transparent;
+        border: none;
+        color: #444;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer
+    }
+
+    .wri-again:hover {
+        color: #888
+    }/* Lucky button (mobile only, below questions) */
+    .lucky-mobile {
+        margin-top: 8px;
+        margin-bottom: 0;
+        display: block
+    }
+
+    @media (min-width: 820px) {
+        .lucky-mobile {
+            display: none
+        }
+    }
+
+    .lucky-btn {
+        width: 100%;
+        background: transparent;
+        border: 1.5px solid #2a2a2a;
+        color: #666;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 12px 20px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: border-color 0.15s, color 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px
+    }
+
+    .lucky-btn:hover {
+        border-color: var(--pink);
+        color: var(--pink)
+    }
+
+    .lucky-btn svg {
+        width: 15px;
+        height: 15px;
+        fill: currentColor
+    }/* Mobile wheel modal */
+    .wheel-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.94);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px
+    }
+
+    .wheel-overlay.active {
+        display: flex
+    }
+
+    .wheel-container-modal {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin-bottom: 22px
+    }
+
+    #wheel-modal {
+        width: 300px;
+        height: 300px;
+        transition: none
+    }
+
+    .wheel-spin-modal {
+        animation: wheelSpin var(--spin-dur-m, 4s) cubic-bezier(0.17, 0.67, 0.12, 1) forwards
+    }
+
+    .mask-wrap-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 116px;
+        height: 116px;
+        pointer-events: none
+    }
+
+    .wheel-ptr-modal {
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 11px solid transparent;
+        border-right: 11px solid transparent;
+        border-top: 22px solid var(--pink);
+        filter: drop-shadow(0 0 4px var(--pink))
+    }
+
+    .modal-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        text-align: center
+    }
+
+    .modal-sub {
+        font-size: 13px;
+        color: #555;
+        text-align: center;
+        margin-bottom: 18px
+    }
+
+    .spin-btn-modal {
+        background: var(--pink);
+        color: #fff;
+        border: none;
+        padding: 13px 40px;
+        border-radius: 3px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.15s
+    }
+
+    .spin-btn-modal:hover {
+        background: var(--pink-dark)
+    }
+
+    .spin-btn-modal:disabled {
+        opacity: 0.5;
+        cursor: not-allowed
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: transparent;
+        border: 1px solid #333;
+        color: #555;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 7px 13px;
+        border-radius: 3px;
+        cursor: pointer
+    }
+
+    .close-modal:hover {
+        color: #fff;
+        border-color: #666
+    }
+
+    .modal-result {
+        display: none;
+        text-align: center;
+        animation: fadeUp 0.4s ease
+    }
+
+    .modal-result.show {
+        display: block
+    }
+
+    .mr-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 4px
+    }
+
+    .mr-year {
+        font-size: 13px;
+        color: var(--pink);
+        font-family: 'Oswald', sans-serif;
+        letter-spacing: 0.1em;
+        margin-bottom: 16px
+    }
+
+    .mr-btns {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap
+    }
+
+    .mr-btn {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 10px 18px;
+        border-radius: 3px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block
+    }
+
+    .mr-btn-p {
+        background: var(--pink);
+        color: #fff;
+        border: none
+    }
+
+    .mr-btn-p:hover {
+        background: var(--pink-dark)
+    }
+
+    .mr-btn-s {
+        background: transparent;
+        color: #888;
+        border: 1.5px solid #333
+    }
+
+    .mr-btn-s:hover {
+        border-color: #555;
+        color: #fff
+    }
+
+    .mr-again {
+        margin-top: 12px;
+        background: transparent;
+        border: none;
+        color: #444;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer
+    }
+
+    .mr-again:hover {
+        color: #888
+    }/* ── FOOTER ──────────────────────────────────────────────────────── */
+    .footer {
+        text-align: center;
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid #1a1a1a
+    }
+
+    .footer p {
+        font-size: 13px;
+        color: #333
+    }
+
+    .footer a {
+        color: var(--pink);
+        text-decoration: none
+    }
+    </style>
 </head>
 <body>
 
-<!-- Mobile wheel modal -->
-<div class="wheel-overlay" id="wheel-overlay">
-  <button class="close-modal" onclick="closeModal()">Close ✕</button>
-  <div class="modal-result" id="modal-result">
-    <div id="mr-title" class="mr-title"></div>
-    <div id="mr-year" class="mr-year"></div>
-    <div class="mr-btns">
-      <a id="mr-ep" class="mr-btn mr-btn-p" href="#" target="_blank">Listen</a>
-      <a id="mr-watch" class="mr-btn mr-btn-s" href="#" target="_blank">Where to watch</a>
-    </div>
-    <button class="mr-again" onclick="resetModal()">Spin again →</button>
-  </div>
-  <div id="modal-spin-area">
-    <div class="modal-title">SPIN THE WHEEL OF FATE</div>
-    <div class="modal-sub">47 films — let fate decide</div>
-    <div class="wheel-container-modal">
-      <div class="wheel-ptr-modal"></div>
-      <svg id="wheel-modal" viewBox="0 0 300 300"></svg>
-      <div class="mask-wrap-modal" id="mask-modal"></div>
-    </div>
-    <button class="spin-btn-modal" id="spin-modal-btn" onclick="spinModal()">SPIN</button>
-  </div>
-</div>
-
-<!-- ── MAIN PAGE ── -->
-<div class="page">
-<div class="inner">
-
-  <!-- LEFT COL -->
-  <div class="col-left">
-    <div class="header">
-      <div class="eyebrow">SlashBack Cinema</div>
-      <div class="sb-logo">Slash<span>Back</span></div>
-      <div class="tagline">What Should I Watch Tonight?</div>
-      <div class="sub">3 questions · Real Stabby Scores · 47 films from the vault</div>
-    </div>
-
-    <div class="prog-row" id="prog-row">
-      <div class="prog-bar active" id="p0"></div>
-      <div class="prog-bar" id="p1"></div>
-      <div class="prog-bar" id="p2"></div>
-    </div>
-
-    <div class="step active" id="step-0">
-      <div class="q-num">Question 1 of 3</div>
-      <div class="q-text">What's the vibe tonight?</div>
-      <div class="opts">
-        <button class="opt" data-key="mood" data-val="laugh" onclick="pick(this)"><span class="opt-title">Laugh at the chaos</span><span class="opt-sub">Campy, fun, gloriously bad</span></button>
-        <button class="opt" data-key="mood" data-val="scared" onclick="pick(this)"><span class="opt-title">Actually get scared</span><span class="opt-sub">Real dread, dark atmosphere</span></button>
-        <button class="opt" data-key="mood" data-val="brain" onclick="pick(this)"><span class="opt-title">Think a little</span><span class="opt-sub">Subtext, social commentary</span></button>
-        <button class="opt" data-key="mood" data-val="gross" onclick="pick(this)"><span class="opt-title">Practical effects madness</span><span class="opt-sub">Gore, creatures, VFX chaos</span></button>
-      </div>
-      <button class="next-btn" id="next-0" onclick="nextStep(1)">Next →</button>
-    </div>
-
-    <div class="step" id="step-1">
-      <div class="q-num">Question 2 of 3</div>
-      <div class="q-text">Who are you watching with?</div>
-      <div class="opts">
-        <button class="opt" data-key="company" data-val="solo" onclick="pick(this)"><span class="opt-title">Just me</span><span class="opt-sub">No judgment. Pure immersion.</span></button>
-        <button class="opt" data-key="company" data-val="partner" onclick="pick(this)"><span class="opt-title">Date night</span><span class="opt-sub">Non-horror person needs to survive</span></button>
-        <button class="opt" data-key="company" data-val="friends" onclick="pick(this)"><span class="opt-title">Group watch</span><span class="opt-sub">Crowd reactions, yelling at screen</span></button>
-        <button class="opt" data-key="company" data-val="kids" onclick="pick(this)"><span class="opt-title">Older kids / teens</span><span class="opt-sub">They can handle most of it</span></button>
-      </div>
-      <button class="next-btn" id="next-1" onclick="nextStep(2)">Next →</button>
-    </div>
-
-    <div class="step" id="step-2">
-      <div class="q-num">Question 3 of 3</div>
-      <div class="q-text">What era are you feeling?</div>
-      <div class="opts">
-        <button class="opt" data-key="era" data-val="70s" onclick="pick(this)"><span class="opt-title">Deep 70s</span><span class="opt-sub">Pre-slasher, slow burn, weird</span></button>
-        <button class="opt" data-key="era" data-val="early80s" onclick="pick(this)"><span class="opt-title">Early 80s</span><span class="opt-sub">1980–1984, the golden window</span></button>
-        <button class="opt" data-key="era" data-val="late80s" onclick="pick(this)"><span class="opt-title">Late 80s / early 90s</span><span class="opt-sub">1985–1990, peak VHS era</span></button>
-        <button class="opt" data-key="era" data-val="any" onclick="pick(this)"><span class="opt-title">Surprise me</span><span class="opt-sub">Any era, just make it great</span></button>
-      </div>
-      <button class="next-btn" id="next-2" onclick="showResult()">Find my film →</button>
-    </div>
-
-    <div class="step" id="step-result"></div>
-
-    <!-- Mobile lucky button (below questions/result) -->
-    <div class="lucky-mobile" id="lucky-mobile-wrap">
-      <button class="lucky-btn" onclick="openModal()">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        I'm Feeling Lucky — Spin the Wheel
-      </button>
-    </div>
-
-    <div class="footer">
-      <p>A tool by <a href="https://slashbackcinema.com" target="_blank">SlashBack Cinema</a> — retro horror for Gen X dads &amp; horror fans everywhere</p>
-    </div>
-  </div>
-
-  <!-- RIGHT COL (desktop) -->
-  <div class="col-right">
-    <div class="panel-tabs">
-      <button class="ptab active" onclick="showTab('splits')">🔪 Host Splits</button>
-      <button class="ptab" onclick="showTab('perfects')">⭐ Perfect 5/5s</button>
-      <button class="ptab" onclick="showTab('wheel')">🎡 Spin the Wheel</button>
-    </div>
-    <div class="panel-body">
-
-      <div class="panel-section active" id="tab-splits">
-        <div id="splits-list"></div>
-      </div>
-
-      <div class="panel-section" id="tab-perfects">
-        <div id="perfects-list"></div>
-      </div>
-
-      <div class="panel-section" id="tab-wheel">
-        <div class="wheel-panel-inner">
-          <div class="wheel-panel-title">Spin the Wheel of Fate</div>
-          <div class="wheel-panel-sub">47 films in the vault — let fate decide</div>
-          <div class="wheel-container-inline">
-            <div class="wheel-ptr-inline"></div>
-            <svg id="wheel-inline" viewBox="0 0 280 280"></svg>
-            <div class="mask-wrap-inline" id="mask-inline"></div>
-          </div>
-          <button class="spin-btn-inline" id="spin-inline-btn" onclick="spinInline()">SPIN</button>
-          <div class="wheel-result-inline" id="wheel-result-inline">
-            <div id="wri-title" class="wri-title"></div>
-            <div id="wri-year" class="wri-year"></div>
-            <div class="wri-btns">
-              <a id="wri-ep" class="wri-btn wri-btn-primary" href="#" target="_blank">Listen to episode</a>
-              <a id="wri-watch" class="wri-btn wri-btn-secondary" href="#" target="_blank">Where to watch</a>
+    <!-- Mobile wheel modal -->
+    <div class="wheel-overlay" id="wheel-overlay">
+        <button class="close-modal" onclick="closeModal()">Close ✕</button>
+        <div class="modal-result" id="modal-result">
+            <div id="mr-title" class="mr-title"></div>
+            <div id="mr-year" class="mr-year"></div>
+            <div class="mr-btns">
+                <a id="mr-ep" class="mr-btn mr-btn-p" href="#" target="_blank">Listen</a>
+                <a id="mr-watch" class="mr-btn mr-btn-s" href="#" target="_blank">Where to watch</a>
             </div>
-            <button class="wri-again" onclick="resetInline()">Spin again →</button>
-          </div>
+            <button class="mr-again" onclick="resetModal()">Spin again →</button>
         </div>
-      </div>
-
+        <div id="modal-spin-area">
+            <div class="modal-title">SPIN THE WHEEL OF FATE</div>
+            <div class="modal-sub">47 films — let fate decide</div>
+            <div class="wheel-container-modal">
+                <div class="wheel-ptr-modal"></div>
+                <svg id="wheel-modal" viewBox="0 0 300 300"></svg>
+                <div class="mask-wrap-modal" id="mask-modal"></div>
+            </div>
+            <button class="spin-btn-modal" id="spin-modal-btn" onclick="spinModal()">SPIN</button>
+        </div>
     </div>
-  </div>
 
-</div>
-</div>
+    <!-- ── MAIN PAGE ── -->
+    <div class="page">
+        <div class="inner">
 
-<script>
-// ── DATA ─────────────────────────────────────────────────────────
-const films = [
-  {title:"House",year:1977,era:"70s",moods:["brain","laugh","scared"],company:["solo","partner"],shannyScore:5,ryanScore:5,scale:5,desc:"A Japanese art-film haunted-house psychedelic masterpiece that breaks every rule. Seven girls, a witch, a piano that eats people. Both Ryan and Shanny gave it a unanimous 5/5 — 'one of the most original movies ever made.'",quote:"House deserves five stabbies unquestionably. I felt like my life had become a little bit better now that I had seen this movie. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=House+1977+Nobuhiko",poster:"https://storage.buzzsprout.com/mohb6cs0s5buiojgu6fyqn7rkvrr?.jpg"},
-  {title:"Amityville Horror",year:1979,era:"70s",moods:["scared","brain"],company:["solo","partner","friends"],shannyScore:2,ryanScore:2,scale:5,desc:"The one everyone's seen — but is it actually good? Hosts and guests mostly said no. Worth it for the fly scene and a great first half. Don't expect the second half to deliver.",quote:"I was gonna give it a three... but the score kept going down. Just watch the first half. That's the best part. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Amityville+Horror+1979",poster:"https://storage.buzzsprout.com/l5pfqvkfnnbmck55xm3ufg132jyn?.jpg"},
-  {title:"Phantasm",year:1979,era:"70s",moods:["scared","brain"],company:["solo"],shannyScore:3,ryanScore:3,scale:5,desc:"The Tall Man. Silver balls. Jawas. It doesn't fully work — but something about it gets its hooks in you and doesn't let go. Ryan gave it 3/5 because he immediately wanted to watch all four sequels.",quote:"I'll watch Phantasm 2 tonight. It got its hooks in me — I need more information. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Phantasm+1979",poster:"https://storage.buzzsprout.com/rixsmef02zf80alefm9zxzkdrutd?.jpg"},
-  {title:"Friday the 13th",year:1980,era:"early80s",moods:["scared","gross"],company:["friends","solo","partner"],shannyScore:3.5,ryanScore:4,scale:5,desc:"The one that launched a thousand sequels — and the killer isn't even Jason. Still holds up 45 years later. The final slap-fight drains some tension but the first two acts are legit terrifying.",quote:"I want to give it four stabbies. The effects still work 45 years later. Before the killer shows up it's genuinely psychotic. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Friday+the+13th+1980",poster:"https://storage.buzzsprout.com/h9xbnvijlqb8em1ahu7fnlgyqmh4?.jpg"},
-  {title:"An American Werewolf in London",year:1981,era:"early80s",moods:["gross","laugh","scared"],company:["friends","partner","solo"],shannyScore:4,ryanScore:5,scale:5,desc:"The gold standard for practical transformation effects. Pitch-black British humor meets genuine body horror. Shanny 4/5, Ryan 5/5. The transformation scene still holds up completely.",quote:"I'm going to land this one at five out of five wolf bites. Top of the line. Full praise. I'm all in. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=American+Werewolf+in+London",poster:"https://storage.buzzsprout.com/7e3d6pz68c08bm8to0poccb3v77g?.jpg"},
-  {title:"Slumber Party Massacre",year:1982,era:"early80s",moods:["laugh","gross"],company:["friends","solo"],shannyScore:3,ryanScore:3,scale:5,desc:"Power drill. Slumber party. All three reviewers landed at 3/5. Fun, a bit different from the formula, more memorable cast than usual. The feminist subtext snuck in anyway.",quote:"I wrote this was going to be a two, but you've influenced me. There's more cleverness here than I realized. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Slumber+Party+Massacre+1982",poster:"https://storage.buzzsprout.com/64l194ynq3spzh5kjdviml84g8hi?.jpg"},
-  {title:"Piranha",year:1978,era:"70s",moods:["laugh","gross"],company:["friends","partner","solo"],shannyScore:4,ryanScore:3,scale:4,desc:"Joe Dante's scrappy Jaws riff. Genetically engineered killer fish devour a summer camp. Shanny watched it twice and gave it 4/4. Guest Jeff called it 'the Citizen Kane of trashy 70s creature features.'",quote:"It's better than you heard it was. It gets better when you watch it more. Four bites — highest level of quality. — Shanny",ep:"https://podcasts.apple.com/us/podcast/piranha-1978-this-movie-bites-killer-fish-and-summer/id1776917613?i=1000753093659",jw:"https://www.justwatch.com/us/search?q=Piranha+1978",poster:"https://storage.buzzsprout.com/y0vtb6ktnoz1eo5xt2xuldafbc1e?.jpg"},
-  {title:"Sleepaway Camp",year:1983,era:"early80s",moods:["scared","gross","laugh"],company:["friends","solo"],shannyScore:3.5,ryanScore:3.5,scale:5,desc:"A mute, traumatized girl at summer camp. Kills that barely make sense. An ending that comes from nowhere and still shocks 40 years later. Both hosts gave it 3.5/5.",quote:"Not since this movie have we watched an ending so bonkers you had to rewind the tape just to be sure you didn't hallucinate it. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Sleepaway+Camp+1983",poster:"https://storage.buzzsprout.com/bjdfz698sa08qozn5rjv8say51v1?.jpg"},
-  {title:"Hack-O-Lantern",year:1988,era:"late80s",moods:["laugh","gross"],company:["friends","solo"],shannyScore:3,ryanScore:4,scale:5,desc:"A pumpkin-obsessed grandpa runs a satanic cult. The Halloween party has a stripper, a belly dancer, and a stand-up comedian. Ryan gave it 4/5 because he watched it twice in a week.",quote:"It is garbage, but it is enjoyable garbage. So many moments made me laugh. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Hack-O-Lantern+1988",poster:"https://storage.buzzsprout.com/rbc01d063hho3erhgt4ur2a496zp?.jpg"},
-  {title:"Happy Birthday to Me",year:1981,era:"early80s",moods:["laugh","scared"],company:["friends","solo"],shannyScore:3,ryanScore:2.5,scale:5,desc:"Elite prep school. Creative kills (the shish kebab is unforgettable). A Trans Am bridge stunt that wrecked 15 cars. An ending so deranged it rivals Sleepaway Camp.",quote:"If someone wants to watch a bonkers 80s movie: first watch Sleepaway Camp, then watch this. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Happy+Birthday+to+Me+1981",poster:"https://storage.buzzsprout.com/i0l3luvmr8dakdv3slwsoe8bt0hl?.jpg"},
-  {title:"Uninvited",year:1987,era:"late80s",moods:["laugh","gross"],company:["friends","solo"],shannyScore:3.5,ryanScore:3,scale:5,desc:"A mutant creature lives inside a regular house cat and crawls out to kill people on a yacht. The creature is bigger than the cat. So bad it circles back around to great.",quote:"This movie is so bad it's good — it circles around itself. I found it highly enjoyable. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Uninvited+1987+horror",poster:"https://storage.buzzsprout.com/nrpto51tq4r62tn7avn48ng0xdr5?.jpg"},
-  {title:"Zombie",year:1979,era:"70s",moods:["scared","gross"],company:["solo","partner"],shannyScore:3,ryanScore:4,scale:5,desc:"Lucio Fulci's Italian gore masterpiece. A zombie fights a shark. A worm crawls through an eyeball. Style over plot in the absolute best way.",quote:"Really gross, but gorgeous. Some of the best zombie design ever committed to film. Four zombie bites out of five. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Zombie+1979+Fulci",poster:"https://storage.buzzsprout.com/e5slzvcr9zmsyc239ctish1i8m39?.jpg"},
-  {title:"Gremlins",year:1984,era:"early80s",moods:["laugh","gross"],company:["friends","partner","kids"],shannyScore:5,ryanScore:5,scale:5,desc:"Horror-comedy perfection. The film that created the PG-13 rating. Mom goes full butcher knife in the kitchen. A SlashBack first — unanimous 5/5 from both hosts.",quote:"I realized horror comedy is actually my favorite kind of movie. Five stabs. No hesitation. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Gremlins+1984",poster:"https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM2MDEzNDI1LCJwdXIiOiJibG9iX2lkIn19--a345b8717a815c1d776ea76319e820a10925f7ad/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-thumb-SQ-06-gremlins.png"},
-  {title:"C.H.U.D.",year:1984,era:"early80s",moods:["laugh","gross"],company:["friends","solo"],shannyScore:2.5,ryanScore:1,scale:4,desc:"Cannibalistic Humanoid Underground Dwellers prowl the NYC sewers. Ryan gave it a brutal 1/4. Shanny showed mercy at 2.5/4. Great John Goodman cameo and an unforgettable poster.",quote:"There's two things I liked about this movie. In my heart CHUD is a three... but I'm clawing back some stabs. — Shanny",ep:"https://podcasts.apple.com/us/podcast/c-h-u-d-1984-the-80s-sewer-dweller-toxic-waste-cult-classic/id1776917613?i=1000750359600",jw:"https://www.justwatch.com/us/search?q=C.H.U.D.",poster:"https://storage.buzzsprout.com/j0kwarptpv00mqm6iwjd4j7c7fnc?.jpg"},
-  {title:"Christmas Evil",year:1980,era:"early80s",moods:["brain","scared"],company:["solo","partner"],shannyScore:2,ryanScore:2,scale:4,desc:"The Taxi Driver of Christmas horror. A man slowly losing his mind. Watch the last 10 minutes and the torch scene. The rest is slow.",quote:"Is it possible to go lower than one? I was at one until the last 10 minutes. That last scene? I'd rewatch just that. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Christmas+Evil+1980",poster:"https://storage.buzzsprout.com/97w6tyv2pxy5w9pg7ytbexs7xxvw?.jpg"},
-  {title:"Flatliners",year:1990,era:"late80s",moods:["brain","scared"],company:["partner","friends","solo"],shannyScore:2,ryanScore:2,scale:4,desc:"Med students stop their hearts to peek at the afterlife. Glossy, over-produced, a little boring — but Kevin Bacon keeps punching Kiefer Sutherland in the chest.",quote:"The number of beeps were dropping... like this patient was slowly expiring. Two beeps. — Ryan",ep:"https://podcasts.apple.com/us/podcast/flatliners-1990-because-med-school-wasn-t-scary-enough/id1776917613?i=1000744201047",jw:"https://www.justwatch.com/us/search?q=Flatliners+1990",poster:"https://storage.buzzsprout.com/hpbsyu7eza0ftbb2u81w8pst9goj?.jpg"},
-  {title:"Night of the Comet",year:1984,era:"early80s",moods:["laugh","brain"],company:["friends","partner","solo"],shannyScore:4,ryanScore:3,scale:4,desc:"A comet wipes out humanity and two Valley Girl sisters get the run of an empty LA. Two badass female leads, a DMK license plate callback, and genuine wit.",quote:"You might need to sit down for this. I'm going four stabbies. This movie punches above its pay grade. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Night+of+the+Comet+1984",poster:"https://storage.buzzsprout.com/9u7i0eu3f28zfg1oa6nyenze2rdz?.jpg"},
-  {title:"Night of the Creeps",year:1986,era:"late80s",moods:["laugh","gross"],company:["friends","solo","partner"],shannyScore:4,ryanScore:3,scale:4,desc:"Alien brain slugs turn frat boys into tuxedo-wearing zombies. Detective Tom Atkins delivers one-liners that ended up on the poster. The last 30 minutes are a 4/4.",quote:"I've got good news and bad news, girls. — Detective Cameron (best line on the poster)",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Night+of+the+Creeps+1986",poster:"https://storage.buzzsprout.com/90m2h5bkluwt0j19cc6tyqqppxbd?.jpg"},
-  {title:"Silent Night Deadly Night",year:1984,era:"early80s",moods:["laugh","scared"],company:["friends","solo"],shannyScore:1,ryanScore:3,scale:4,desc:"The Christmas slasher that made parents protest outside theaters. Ryan enjoyed the lore (3/4). Shanny called it worthless and stood firm at 1/4.",quote:"Three stabbies for me — it checks every box and it has lore. — Ryan (Shanny disagreed strongly)",ep:"https://podcasts.apple.com/us/podcast/silent-night-deadly-night-1984-santa-trauma-one-naughty/id1776917613?i=1000742637999",jw:"https://www.justwatch.com/us/search?q=Silent+Night+Deadly+Night+1984",poster:"https://storage.buzzsprout.com/5fpvs4kxzpy3zj6jwdr6i1o5rz1s?.jpg"},
-  {title:"The Thing",year:1982,era:"early80s",moods:["scared","gross"],company:["solo","partner","friends"],shannyScore:5,ryanScore:5,scale:5,desc:"John Carpenter's practical effects masterpiece. A shape-shifting alien in an Antarctic research station. Trashed on release, now universally recognized as a gold standard. Unanimous 5/5.",quote:"It's the gold standard for 80s horror. The story, the cast, the special effects — everything held up. Five stabbies. No controversy. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=The+Thing+1982",poster:"https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1NjI5MjE5LCJwdXIiOiJibG9iX2lkIn19--a75544d934386ff425a234afd775ed833d584486/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-SQ-05-thething.png"},
-  {title:"Black Christmas",year:1974,era:"70s",moods:["scared","brain"],company:["solo"],shannyScore:2,ryanScore:4,scale:5,desc:"The original slasher — predates Halloween by 4 years. A sorority house, anonymous phone calls, a killer you never fully see. Ryan 4/5 for genuine terror. Shanny 2/5 — too unpleasant to revisit.",quote:"I was genuinely surprised how scary this movie was. Four stabs — truly original in the way it builds tension. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Black+Christmas+1974",poster:"https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NDg2OTU4LCJwdXIiOiJibG9iX2lkIn19--61bfe1b1b5e7fcbc65f7070306d1c0aa0e5392d9/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-07-IG-07-SQ.png"},
-  {title:"Don't Open Till Christmas",year:1984,era:"early80s",moods:["laugh","gross"],company:["friends"],shannyScore:0.5,ryanScore:1.5,scale:5,desc:"Someone murders everyone in London dressed as Santa. One of the lowest-rated films in SlashBack history — Shanny 0.5/5, Ryan 1.5/5. The individual Santa kills are gems in a sea of sloppy filmmaking.",quote:"It's a loose sketch of a film peppered with gruesome Santa-killing gems. One and a half stabs, reluctantly. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Don't+Open+Till+Christmas+1984",poster:"https://storage.buzzsprout.com/xq9lpq305spb33q3fm9bz7sh0ddi?.jpg"},
-  {title:"Krampus",year:2015,era:"late80s",moods:["laugh","scared"],company:["friends","partner","kids"],shannyScore:4,ryanScore:3,scale:5,desc:"A modern Christmas horror-comedy that plays like a lost 80s Gremlins spin-off. Incredible practical creature effects. Ryan 4/5. Shanny 3/5 (lost steam in the third act).",quote:"It's an 80s film brought into a modern era — all the stuff we loved about Gremlins shows up here. Four stabs. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Krampus+2015",poster:"https://storage.buzzsprout.com/ay4t5662wnw4o9ftqml8lvz5635x?.jpg"},
-  {title:"Creepshow",year:1982,era:"early80s",moods:["laugh","scared","gross"],company:["friends","partner","solo"],shannyScore:2.5,ryanScore:3.5,scale:5,desc:"Stephen King writes, George Romero directs — EC Comics anthology horror. Five stories of wildly varying quality. The roach segment nearly broke Ryan. Ryan 3.5/5, Shanny 2.5/5.",quote:"I wanted to give it four, but I don't know that it merits it. Three and a half stabs — some stories really land. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Creepshow+1982",poster:"https://storage.buzzsprout.com/6xfj6hwn832mp3i5spz77fjz7f5g?.jpg"},
-  {title:"Hellraiser",year:1987,era:"late80s",moods:["scared","gross","brain"],company:["solo","partner"],shannyScore:3.5,ryanScore:4,scale:5,desc:"Clive Barker's S&M nightmare dimension. Pinhead. Frank reconstituting from a puddle of blood. Shanny 3.5/5, Ryan 4/5.",quote:"I'm charmed by a movie that doesn't have a big budget but can do a lot. Four stabs — the horror scenes work. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Hellraiser+1987",poster:"https://storage.buzzsprout.com/sochhylr75616ryqe57wvtlvpsv0?.jpg"},
-  {title:"Demons",year:1985,era:"late80s",moods:["gross","laugh"],company:["friends","solo"],shannyScore:3,ryanScore:3,scale:5,desc:"Italian splatter film set inside a movie theater. Makes zero sense. Ryan watched thinking it was a 2/5 — then a character on a dirt bike with a katana showed up. Score: 3/5.",quote:"Two stabbies, two stabbies... and then that motorcycle scene happened. You get an extra stabby for that. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Demons+1985+Lamberto+Bava",poster:"https://storage.buzzsprout.com/8exaj70ih9axzy6w03cp9r411t2p?.jpg"},
-  {title:"Bad Taste",year:1987,era:"late80s",moods:["gross","laugh"],company:["friends","solo"],shannyScore:3.5,ryanScore:3,scale:5,desc:"Peter Jackson's zero-budget debut. Aliens harvest humans as fast food. Shot over four years on weekends, Jackson playing multiple roles. Shanny 3.5/5, Ryan 3/5.",quote:"Props to little Peter Jackson for pulling this off. Three and a half stabs. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Bad+Taste+1987",poster:"https://storage.buzzsprout.com/9z6kmjh8y9n1an8jfvq7uwax5vme?.jpg"},
-  {title:"Return of the Living Dead",year:1985,era:"late80s",moods:["laugh","gross"],company:["friends","solo"],shannyScore:4,ryanScore:2,scale:5,desc:"Punk rock zombies who want to eat BRAINS. Shanny loved it (4/5). Ryan was surprised to give it only 2/5 — historically interesting but not rewatchable for him.",quote:"Punk rock, zombies, humor, horror — what's not to like? I'm giving this four stabs. — Shanny (Ryan shockingly gave it a 2)",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Return+of+the+Living+Dead+1985",poster:"https://storage.buzzsprout.com/ai8zcislgfop5bvb3trq93nhjnd4?.jpg"},
-  {title:"Killer Klowns from Outer Space",year:1988,era:"late80s",moods:["laugh","gross"],company:["friends","kids","partner"],shannyScore:3,ryanScore:3,scale:5,desc:"Cotton candy cocoons, shadow puppet dinosaurs, popcorn guns. Both hosts landed at 3/5: funny, goofy, wears thin toward the end but a uniquely entertaining idea.",quote:"They fully committed to this thing. Definitely entertaining, a lot of laughs — three stabs. — Ryan (Shanny agreed exactly)",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Killer+Klowns+from+Outer+Space",poster:"https://storage.buzzsprout.com/2ageri5lspu2afxtbalkal4ge8ii?.jpg"},
-  {title:"Basket Case",year:1982,era:"early80s",moods:["laugh","gross"],company:["solo","friends"],shannyScore:4,ryanScore:2.5,scale:5,desc:"A man carries his deformed conjoined twin in a wicker basket through NYC. Shot for $35,000. Shanny loved its heart (4/5). Ryan was put off by one key scene (2.5/5).",quote:"I'm giving this four out of five stabs. So much joy in every scene. It's like ET written by a psycho. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Basket+Case+1982",poster:"https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1MTUxMzY1LCJwdXIiOiJibG9iX2lkIn19--d487a5c0c29e58e62d66288b16cf7802795c4788/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-SQ-04-BasketCase.png"},
-  {title:"The Changeling",year:1980,era:"early80s",moods:["scared","brain"],company:["solo","partner"],shannyScore:3,ryanScore:3.5,scale:5,desc:"George C. Scott in a haunted Victorian mansion. The direct predecessor to The Sixth Sense. Less horror film than haunted mystery. Shanny 3/5, Ryan 3.5/5.",quote:"Three and a half stabs — great story, really well acted. A classic haunted house film that really takes its time. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=The+Changeling+1980",poster:"https://storage.buzzsprout.com/as1034sol5gpigbacux6g2uygunc?.jpg"},
-  {title:"Tremors",year:1990,era:"late80s",moods:["laugh","gross"],company:["friends","partner","kids"],shannyScore:3,ryanScore:2,scale:5,desc:"Underground graboids terrorize a small Nevada town. Kevin Bacon. Reba McEntire. Shanny 3/5 enjoyed the puzzle-solving vibe. Ryan 2/5 found the middle stretches genuinely frustrating.",quote:"Good clean family fun. I'd watch it again — it wasn't cream of the crop, but it plays well as a creature feature. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Tremors+1990",poster:"https://storage.buzzsprout.com/xu4geadw1hxmii1otyxejijhiufw?.jpg"},
-  {title:"Chopping Mall",year:1986,era:"late80s",moods:["laugh","gross"],company:["friends","solo"],shannyScore:2.5,ryanScore:4,scale:5,desc:"Security robots malfunction and start killing teenagers. Exploding heads, laser beams, gloriously bad acting. Ryan 4/5 compares it to Reanimator for entertainment value. Shanny a surprising 2.5/5.",quote:"Chopping Mall deserves four stabbies. If you want a fun 80s horror recommendation, this is up there with Reanimator. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Chopping+Mall+1986",poster:"https://storage.buzzsprout.com/0ox8l71jm7ww2o2q9423s1mxjyj5?.jpg"},
-  {title:"The Lost Boys",year:1987,era:"late80s",moods:["laugh","scared"],company:["friends","partner","kids"],shannyScore:5,ryanScore:5,scale:5,desc:"Santa Carla's half-vampire biker gang. Kiefer Sutherland at peak cool. The Frog brothers. Only the third unanimous 5/5 in SlashBack history. Ryan called it the reason they started the podcast.",quote:"This is the first movie where I thought — this is the reason we decided to do this podcast. Five stabs. — Ryan (Shanny: 'I'm also there with five.')",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=The+Lost+Boys+1987",poster:"https://storage.buzzsprout.com/l5m4nfniulcysczgawqsbrm5mtsj?.jpg"},
-  {title:"Suspiria",year:1977,era:"70s",moods:["scared","brain"],company:["solo","partner"],shannyScore:4,ryanScore:4,scale:5,desc:"Dario Argento's ballet school fever dream. The colors, the Goblin score, the kills — nothing else looks or sounds like it. Both hosts 4/5, docking a point for dubbing.",quote:"I'm saying Suspiria is a four stabby movie. The colors, the atmosphere — you won't forget a single scene. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Suspiria+1977",poster:"https://storage.buzzsprout.com/yqr5zxh7djgn4vsrykz9j47xptt7?.jpg"},
-  {title:"A Nightmare on Elm Street",year:1984,era:"early80s",moods:["scared","brain"],company:["solo","friends","partner"],shannyScore:4,ryanScore:4,scale:5,desc:"Freddy Krueger kills teenagers in their dreams. Wes Craven's ultimate work. Better acting and tighter script than most 80s horror. Both hosts 4/5.",quote:"Four stabbies. Wes Craven, top of the list — this was probably his ultimate work. Great cast, well acted, tight script. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=A+Nightmare+on+Elm+Street+1984",poster:"https://storage.buzzsprout.com/heoiehwb37svrza00rjqf89fdw55?.jpg"},
-  {title:"Re-Animator",year:1985,era:"late80s",moods:["gross","laugh"],company:["friends","solo"],shannyScore:5,ryanScore:5,scale:5,desc:"A medical student discovers a reagent that reanimates the dead. Ryan was convinced it was 4/5 until the last 15 minutes. Both gave it 5/5 — up there with The Thing.",quote:"I was very convinced this was a four stabby movie until the last 15 minutes. Five stabbies — up there with The Thing. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Re-Animator+1985",poster:"https://storage.buzzsprout.com/o0khha0xeb0chk1ttvmtrzhbpk3b?.jpg"},
-  {title:"Videodrome",year:1983,era:"early80s",moods:["brain","gross"],company:["solo"],shannyScore:4,ryanScore:5,scale:5,desc:"A cable TV programmer discovers a signal that blurs flesh and technology. Cronenberg's most prophetic film. Ryan 5/5, couldn't let it go. Shanny 4/5.",quote:"Incredibly inventive, original, so relevant to what's going on today. I'm giving this one five stabs. — Ryan",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Videodrome+1983",poster:"https://storage.buzzsprout.com/rkqhia9bxw9ey66q7lvsok1hf444?.jpg"},
-  {title:"Altered States",year:1980,era:"early80s",moods:["brain","gross"],company:["solo"],shannyScore:1,ryanScore:3,scale:5,desc:"A scientist uses sensory deprivation tanks and psychedelics to physically regress. Ken Russell's most unhinged film. Shanny 1/5 — zero likable characters. Ryan 3/5 for visual ambition.",quote:"I give Altered States just one stab. Zero likable characters — the movie was very cold. — Shanny (Ryan gave it three.)",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Altered+States+1980",poster:"https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM0NzI1OTAxLCJwdXIiOiJibG9iX2lkIn19--2253474366d79c72bbf4faea614919e2baf3755b/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-Post-tem-03-ig-sq.png"},
-  {title:"Silver Bullet",year:1985,era:"late80s",moods:["laugh","scared"],company:["friends","partner","kids"],shannyScore:3.5,ryanScore:3,scale:5,desc:"Stephen King's coming-of-age werewolf story. A disabled kid, Gary Busey, and a werewolf playing the church organ. Both hosts agreed it works better as a comedy than horror.",quote:"I'm landing this one at three and a half steps. Rewatchable, fun, campy — quintessential 80s. — Shanny",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Silver+Bullet+1985",poster:"https://storage.buzzsprout.com/n36cn5zf6r6kr3de4wwln4ddjxfr?.jpg"},
-  {title:"The Parenting",year:2025,era:"late80s",moods:["laugh","scared"],company:["friends","partner"],shannyScore:4,ryanScore:4,scale:4,desc:"HBO's modern horror-comedy channeling 80s creature feature energy. Unanimous 4/4 from both hosts — 'a classic four stabby movie.' Compared directly to Krampus.",quote:"Good jokes, good writing, fantastic cast — all game to play. This is a classic four stabby movie. — Ryan (Shanny agreed.)",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=The+Parenting+HBO+2025",poster:"https://storage.buzzsprout.com/jv9pf58kj4trjhw3627uk2fe3rk2?.jpg"},
-  {title:"Critters",year:1986,era:"late80s",moods:["laugh","gross"],company:["friends","partner","kids"],shannyScore:3.5,ryanScore:3.5,scale:4,desc:"Furry alien murderballs escape intergalactic prison and land on a Kansas farm. Two shape-shifting bounty hunters follow. Peak 80s creature feature with a warm family core.",quote:"Grab your pipe bombs and hold on — Critters still packs a bite. — SlashBack Cinema",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=Critters+1986",poster:"https://storage.buzzsprout.com/dgtbrthlr3cgvlqb689zhpxgg2zp?.jpg"},
-  {title:"The Omen",year:1976,era:"70s",moods:["scared","brain"],company:["solo","partner"],shannyScore:3,ryanScore:3,scale:5,desc:"Gregory Peck discovers his adopted son might be the Antichrist. Evil Mary Poppins nanny. Both hosts 3/5 — seminal and influential, but showing its age.",quote:"Three stabs. Seminal movie, iconic scenes — but getting a little long in the tooth. — Shanny (Ryan agreed.)",ep:"https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",jw:"https://www.justwatch.com/us/search?q=The+Omen+1976",poster:"https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1NjMyNTIwLCJwdXIiOiJibG9iX2lkIn19--4ef022e5c141bb15f11be82f10ade3a52dfb924e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-01-omen-ig-SQ.png"},
-  {title:"House",year:1986,era:"late80s",moods:["laugh","scared","gross"],company:["friends","solo"],shannyScore:2.5,ryanScore:2,scale:4,desc:"A horror novelist in his aunt's haunted house processing Vietnam War trauma. Part haunted house, part monster movie, part after-school special. Creative rubber monster suits can't quite save it.",quote:"It felt like a sitcom meets after-school special slash horror. I started at one... but I'm landing at two. — Ryan",ep:"https://podcasts.apple.com/us/podcast/house-1985-haunted-house-chaos-interdimensional-closet/id1776917613?i=1000746051338",jw:"https://www.justwatch.com/us/search?q=House+1986+horror",poster:"https://storage.buzzsprout.com/s4pj5nrki8e2yvsbir6c8jgv37i9?.jpg"},
-  {title:"My Bloody Valentine",year:1981,era:"early80s",moods:["scared","gross"],company:["friends","solo"],shannyScore:3,ryanScore:3,scale:4,desc:"A pickaxe-wielding killer terrorizes a mining town on Valentine's Day. Quentin Tarantino's favourite slasher. Well-shot, solid cast, genuinely mean kills. Both hosts 3/4 — better than expected.",quote:"A pretty damn solid slasher. Well shot, well written, great backdrop — the kills are mean and creative. — Shanny",ep:"https://podcasts.apple.com/us/podcast/my-bloody-valentine-1981-the-slasher-that-ruined/id1776917613?i=1000748246821",jw:"https://www.justwatch.com/us/search?q=My+Bloody+Valentine+1981",poster:"https://storage.buzzsprout.com/3pejrr6aasu1pe5l60d5nj76wlhj?.jpg"},
-  {title:"Poltergeist",year:1982,era:"early80s",moods:["scared","gross"],company:["friends","partner","solo"],shannyScore:4,ryanScore:3.5,scale:4,desc:"A suburban family's daughter gets pulled into the TV. Real skeletons, face-ripping, the clown. Shanny 4/4. Ryan 3.5/4 — would have been 4 if seen as a kid.",quote:"I am giving this a four out of four. One of the great haunted house movies. Every single actor is incredible. — Shanny",ep:"https://podcasts.apple.com/us/podcast/poltergeist-1982-suburban-hell-real-skeletons-and/id1776917613?i=1000756008373",jw:"https://www.justwatch.com/us/search?q=Poltergeist+1982",poster:"https://storage.buzzsprout.com/9dh0nc7ic4rd4c6hxzvfmgahmw9k?.jpg"},
-  {title:"The Stuff",year:1985,era:"late80s",moods:["brain","laugh"],company:["friends","solo","partner"],shannyScore:2.5,ryanScore:3.5,scale:4,desc:"A mysterious dessert product takes over America — and eats its consumers from the inside. Sharp satire on consumerism. Ryan loved it (3.5/4). Shanny split the difference at 2.5/4.",quote:"The satire is super sharp and so on point. I'm bringing this in at three and a half stabs. — Ryan",ep:"https://podcasts.apple.com/us/podcast/the-stuff-1985-you-ate-it-it-ate-you-back/id1776917613?i=1000758746024",jw:"https://www.justwatch.com/us/search?q=The+Stuff+1985",poster:"https://storage.buzzsprout.com/6utic5umhq7dwonicniepu0ijrwx?.jpg"}
-];
+            <!-- LEFT COL -->
+            <div class="col-left">
+                <div class="header">
+                    <div class="eyebrow">SlashBack Cinema</div>
+                    <div class="sb-logo">
+                        Slash
+                        <span>Back</span>
+                    </div>
+                    <div class="tagline">What Should I Watch Tonight?</div>
+                    <div class="sub">3 questions · Real Stabby Scores · 47 films from the vault</div>
+                </div>
 
-// ── HELPERS ───────────────────────────────────────────────────────
-const MASK_SVG = `<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+                <div class="prog-row" id="prog-row">
+                    <div class="prog-bar active" id="p0"></div>
+                    <div class="prog-bar" id="p1"></div>
+                    <div class="prog-bar" id="p2"></div>
+                </div>
+
+                <div class="step active" id="step-0">
+                    <div class="q-num">Question 1 of 3</div>
+                    <div class="q-text">What's the vibe tonight?</div>
+                    <div class="opts">
+                        <button class="opt" data-key="mood" data-val="laugh" onclick="pick(this)">
+                            <span class="opt-title">Laugh at the chaos</span>
+                            <span class="opt-sub">Campy, fun, gloriously bad</span>
+                        </button>
+                        <button class="opt" data-key="mood" data-val="scared" onclick="pick(this)">
+                            <span class="opt-title">Actually get scared</span>
+                            <span class="opt-sub">Real dread, dark atmosphere</span>
+                        </button>
+                        <button class="opt" data-key="mood" data-val="brain" onclick="pick(this)">
+                            <span class="opt-title">Think a little</span>
+                            <span class="opt-sub">Subtext, social commentary</span>
+                        </button>
+                        <button class="opt" data-key="mood" data-val="gross" onclick="pick(this)">
+                            <span class="opt-title">Practical effects madness</span>
+                            <span class="opt-sub">Gore, creatures, VFX chaos</span>
+                        </button>
+                    </div>
+                    <button class="next-btn" id="next-0" onclick="nextStep(1)">Next →</button>
+                </div>
+
+                <div class="step" id="step-1">
+                    <div class="q-num">Question 2 of 3</div>
+                    <div class="q-text">Who are you watching with?</div>
+                    <div class="opts">
+                        <button class="opt" data-key="company" data-val="solo" onclick="pick(this)">
+                            <span class="opt-title">Just me</span>
+                            <span class="opt-sub">No judgment. Pure immersion.</span>
+                        </button>
+                        <button class="opt" data-key="company" data-val="partner" onclick="pick(this)">
+                            <span class="opt-title">Date night</span>
+                            <span class="opt-sub">Non-horror person needs to survive</span>
+                        </button>
+                        <button class="opt" data-key="company" data-val="friends" onclick="pick(this)">
+                            <span class="opt-title">Group watch</span>
+                            <span class="opt-sub">Crowd reactions, yelling at screen</span>
+                        </button>
+                        <button class="opt" data-key="company" data-val="kids" onclick="pick(this)">
+                            <span class="opt-title">Older kids / teens</span>
+                            <span class="opt-sub">They can handle most of it</span>
+                        </button>
+                    </div>
+                    <button class="next-btn" id="next-1" onclick="nextStep(2)">Next →</button>
+                </div>
+
+                <div class="step" id="step-2">
+                    <div class="q-num">Question 3 of 3</div>
+                    <div class="q-text">What era are you feeling?</div>
+                    <div class="opts">
+                        <button class="opt" data-key="era" data-val="70s" onclick="pick(this)">
+                            <span class="opt-title">Deep 70s</span>
+                            <span class="opt-sub">Pre-slasher, slow burn, weird</span>
+                        </button>
+                        <button class="opt" data-key="era" data-val="early80s" onclick="pick(this)">
+                            <span class="opt-title">Early 80s</span>
+                            <span class="opt-sub">1980–1984, the golden window</span>
+                        </button>
+                        <button class="opt" data-key="era" data-val="late80s" onclick="pick(this)">
+                            <span class="opt-title">Late 80s / early 90s</span>
+                            <span class="opt-sub">1985–1990, peak VHS era</span>
+                        </button>
+                        <button class="opt" data-key="era" data-val="any" onclick="pick(this)">
+                            <span class="opt-title">Surprise me</span>
+                            <span class="opt-sub">Any era, just make it great</span>
+                        </button>
+                    </div>
+                    <button class="next-btn" id="next-2" onclick="showResult()">Find my film →</button>
+                </div>
+
+                <div class="step" id="step-result"></div>
+
+                <!-- Mobile lucky button (below questions/result) -->
+                <div class="lucky-mobile" id="lucky-mobile-wrap">
+                    <button class="lucky-btn" onclick="openModal()">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+
+                                I'm Feeling Lucky — Spin the Wheel
+                              
+                    </button>
+                </div>
+
+                <div class="footer">
+                    <p>
+                        A tool by 
+                        <a href="https://slashbackcinema.com" target="_blank">SlashBack Cinema</a>
+                         — retro horror for Gen X dads &amp; horror fans everywhere
+                    </p>
+                </div>
+            </div>
+
+            <!-- RIGHT COL (desktop) -->
+            <div class="col-right">
+                <div class="panel-tabs">
+                    <button class="ptab active" onclick="showTab('splits')">🔪 Host Splits</button>
+                    <button class="ptab" onclick="showTab('perfects')">⭐ Perfect 5/5s</button>
+                    <button class="ptab" onclick="showTab('wheel')">🎡 Spin the Wheel</button>
+                </div>
+                <div class="panel-body">
+
+                    <div class="panel-section active" id="tab-splits">
+                        <div id="splits-list"></div>
+                    </div>
+
+                    <div class="panel-section" id="tab-perfects">
+                        <div id="perfects-list"></div>
+                    </div>
+
+                    <div class="panel-section" id="tab-wheel">
+                        <div class="wheel-panel-inner">
+                            <div class="wheel-panel-title">Spin the Wheel of Fate</div>
+                            <div class="wheel-panel-sub">47 films in the vault — let fate decide</div>
+                            <div class="wheel-container-inline">
+                                <div class="wheel-ptr-inline"></div>
+                                <svg id="wheel-inline" viewBox="0 0 280 280"></svg>
+                                <div class="mask-wrap-inline" id="mask-inline"></div>
+                            </div>
+                            <button class="spin-btn-inline" id="spin-inline-btn" onclick="spinInline()">SPIN</button>
+                            <div class="wheel-result-inline" id="wheel-result-inline">
+                                <div id="wri-title" class="wri-title"></div>
+                                <div id="wri-year" class="wri-year"></div>
+                                <div class="wri-btns">
+                                    <a id="wri-ep" class="wri-btn wri-btn-primary" href="#" target="_blank">Listen to episode</a>
+                                    <a id="wri-watch" class="wri-btn wri-btn-secondary" href="#" target="_blank">Where to watch</a>
+                                </div>
+                                <button class="wri-again" onclick="resetInline()">Spin again →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    // ── DATA ─────────────────────────────────────────────────────────
+    const films = [
+    {
+        title: "House",
+        year: 1977,
+        era: "70s",
+        moods: ["brain", "laugh", "scared"],
+        company: ["solo", "partner"],
+        shannyScore: 5,
+        ryanScore: 5,
+        scale: 5,
+        desc: "A Japanese art-film haunted-house psychedelic masterpiece that breaks every rule. Seven girls, a witch, a piano that eats people. Both Ryan and Shanny gave it a unanimous 5/5 — 'one of the most original movies ever made.'",
+        quote: "House deserves five stabbies unquestionably. I felt like my life had become a little bit better now that I had seen this movie. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=House+1977+Nobuhiko",
+        poster: "https://storage.buzzsprout.com/mohb6cs0s5buiojgu6fyqn7rkvrr?.jpg"
+    },
+    {
+        title: "Amityville Horror",
+        year: 1979,
+        era: "70s",
+        moods: ["scared", "brain"],
+        company: ["solo", "partner", "friends"],
+        shannyScore: 2,
+        ryanScore: 2,
+        scale: 5,
+        desc: "The one everyone's seen — but is it actually good? Hosts and guests mostly said no. Worth it for the fly scene and a great first half. Don't expect the second half to deliver.",
+        quote: "I was gonna give it a three... but the score kept going down. Just watch the first half. That's the best part. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Amityville+Horror+1979",
+        poster: "https://storage.buzzsprout.com/l5pfqvkfnnbmck55xm3ufg132jyn?.jpg"
+    },
+    {
+        title: "Phantasm",
+        year: 1979,
+        era: "70s",
+        moods: ["scared", "brain"],
+        company: ["solo"],
+        shannyScore: 3,
+        ryanScore: 3,
+        scale: 5,
+        desc: "The Tall Man. Silver balls. Jawas. It doesn't fully work — but something about it gets its hooks in you and doesn't let go. Ryan gave it 3/5 because he immediately wanted to watch all four sequels.",
+        quote: "I'll watch Phantasm 2 tonight. It got its hooks in me — I need more information. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Phantasm+1979",
+        poster: "https://storage.buzzsprout.com/rixsmef02zf80alefm9zxzkdrutd?.jpg"
+    },
+    {
+        title: "Friday the 13th",
+        year: 1980,
+        era: "early80s",
+        moods: ["scared", "gross"],
+        company: ["friends", "solo", "partner"],
+        shannyScore: 3.5,
+        ryanScore: 4,
+        scale: 5,
+        desc: "The one that launched a thousand sequels — and the killer isn't even Jason. Still holds up 45 years later. The final slap-fight drains some tension but the first two acts are legit terrifying.",
+        quote: "I want to give it four stabbies. The effects still work 45 years later. Before the killer shows up it's genuinely psychotic. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Friday+the+13th+1980",
+        poster: "https://storage.buzzsprout.com/h9xbnvijlqb8em1ahu7fnlgyqmh4?.jpg"
+    },
+    {
+        title: "An American Werewolf in London",
+        year: 1981,
+        era: "early80s",
+        moods: ["gross", "laugh", "scared"],
+        company: ["friends", "partner", "solo"],
+        shannyScore: 4,
+        ryanScore: 5,
+        scale: 5,
+        desc: "The gold standard for practical transformation effects. Pitch-black British humor meets genuine body horror. Shanny 4/5, Ryan 5/5. The transformation scene still holds up completely.",
+        quote: "I'm going to land this one at five out of five wolf bites. Top of the line. Full praise. I'm all in. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=American+Werewolf+in+London",
+        poster: "https://storage.buzzsprout.com/7e3d6pz68c08bm8to0poccb3v77g?.jpg"
+    },
+    {
+        title: "Slumber Party Massacre",
+        year: 1982,
+        era: "early80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 3,
+        ryanScore: 3,
+        scale: 5,
+        desc: "Power drill. Slumber party. All three reviewers landed at 3/5. Fun, a bit different from the formula, more memorable cast than usual. The feminist subtext snuck in anyway.",
+        quote: "I wrote this was going to be a two, but you've influenced me. There's more cleverness here than I realized. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Slumber+Party+Massacre+1982",
+        poster: "https://storage.buzzsprout.com/64l194ynq3spzh5kjdviml84g8hi?.jpg"
+    },
+    {
+        title: "Piranha",
+        year: 1978,
+        era: "70s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "partner", "solo"],
+        shannyScore: 4,
+        ryanScore: 3,
+        scale: 4,
+        desc: "Joe Dante's scrappy Jaws riff. Genetically engineered killer fish devour a summer camp. Shanny watched it twice and gave it 4/4. Guest Jeff called it 'the Citizen Kane of trashy 70s creature features.'",
+        quote: "It's better than you heard it was. It gets better when you watch it more. Four bites — highest level of quality. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/piranha-1978-this-movie-bites-killer-fish-and-summer/id1776917613?i=1000753093659",
+        jw: "https://www.justwatch.com/us/search?q=Piranha+1978",
+        poster: "https://storage.buzzsprout.com/y0vtb6ktnoz1eo5xt2xuldafbc1e?.jpg"
+    },
+    {
+        title: "Sleepaway Camp",
+        year: 1983,
+        era: "early80s",
+        moods: ["scared", "gross", "laugh"],
+        company: ["friends", "solo"],
+        shannyScore: 3.5,
+        ryanScore: 3.5,
+        scale: 5,
+        desc: "A mute, traumatized girl at summer camp. Kills that barely make sense. An ending that comes from nowhere and still shocks 40 years later. Both hosts gave it 3.5/5.",
+        quote: "Not since this movie have we watched an ending so bonkers you had to rewind the tape just to be sure you didn't hallucinate it. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Sleepaway+Camp+1983",
+        poster: "https://storage.buzzsprout.com/bjdfz698sa08qozn5rjv8say51v1?.jpg"
+    },
+    {
+        title: "Hack-O-Lantern",
+        year: 1988,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 3,
+        ryanScore: 4,
+        scale: 5,
+        desc: "A pumpkin-obsessed grandpa runs a satanic cult. The Halloween party has a stripper, a belly dancer, and a stand-up comedian. Ryan gave it 4/5 because he watched it twice in a week.",
+        quote: "It is garbage, but it is enjoyable garbage. So many moments made me laugh. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Hack-O-Lantern+1988",
+        poster: "https://storage.buzzsprout.com/rbc01d063hho3erhgt4ur2a496zp?.jpg"
+    },
+    {
+        title: "Happy Birthday to Me",
+        year: 1981,
+        era: "early80s",
+        moods: ["laugh", "scared"],
+        company: ["friends", "solo"],
+        shannyScore: 3,
+        ryanScore: 2.5,
+        scale: 5,
+        desc: "Elite prep school. Creative kills (the shish kebab is unforgettable). A Trans Am bridge stunt that wrecked 15 cars. An ending so deranged it rivals Sleepaway Camp.",
+        quote: "If someone wants to watch a bonkers 80s movie: first watch Sleepaway Camp, then watch this. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Happy+Birthday+to+Me+1981",
+        poster: "https://storage.buzzsprout.com/i0l3luvmr8dakdv3slwsoe8bt0hl?.jpg"
+    },
+    {
+        title: "Uninvited",
+        year: 1987,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 3.5,
+        ryanScore: 3,
+        scale: 5,
+        desc: "A mutant creature lives inside a regular house cat and crawls out to kill people on a yacht. The creature is bigger than the cat. So bad it circles back around to great.",
+        quote: "This movie is so bad it's good — it circles around itself. I found it highly enjoyable. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Uninvited+1987+horror",
+        poster: "https://storage.buzzsprout.com/nrpto51tq4r62tn7avn48ng0xdr5?.jpg"
+    },
+    {
+        title: "Zombie",
+        year: 1979,
+        era: "70s",
+        moods: ["scared", "gross"],
+        company: ["solo", "partner"],
+        shannyScore: 3,
+        ryanScore: 4,
+        scale: 5,
+        desc: "Lucio Fulci's Italian gore masterpiece. A zombie fights a shark. A worm crawls through an eyeball. Style over plot in the absolute best way.",
+        quote: "Really gross, but gorgeous. Some of the best zombie design ever committed to film. Four zombie bites out of five. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Zombie+1979+Fulci",
+        poster: "https://storage.buzzsprout.com/e5slzvcr9zmsyc239ctish1i8m39?.jpg"
+    },
+    {
+        title: "Gremlins",
+        year: 1984,
+        era: "early80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "partner", "kids"],
+        shannyScore: 5,
+        ryanScore: 5,
+        scale: 5,
+        desc: "Horror-comedy perfection. The film that created the PG-13 rating. Mom goes full butcher knife in the kitchen. A SlashBack first — unanimous 5/5 from both hosts.",
+        quote: "I realized horror comedy is actually my favorite kind of movie. Five stabs. No hesitation. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Gremlins+1984",
+        poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM2MDEzNDI1LCJwdXIiOiJibG9iX2lkIn19--a345b8717a815c1d776ea76319e820a10925f7ad/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-thumb-SQ-06-gremlins.png"
+    },
+    {
+        title: "C.H.U.D.",
+        year: 1984,
+        era: "early80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 2.5,
+        ryanScore: 1,
+        scale: 4,
+        desc: "Cannibalistic Humanoid Underground Dwellers prowl the NYC sewers. Ryan gave it a brutal 1/4. Shanny showed mercy at 2.5/4. Great John Goodman cameo and an unforgettable poster.",
+        quote: "There's two things I liked about this movie. In my heart CHUD is a three... but I'm clawing back some stabs. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/c-h-u-d-1984-the-80s-sewer-dweller-toxic-waste-cult-classic/id1776917613?i=1000750359600",
+        jw: "https://www.justwatch.com/us/search?q=C.H.U.D.",
+        poster: "https://storage.buzzsprout.com/j0kwarptpv00mqm6iwjd4j7c7fnc?.jpg"
+    },
+    {
+        title: "Christmas Evil",
+        year: 1980,
+        era: "early80s",
+        moods: ["brain", "scared"],
+        company: ["solo", "partner"],
+        shannyScore: 2,
+        ryanScore: 2,
+        scale: 4,
+        desc: "The Taxi Driver of Christmas horror. A man slowly losing his mind. Watch the last 10 minutes and the torch scene. The rest is slow.",
+        quote: "Is it possible to go lower than one? I was at one until the last 10 minutes. That last scene? I'd rewatch just that. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Christmas+Evil+1980",
+        poster: "https://storage.buzzsprout.com/97w6tyv2pxy5w9pg7ytbexs7xxvw?.jpg"
+    },
+    {
+        title: "Flatliners",
+        year: 1990,
+        era: "late80s",
+        moods: ["brain", "scared"],
+        company: ["partner", "friends", "solo"],
+        shannyScore: 2,
+        ryanScore: 2,
+        scale: 4,
+        desc: "Med students stop their hearts to peek at the afterlife. Glossy, over-produced, a little boring — but Kevin Bacon keeps punching Kiefer Sutherland in the chest.",
+        quote: "The number of beeps were dropping... like this patient was slowly expiring. Two beeps. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/flatliners-1990-because-med-school-wasn-t-scary-enough/id1776917613?i=1000744201047",
+        jw: "https://www.justwatch.com/us/search?q=Flatliners+1990",
+        poster: "https://storage.buzzsprout.com/hpbsyu7eza0ftbb2u81w8pst9goj?.jpg"
+    },
+    {
+        title: "Night of the Comet",
+        year: 1984,
+        era: "early80s",
+        moods: ["laugh", "brain"],
+        company: ["friends", "partner", "solo"],
+        shannyScore: 4,
+        ryanScore: 3,
+        scale: 4,
+        desc: "A comet wipes out humanity and two Valley Girl sisters get the run of an empty LA. Two badass female leads, a DMK license plate callback, and genuine wit.",
+        quote: "You might need to sit down for this. I'm going four stabbies. This movie punches above its pay grade. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Night+of+the+Comet+1984",
+        poster: "https://storage.buzzsprout.com/9u7i0eu3f28zfg1oa6nyenze2rdz?.jpg"
+    },
+    {
+        title: "Night of the Creeps",
+        year: 1986,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo", "partner"],
+        shannyScore: 4,
+        ryanScore: 3,
+        scale: 4,
+        desc: "Alien brain slugs turn frat boys into tuxedo-wearing zombies. Detective Tom Atkins delivers one-liners that ended up on the poster. The last 30 minutes are a 4/4.",
+        quote: "I've got good news and bad news, girls. — Detective Cameron (best line on the poster)",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Night+of+the+Creeps+1986",
+        poster: "https://storage.buzzsprout.com/90m2h5bkluwt0j19cc6tyqqppxbd?.jpg"
+    },
+    {
+        title: "Silent Night Deadly Night",
+        year: 1984,
+        era: "early80s",
+        moods: ["laugh", "scared"],
+        company: ["friends", "solo"],
+        shannyScore: 1,
+        ryanScore: 3,
+        scale: 4,
+        desc: "The Christmas slasher that made parents protest outside theaters. Ryan enjoyed the lore (3/4). Shanny called it worthless and stood firm at 1/4.",
+        quote: "Three stabbies for me — it checks every box and it has lore. — Ryan (Shanny disagreed strongly)",
+        ep: "https://podcasts.apple.com/us/podcast/silent-night-deadly-night-1984-santa-trauma-one-naughty/id1776917613?i=1000742637999",
+        jw: "https://www.justwatch.com/us/search?q=Silent+Night+Deadly+Night+1984",
+        poster: "https://storage.buzzsprout.com/5fpvs4kxzpy3zj6jwdr6i1o5rz1s?.jpg"
+    },
+    {
+        title: "The Thing",
+        year: 1982,
+        era: "early80s",
+        moods: ["scared", "gross"],
+        company: ["solo", "partner", "friends"],
+        shannyScore: 5,
+        ryanScore: 5,
+        scale: 5,
+        desc: "John Carpenter's practical effects masterpiece. A shape-shifting alien in an Antarctic research station. Trashed on release, now universally recognized as a gold standard. Unanimous 5/5.",
+        quote: "It's the gold standard for 80s horror. The story, the cast, the special effects — everything held up. Five stabbies. No controversy. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=The+Thing+1982",
+        poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1NjI5MjE5LCJwdXIiOiJibG9iX2lkIn19--a75544d934386ff425a234afd775ed833d584486/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-SQ-05-thething.png"
+    },
+    {
+        title: "Black Christmas",
+        year: 1974,
+        era: "70s",
+        moods: ["scared", "brain"],
+        company: ["solo"],
+        shannyScore: 2,
+        ryanScore: 4,
+        scale: 5,
+        desc: "The original slasher — predates Halloween by 4 years. A sorority house, anonymous phone calls, a killer you never fully see. Ryan 4/5 for genuine terror. Shanny 2/5 — too unpleasant to revisit.",
+        quote: "I was genuinely surprised how scary this movie was. Four stabs — truly original in the way it builds tension. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Black+Christmas+1974",
+        poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM2NDg2OTU4LCJwdXIiOiJibG9iX2lkIn19--61bfe1b1b5e7fcbc65f7070306d1c0aa0e5392d9/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-07-IG-07-SQ.png"
+    },
+    {
+        title: "Don't Open Till Christmas",
+        year: 1984,
+        era: "early80s",
+        moods: ["laugh", "gross"],
+        company: ["friends"],
+        shannyScore: 0.5,
+        ryanScore: 1.5,
+        scale: 5,
+        desc: "Someone murders everyone in London dressed as Santa. One of the lowest-rated films in SlashBack history — Shanny 0.5/5, Ryan 1.5/5. The individual Santa kills are gems in a sea of sloppy filmmaking.",
+        quote: "It's a loose sketch of a film peppered with gruesome Santa-killing gems. One and a half stabs, reluctantly. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Don't+Open+Till+Christmas+1984",
+        poster: "https://storage.buzzsprout.com/xq9lpq305spb33q3fm9bz7sh0ddi?.jpg"
+    },
+    {
+        title: "Krampus",
+        year: 2015,
+        era: "late80s",
+        moods: ["laugh", "scared"],
+        company: ["friends", "partner", "kids"],
+        shannyScore: 4,
+        ryanScore: 3,
+        scale: 5,
+        desc: "A modern Christmas horror-comedy that plays like a lost 80s Gremlins spin-off. Incredible practical creature effects. Ryan 4/5. Shanny 3/5 (lost steam in the third act).",
+        quote: "It's an 80s film brought into a modern era — all the stuff we loved about Gremlins shows up here. Four stabs. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Krampus+2015",
+        poster: "https://storage.buzzsprout.com/ay4t5662wnw4o9ftqml8lvz5635x?.jpg"
+    },
+    {
+        title: "Creepshow",
+        year: 1982,
+        era: "early80s",
+        moods: ["laugh", "scared", "gross"],
+        company: ["friends", "partner", "solo"],
+        shannyScore: 2.5,
+        ryanScore: 3.5,
+        scale: 5,
+        desc: "Stephen King writes, George Romero directs — EC Comics anthology horror. Five stories of wildly varying quality. The roach segment nearly broke Ryan. Ryan 3.5/5, Shanny 2.5/5.",
+        quote: "I wanted to give it four, but I don't know that it merits it. Three and a half stabs — some stories really land. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Creepshow+1982",
+        poster: "https://storage.buzzsprout.com/6xfj6hwn832mp3i5spz77fjz7f5g?.jpg"
+    },
+    {
+        title: "Hellraiser",
+        year: 1987,
+        era: "late80s",
+        moods: ["scared", "gross", "brain"],
+        company: ["solo", "partner"],
+        shannyScore: 3.5,
+        ryanScore: 4,
+        scale: 5,
+        desc: "Clive Barker's S&M nightmare dimension. Pinhead. Frank reconstituting from a puddle of blood. Shanny 3.5/5, Ryan 4/5.",
+        quote: "I'm charmed by a movie that doesn't have a big budget but can do a lot. Four stabs — the horror scenes work. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Hellraiser+1987",
+        poster: "https://storage.buzzsprout.com/sochhylr75616ryqe57wvtlvpsv0?.jpg"
+    },
+    {
+        title: "Demons",
+        year: 1985,
+        era: "late80s",
+        moods: ["gross", "laugh"],
+        company: ["friends", "solo"],
+        shannyScore: 3,
+        ryanScore: 3,
+        scale: 5,
+        desc: "Italian splatter film set inside a movie theater. Makes zero sense. Ryan watched thinking it was a 2/5 — then a character on a dirt bike with a katana showed up. Score: 3/5.",
+        quote: "Two stabbies, two stabbies... and then that motorcycle scene happened. You get an extra stabby for that. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Demons+1985+Lamberto+Bava",
+        poster: "https://storage.buzzsprout.com/8exaj70ih9axzy6w03cp9r411t2p?.jpg"
+    },
+    {
+        title: "Bad Taste",
+        year: 1987,
+        era: "late80s",
+        moods: ["gross", "laugh"],
+        company: ["friends", "solo"],
+        shannyScore: 3.5,
+        ryanScore: 3,
+        scale: 5,
+        desc: "Peter Jackson's zero-budget debut. Aliens harvest humans as fast food. Shot over four years on weekends, Jackson playing multiple roles. Shanny 3.5/5, Ryan 3/5.",
+        quote: "Props to little Peter Jackson for pulling this off. Three and a half stabs. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Bad+Taste+1987",
+        poster: "https://storage.buzzsprout.com/9z6kmjh8y9n1an8jfvq7uwax5vme?.jpg"
+    },
+    {
+        title: "Return of the Living Dead",
+        year: 1985,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 4,
+        ryanScore: 2,
+        scale: 5,
+        desc: "Punk rock zombies who want to eat BRAINS. Shanny loved it (4/5). Ryan was surprised to give it only 2/5 — historically interesting but not rewatchable for him.",
+        quote: "Punk rock, zombies, humor, horror — what's not to like? I'm giving this four stabs. — Shanny (Ryan shockingly gave it a 2)",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Return+of+the+Living+Dead+1985",
+        poster: "https://storage.buzzsprout.com/ai8zcislgfop5bvb3trq93nhjnd4?.jpg"
+    },
+    {
+        title: "Killer Klowns from Outer Space",
+        year: 1988,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "kids", "partner"],
+        shannyScore: 3,
+        ryanScore: 3,
+        scale: 5,
+        desc: "Cotton candy cocoons, shadow puppet dinosaurs, popcorn guns. Both hosts landed at 3/5: funny, goofy, wears thin toward the end but a uniquely entertaining idea.",
+        quote: "They fully committed to this thing. Definitely entertaining, a lot of laughs — three stabs. — Ryan (Shanny agreed exactly)",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Killer+Klowns+from+Outer+Space",
+        poster: "https://storage.buzzsprout.com/2ageri5lspu2afxtbalkal4ge8ii?.jpg"
+    },
+    {
+        title: "Basket Case",
+        year: 1982,
+        era: "early80s",
+        moods: ["laugh", "gross"],
+        company: ["solo", "friends"],
+        shannyScore: 4,
+        ryanScore: 2.5,
+        scale: 5,
+        desc: "A man carries his deformed conjoined twin in a wicker basket through NYC. Shot for $35,000. Shanny loved its heart (4/5). Ryan was put off by one key scene (2.5/5).",
+        quote: "I'm giving this four out of five stabs. So much joy in every scene. It's like ET written by a psycho. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Basket+Case+1982",
+        poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1MTUxMzY1LCJwdXIiOiJibG9iX2lkIn19--d487a5c0c29e58e62d66288b16cf7802795c4788/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-SQ-04-BasketCase.png"
+    },
+    {
+        title: "The Changeling",
+        year: 1980,
+        era: "early80s",
+        moods: ["scared", "brain"],
+        company: ["solo", "partner"],
+        shannyScore: 3,
+        ryanScore: 3.5,
+        scale: 5,
+        desc: "George C. Scott in a haunted Victorian mansion. The direct predecessor to The Sixth Sense. Less horror film than haunted mystery. Shanny 3/5, Ryan 3.5/5.",
+        quote: "Three and a half stabs — great story, really well acted. A classic haunted house film that really takes its time. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=The+Changeling+1980",
+        poster: "https://storage.buzzsprout.com/as1034sol5gpigbacux6g2uygunc?.jpg"
+    },
+    {
+        title: "Tremors",
+        year: 1990,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "partner", "kids"],
+        shannyScore: 3,
+        ryanScore: 2,
+        scale: 5,
+        desc: "Underground graboids terrorize a small Nevada town. Kevin Bacon. Reba McEntire. Shanny 3/5 enjoyed the puzzle-solving vibe. Ryan 2/5 found the middle stretches genuinely frustrating.",
+        quote: "Good clean family fun. I'd watch it again — it wasn't cream of the crop, but it plays well as a creature feature. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Tremors+1990",
+        poster: "https://storage.buzzsprout.com/xu4geadw1hxmii1otyxejijhiufw?.jpg"
+    },
+    {
+        title: "Chopping Mall",
+        year: 1986,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 2.5,
+        ryanScore: 4,
+        scale: 5,
+        desc: "Security robots malfunction and start killing teenagers. Exploding heads, laser beams, gloriously bad acting. Ryan 4/5 compares it to Reanimator for entertainment value. Shanny a surprising 2.5/5.",
+        quote: "Chopping Mall deserves four stabbies. If you want a fun 80s horror recommendation, this is up there with Reanimator. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Chopping+Mall+1986",
+        poster: "https://storage.buzzsprout.com/0ox8l71jm7ww2o2q9423s1mxjyj5?.jpg"
+    },
+    {
+        title: "The Lost Boys",
+        year: 1987,
+        era: "late80s",
+        moods: ["laugh", "scared"],
+        company: ["friends", "partner", "kids"],
+        shannyScore: 5,
+        ryanScore: 5,
+        scale: 5,
+        desc: "Santa Carla's half-vampire biker gang. Kiefer Sutherland at peak cool. The Frog brothers. Only the third unanimous 5/5 in SlashBack history. Ryan called it the reason they started the podcast.",
+        quote: "This is the first movie where I thought — this is the reason we decided to do this podcast. Five stabs. — Ryan (Shanny: 'I'm also there with five.')",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=The+Lost+Boys+1987",
+        poster: "https://storage.buzzsprout.com/l5m4nfniulcysczgawqsbrm5mtsj?.jpg"
+    },
+    {
+        title: "Suspiria",
+        year: 1977,
+        era: "70s",
+        moods: ["scared", "brain"],
+        company: ["solo", "partner"],
+        shannyScore: 4,
+        ryanScore: 4,
+        scale: 5,
+        desc: "Dario Argento's ballet school fever dream. The colors, the Goblin score, the kills — nothing else looks or sounds like it. Both hosts 4/5, docking a point for dubbing.",
+        quote: "I'm saying Suspiria is a four stabby movie. The colors, the atmosphere — you won't forget a single scene. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Suspiria+1977",
+        poster: "https://storage.buzzsprout.com/yqr5zxh7djgn4vsrykz9j47xptt7?.jpg"
+    },
+    {
+        title: "A Nightmare on Elm Street",
+        year: 1984,
+        era: "early80s",
+        moods: ["scared", "brain"],
+        company: ["solo", "friends", "partner"],
+        shannyScore: 4,
+        ryanScore: 4,
+        scale: 5,
+        desc: "Freddy Krueger kills teenagers in their dreams. Wes Craven's ultimate work. Better acting and tighter script than most 80s horror. Both hosts 4/5.",
+        quote: "Four stabbies. Wes Craven, top of the list — this was probably his ultimate work. Great cast, well acted, tight script. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=A+Nightmare+on+Elm+Street+1984",
+        poster: "https://storage.buzzsprout.com/heoiehwb37svrza00rjqf89fdw55?.jpg"
+    },
+    {
+        title: "Re-Animator",
+        year: 1985,
+        era: "late80s",
+        moods: ["gross", "laugh"],
+        company: ["friends", "solo"],
+        shannyScore: 5,
+        ryanScore: 5,
+        scale: 5,
+        desc: "A medical student discovers a reagent that reanimates the dead. Ryan was convinced it was 4/5 until the last 15 minutes. Both gave it 5/5 — up there with The Thing.",
+        quote: "I was very convinced this was a four stabby movie until the last 15 minutes. Five stabbies — up there with The Thing. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Re-Animator+1985",
+        poster: "https://storage.buzzsprout.com/o0khha0xeb0chk1ttvmtrzhbpk3b?.jpg"
+    },
+    {
+        title: "Videodrome",
+        year: 1983,
+        era: "early80s",
+        moods: ["brain", "gross"],
+        company: ["solo"],
+        shannyScore: 4,
+        ryanScore: 5,
+        scale: 5,
+        desc: "A cable TV programmer discovers a signal that blurs flesh and technology. Cronenberg's most prophetic film. Ryan 5/5, couldn't let it go. Shanny 4/5.",
+        quote: "Incredibly inventive, original, so relevant to what's going on today. I'm giving this one five stabs. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Videodrome+1983",
+        poster: "https://storage.buzzsprout.com/rkqhia9bxw9ey66q7lvsok1hf444?.jpg"
+    },
+    {
+        title: "Altered States",
+        year: 1980,
+        era: "early80s",
+        moods: ["brain", "gross"],
+        company: ["solo"],
+        shannyScore: 1,
+        ryanScore: 3,
+        scale: 5,
+        desc: "A scientist uses sensory deprivation tanks and psychedelics to physically regress. Ken Russell's most unhinged film. Shanny 1/5 — zero likable characters. Ryan 3/5 for visual ambition.",
+        quote: "I give Altered States just one stab. Zero likable characters — the movie was very cold. — Shanny (Ryan gave it three.)",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Altered+States+1980",
+        poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM0NzI1OTAxLCJwdXIiOiJibG9iX2lkIn19--2253474366d79c72bbf4faea614919e2baf3755b/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-Slashback-IG-Post-tem-03-ig-sq.png"
+    },
+    {
+        title: "Silver Bullet",
+        year: 1985,
+        era: "late80s",
+        moods: ["laugh", "scared"],
+        company: ["friends", "partner", "kids"],
+        shannyScore: 3.5,
+        ryanScore: 3,
+        scale: 5,
+        desc: "Stephen King's coming-of-age werewolf story. A disabled kid, Gary Busey, and a werewolf playing the church organ. Both hosts agreed it works better as a comedy than horror.",
+        quote: "I'm landing this one at three and a half steps. Rewatchable, fun, campy — quintessential 80s. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Silver+Bullet+1985",
+        poster: "https://storage.buzzsprout.com/n36cn5zf6r6kr3de4wwln4ddjxfr?.jpg"
+    },
+    {
+        title: "The Parenting",
+        year: 2025,
+        era: "late80s",
+        moods: ["laugh", "scared"],
+        company: ["friends", "partner"],
+        shannyScore: 4,
+        ryanScore: 4,
+        scale: 4,
+        desc: "HBO's modern horror-comedy channeling 80s creature feature energy. Unanimous 4/4 from both hosts — 'a classic four stabby movie.' Compared directly to Krampus.",
+        quote: "Good jokes, good writing, fantastic cast — all game to play. This is a classic four stabby movie. — Ryan (Shanny agreed.)",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=The+Parenting+HBO+2025",
+        poster: "https://storage.buzzsprout.com/jv9pf58kj4trjhw3627uk2fe3rk2?.jpg"
+    },
+    {
+        title: "Critters",
+        year: 1986,
+        era: "late80s",
+        moods: ["laugh", "gross"],
+        company: ["friends", "partner", "kids"],
+        shannyScore: 3.5,
+        ryanScore: 3.5,
+        scale: 4,
+        desc: "Furry alien murderballs escape intergalactic prison and land on a Kansas farm. Two shape-shifting bounty hunters follow. Peak 80s creature feature with a warm family core.",
+        quote: "Grab your pipe bombs and hold on — Critters still packs a bite. — SlashBack Cinema",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=Critters+1986",
+        poster: "https://storage.buzzsprout.com/dgtbrthlr3cgvlqb689zhpxgg2zp?.jpg"
+    },
+    {
+        title: "The Omen",
+        year: 1976,
+        era: "70s",
+        moods: ["scared", "brain"],
+        company: ["solo", "partner"],
+        shannyScore: 3,
+        ryanScore: 3,
+        scale: 5,
+        desc: "Gregory Peck discovers his adopted son might be the Antichrist. Evil Mary Poppins nanny. Both hosts 3/5 — seminal and influential, but showing its age.",
+        quote: "Three stabs. Seminal movie, iconic scenes — but getting a little long in the tooth. — Shanny (Ryan agreed.)",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613",
+        jw: "https://www.justwatch.com/us/search?q=The+Omen+1976",
+        poster: "https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTM1NjMyNTIwLCJwdXIiOiJibG9iX2lkIn19--4ef022e5c141bb15f11be82f10ade3a52dfb924e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDAseyJjcm9wIjoiY2VudHJlIn1dLCJzYXZlciI6eyJxdWFsaXR5Ijo2MH0sImNvbG91cnNwYWNlIjoic3JnYiJ9LCJwdXIiOiJ2YXJpYXRpb24ifX0=--0b154cb6b88107719b1a277923d35676ba5519cc/SC-01-omen-ig-SQ.png"
+    },
+    {
+        title: "House",
+        year: 1986,
+        era: "late80s",
+        moods: ["laugh", "scared", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 2.5,
+        ryanScore: 2,
+        scale: 4,
+        desc: "A horror novelist in his aunt's haunted house processing Vietnam War trauma. Part haunted house, part monster movie, part after-school special. Creative rubber monster suits can't quite save it.",
+        quote: "It felt like a sitcom meets after-school special slash horror. I started at one... but I'm landing at two. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/house-1985-haunted-house-chaos-interdimensional-closet/id1776917613?i=1000746051338",
+        jw: "https://www.justwatch.com/us/search?q=House+1986+horror",
+        poster: "https://storage.buzzsprout.com/s4pj5nrki8e2yvsbir6c8jgv37i9?.jpg"
+    },
+    {
+        title: "My Bloody Valentine",
+        year: 1981,
+        era: "early80s",
+        moods: ["scared", "gross"],
+        company: ["friends", "solo"],
+        shannyScore: 3,
+        ryanScore: 3,
+        scale: 4,
+        desc: "A pickaxe-wielding killer terrorizes a mining town on Valentine's Day. Quentin Tarantino's favourite slasher. Well-shot, solid cast, genuinely mean kills. Both hosts 3/4 — better than expected.",
+        quote: "A pretty damn solid slasher. Well shot, well written, great backdrop — the kills are mean and creative. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/my-bloody-valentine-1981-the-slasher-that-ruined/id1776917613?i=1000748246821",
+        jw: "https://www.justwatch.com/us/search?q=My+Bloody+Valentine+1981",
+        poster: "https://storage.buzzsprout.com/3pejrr6aasu1pe5l60d5nj76wlhj?.jpg"
+    },
+    {
+        title: "Poltergeist",
+        year: 1982,
+        era: "early80s",
+        moods: ["scared", "gross"],
+        company: ["friends", "partner", "solo"],
+        shannyScore: 4,
+        ryanScore: 3.5,
+        scale: 4,
+        desc: "A suburban family's daughter gets pulled into the TV. Real skeletons, face-ripping, the clown. Shanny 4/4. Ryan 3.5/4 — would have been 4 if seen as a kid.",
+        quote: "I am giving this a four out of four. One of the great haunted house movies. Every single actor is incredible. — Shanny",
+        ep: "https://podcasts.apple.com/us/podcast/poltergeist-1982-suburban-hell-real-skeletons-and/id1776917613?i=1000756008373",
+        jw: "https://www.justwatch.com/us/search?q=Poltergeist+1982",
+        poster: "https://storage.buzzsprout.com/9dh0nc7ic4rd4c6hxzvfmgahmw9k?.jpg"
+    },
+    {
+        title: "The Stuff",
+        year: 1985,
+        era: "late80s",
+        moods: ["brain", "laugh"],
+        company: ["friends", "solo", "partner"],
+        shannyScore: 2.5,
+        ryanScore: 3.5,
+        scale: 4,
+        desc: "A mysterious dessert product takes over America — and eats its consumers from the inside. Sharp satire on consumerism. Ryan loved it (3.5/4). Shanny split the difference at 2.5/4.",
+        quote: "The satire is super sharp and so on point. I'm bringing this in at three and a half stabs. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/the-stuff-1985-you-ate-it-it-ate-you-back/id1776917613?i=1000758746024",
+        jw: "https://www.justwatch.com/us/search?q=The+Stuff+1985",
+        poster: "https://storage.buzzsprout.com/6utic5umhq7dwonicniepu0ijrwx?.jpg"
+    }
+    ];
+
+    // ── HELPERS ───────────────────────────────────────────────────────
+    const MASK_SVG = `<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
   <!-- Classic white/cream hockey mask with red details -->
   <ellipse cx="65" cy="66" rx="47" ry="54" fill="#e8e0d0" stroke="#c8b89a" stroke-width="2"/>
   <!-- Forehead ridge -->
@@ -462,326 +2342,465 @@ const MASK_SVG = `<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
   <circle cx="106" cy="68" r="2.5" fill="#aaa" stroke="#888" stroke-width="0.5"/>
   <circle cx="36" cy="45" r="2" fill="#aaa" stroke="#888" stroke-width="0.5"/>
   <circle cx="94" cy="45" r="2" fill="#aaa" stroke="#888" stroke-width="0.5"/>
-</svg>`;
+</svg>`
 
-function verdictInfo(avg, scale) {
-  const pct = avg / scale;
-  if (pct >= 0.9) return {label:'Classic — Must Watch', color:'#E8186D', bg:'rgba(232,24,109,0.12)'};
-  if (pct >= 0.75) return {label:'Great — Highly Recommended', color:'#e67e22', bg:'rgba(230,126,34,0.12)'};
-  if (pct >= 0.6) return {label:'Good — Worth Watching', color:'#f39c12', bg:'rgba(243,156,18,0.12)'};
-  if (pct >= 0.4) return {label:'Has Its Moments', color:'#888', bg:'rgba(128,128,128,0.1)'};
-  return {label:'Skip It', color:'#555', bg:'rgba(80,80,80,0.1)'};
-}
-const eraLabel = e => ({'70s':'1970s','early80s':'Early 80s','late80s':'Late 80s / Early 90s'}[e]||e);
-const moodLabel = m => ({laugh:'Campy fun',scared:'Genuinely scary',brain:'Social commentary',gross:'Practical effects'}[m]||m);
-const compLabel = c => ({solo:'Solo watch',partner:'Date night',friends:'Group watch',kids:'Family-friendly-ish'}[c]||c);
 
-// ── RIGHT PANEL TABS ──────────────────────────────────────────────
-function showTab(tab) {
-  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.panel-section').forEach(s => s.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
-}
 
-function buildSplits() {
-  const splits = films
-    .filter(f => Math.abs(f.shannyScore - f.ryanScore) >= 1)
-    .sort((a,b) => Math.abs(b.shannyScore-b.ryanScore) - Math.abs(a.shannyScore-a.ryanScore));
-  const el = document.getElementById('splits-list');
-  el.innerHTML = splits.map(f => {
-    const diff = Math.abs(f.shannyScore - f.ryanScore);
-    const big = diff >= 2;
-    return `<div class="split-card">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ;
+
+    function verdictInfo(avg, scale) {
+        const pct = avg / scale;
+        if (pct >= 0.9)
+            return {
+                label: 'Classic — Must Watch',
+                color: '#E8186D',
+                bg: 'rgba(232,24,109,0.12)'
+            };
+        if (pct >= 0.75)
+            return {
+                label: 'Great — Highly Recommended',
+                color: '#e67e22',
+                bg: 'rgba(230,126,34,0.12)'
+            };
+        if (pct >= 0.6)
+            return {
+                label: 'Good — Worth Watching',
+                color: '#f39c12',
+                bg: 'rgba(243,156,18,0.12)'
+            };
+        if (pct >= 0.4)
+            return {
+                label: 'Has Its Moments',
+                color: '#888',
+                bg: 'rgba(128,128,128,0.1)'
+            };
+        return {
+            label: 'Skip It',
+            color: '#555',
+            bg: 'rgba(80,80,80,0.1)'
+        };
+    }
+    const eraLabel = e => ({
+        '70s': '1970s',
+        'early80s': 'Early 80s',
+        'late80s': 'Late 80s / Early 90s'
+    }[e] || e);
+    const moodLabel = m => ({
+        laugh: 'Campy fun',
+        scared: 'Genuinely scary',
+        brain: 'Social commentary',
+        gross: 'Practical effects'
+    }[m] || m);
+    const compLabel = c => ({
+        solo: 'Solo watch',
+        partner: 'Date night',
+        friends: 'Group watch',
+        kids: 'Family-friendly-ish'
+    }[c] || c);
+
+    // ── RIGHT PANEL TABS ──────────────────────────────────────────────
+    function showTab(tab) {
+        document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.panel-section').forEach(s => s.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function buildSplits() {
+        const splits = films
+        .filter(f => Math.abs(f.shannyScore - f.ryanScore) >= 1)
+        .sort((a, b) => Math.abs(b.shannyScore - b.ryanScore) - Math.abs(a.shannyScore - a.ryanScore));
+        const el = document.getElementById('splits-list');
+        el.innerHTML = splits.map(f => {
+            const diff = Math.abs(f.shannyScore - f.ryanScore);
+            const big = diff >= 2;
+            return `<div class="split-card">
       <div class="split-thumb" style="background-image:url('${f.poster}')"></div>
       <div class="split-info">
-        <div class="split-title">${f.title} <span style="color:#444;font-size:12px;font-weight:400">(${f.year})</span></div>
+        <div class="split-title">${
+            f.title} <span style="color:#444;font-size:12px;font-weight:400">(${f.year})</span></div>
         <div class="split-scores">
-          <span class="score-lbl">Shanny</span>&nbsp;<span class="score-s">${f.shannyScore}</span>
+          <span class="score-lbl">Shanny</span>&nbsp;<span class="score-s">${
+            f.shannyScore}</span>
           <span style="color:#333">|</span>
-          <span class="score-lbl">Ryan</span>&nbsp;<span class="score-r">${f.ryanScore}</span>
+          <span class="score-lbl">Ryan</span>&nbsp;<span class="score-r">${
+            f.ryanScore}</span>
           <span style="color:#333">/ ${f.scale}</span>
         </div>
-        <span class="split-badge${big?' big':''}">⚡ ${big?'Major split':'Mild split'} (${diff.toFixed(1)} pts)</span>
+        <span class="split-badge${
+            big ? ' big' : ''}">⚡ ${big ? 'Major split' : 'Mild split'} (${diff.toFixed(1)} pts)</span>
         <div class="card-links">
-          <a class="card-link card-link-ep" href="${f.ep}" target="_blank">🎙 Listen</a>
+          <a class="card-link card-link-ep" href="${
+            f.ep}" target="_blank">🎙 Listen</a>
           <a class="card-link card-link-watch" href="${f.jw}" target="_blank">📺 Watch</a>
         </div>
       </div>
-    </div>`;
-  }).join('');
-}
+    </div>`
 
-function buildPerfects() {
-  const perfects = films.filter(f => f.shannyScore === f.scale && f.ryanScore === f.scale);
-  const el = document.getElementById('perfects-list');
-  el.innerHTML = `<p style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.6">Only ${perfects.length} films in 47 episodes have earned a unanimous perfect score from both Ryan and Shanny. These are the gold standard.</p>`;
-  el.innerHTML += perfects.map(f => `<div class="perfect-card">
+
+            ;
+        }).join('');
+    }
+
+    function buildPerfects() {
+        const perfects = films.filter(f => f.shannyScore === f.scale && f.ryanScore === f.scale);
+        const el = document.getElementById('perfects-list');
+        el.innerHTML = `<p style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.6">Only ${perfects.length} films in 47 episodes have earned a unanimous perfect score from both Ryan and Shanny. These are the gold standard.</p>`;
+        el.innerHTML += perfects.map(f => `<div class="perfect-card">
     <div class="perfect-thumb" style="background-image:url('${f.poster}')"></div>
     <div class="perfect-info">
-      <div class="perfect-title">${f.title}</div>
+      <div class="perfect-title">${
+        f.title}</div>
       <div class="perfect-year">${f.year} &bull; ${eraLabel(f.era)}</div>
       <div class="perfect-crown">⭐ ${f.scale}/${f.scale} — Both hosts</div>
       <div class="perfect-quote">"${f.quote.split('—')[0].trim()}"</div>
       <div class="card-links">
-        <a class="card-link card-link-ep" href="${f.ep}" target="_blank">🎙 Listen to Episode</a>
+        <a class="card-link card-link-ep" href="${
+        f.ep}" target="_blank">🎙 Listen to Episode</a>
         <a class="card-link card-link-watch" href="${f.jw}" target="_blank">📺 Where to Watch</a>
       </div>
     </div>
-  </div>`).join('');
-}
+  </div>`
 
-// ── WHEEL BUILDER ─────────────────────────────────────────────────
-function buildWheel(svgId, cx, cy, r, innerR) {
-  const svg = document.getElementById(svgId);
-  const n = films.length;
-  const segAngle = 360 / n;
-  const colors = ['#C0392B','#D4882A','#8B6914','#B7340E','#A07820','#9C2E12','#C49020'];
-  let paths = '', labels = '', dividers = '';
-  for (let i = 0; i < n; i++) {
-    const a1 = (i * segAngle - 90) * Math.PI / 180;
-    const a2 = ((i+1) * segAngle - 90) * Math.PI / 180;
-    const x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
-    const x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
-    const ix1=cx+innerR*Math.cos(a1),iy1=cy+innerR*Math.sin(a1);
-    const ix2=cx+innerR*Math.cos(a2),iy2=cy+innerR*Math.sin(a2);
-    paths += `<path d="M ${ix1} ${iy1} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} L ${ix2} ${iy2} A ${innerR} ${innerR} 0 0 0 ${ix1} ${iy1} Z" fill="${colors[i%colors.length]}" stroke="#1a0800" stroke-width="1.2"/>`;
-    const mid = ((i+0.5)*segAngle-90)*Math.PI/180;
-    const lr = (r+innerR)/2+8;
-    const lx=cx+lr*Math.cos(mid), ly=cy+lr*Math.sin(mid);
-    const rot=(i+0.5)*segAngle-90;
-    labels += `<text x="${lx}" y="${ly}" font-family="Oswald,sans-serif" font-size="8" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central" transform="rotate(${rot},${lx},${ly})" opacity="0.85">${films[i].year}</text>`;
-    dividers += `<line x1="${cx+innerR*Math.cos(a1)}" y1="${cy+innerR*Math.sin(a1)}" x2="${x1}" y2="${y1}" stroke="#1a0800" stroke-width="1"/>`;
-  }
-  const rings = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2a1000" stroke-width="7"/>
-    <circle cx="${cx}" cy="${cy}" r="${r-10}" fill="none" stroke="#8B1A00" stroke-width="3"/>
-    <circle cx="${cx}" cy="${cy}" r="${innerR}" fill="#0d0d0d" stroke="#2a1000" stroke-width="2"/>`;
-  svg.innerHTML = paths + dividers + rings + labels;
-}
 
-function spinWheel(svgId, maskId, spinClass, durVar, degVar, resultFn) {
-  const idx = Math.floor(Math.random() * films.length);
-  const n = films.length;
-  const segAngle = 360 / n;
-  const targetAngle = -(idx + 0.5) * segAngle;
-  const totalDeg = 5*360 + Math.random()*360 + targetAngle + 90;
-  const duration = 4000 + Math.random()*800;
-  const svg = document.getElementById(svgId);
-  const cx = svgId === 'wheel-inline' ? 140 : 150;
-  svg.style.transformOrigin = `${cx}px ${cx}px`;
-  svg.style.setProperty(durVar, (duration/1000)+'s');
-  svg.style.setProperty(degVar, totalDeg+'deg');
-  svg.classList.remove(spinClass);
-  void svg.offsetWidth;
-  svg.classList.add(spinClass);
-  setTimeout(() => {
-    // Glow eyes in mask
-    const gl = document.getElementById('gl-l');
-    const gr = document.getElementById('gl-r');
-    if (gl && gr) {
-      gl.style.cssText = 'opacity:0.9;animation:eyePulse 0.5s ease-in-out infinite alternate';
-      gr.style.cssText = 'opacity:0.9;animation:eyePulse 0.5s ease-in-out infinite alternate';
+        ).join('');
     }
-    setTimeout(() => resultFn(films[idx]), 500);
-  }, duration);
-}
 
-// Inline (desktop) wheel
-let inlineSpinning = false;
-function initInline() {
-  buildWheel('wheel-inline', 140, 140, 130, 52);
-  document.getElementById('mask-inline').innerHTML = MASK_SVG;
-}
-function spinInline() {
-  if (inlineSpinning) return;
-  inlineSpinning = true;
-  document.getElementById('spin-inline-btn').disabled = true;
-  document.getElementById('wheel-result-inline').classList.remove('show');
-  // Reset eyes
-  const gl = document.getElementById('gl-l');
-  const gr = document.getElementById('gl-r');
-  if (gl) { gl.style.opacity = '0'; gl.style.animation = ''; }
-  if (gr) { gr.style.opacity = '0'; gr.style.animation = ''; }
-  spinWheel('wheel-inline','mask-inline','wheel-spin-inline','--spin-dur','--spin-deg', f => {
-    document.getElementById('wri-title').textContent = f.title;
-    document.getElementById('wri-year').textContent = f.year + ' · ' + verdictInfo((f.shannyScore+f.ryanScore)/2, f.scale).label;
-    document.getElementById('wri-ep').href = f.ep;
-    document.getElementById('wri-watch').href = f.jw;
-    document.getElementById('wheel-result-inline').classList.add('show');
-  });
-}
-function resetInline() {
-  inlineSpinning = false;
-  document.getElementById('spin-inline-btn').disabled = false;
-  document.getElementById('wheel-result-inline').classList.remove('show');
-  const svg = document.getElementById('wheel-inline');
-  svg.classList.remove('wheel-spin-inline');
-  svg.style.transform = '';
-  const gl = document.getElementById('gl-l');
-  const gr = document.getElementById('gl-r');
-  if (gl) { gl.style.opacity='0'; gl.style.animation=''; }
-  if (gr) { gr.style.opacity='0'; gr.style.animation=''; }
-}
+    // ── WHEEL BUILDER ─────────────────────────────────────────────────
+    function buildWheel(svgId, cx, cy, r, innerR) {
+        const svg = document.getElementById(svgId);
+        const n = films.length;
+        const segAngle = 360 / n;
+        const colors = ['#C0392B', '#D4882A', '#8B6914', '#B7340E', '#A07820', '#9C2E12', '#C49020'];
+        let paths = '',
+            labels = '',
+            dividers = '';
+        for (let i = 0; i < n; i++) {
+            const a1 = (i * segAngle - 90) * Math.PI / 180;
+            const a2 = ((i + 1) * segAngle - 90) * Math.PI / 180;
+            const x1 = cx + r * Math.cos(a1),
+                y1 = cy + r * Math.sin(a1);
+            const x2 = cx + r * Math.cos(a2),
+                y2 = cy + r * Math.sin(a2);
+            const ix1 = cx + innerR * Math.cos(a1),
+                iy1 = cy + innerR * Math.sin(a1);
+            const ix2 = cx + innerR * Math.cos(a2),
+                iy2 = cy + innerR * Math.sin(a2);
+            paths += `<path d="M ${ix1} ${iy1} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} L ${ix2} ${iy2} A ${innerR} ${innerR} 0 0 0 ${ix1} ${iy1} Z" fill="${colors[i % colors.length]}" stroke="#1a0800" stroke-width="1.2"/>`;
+            const mid = ((i + 0.5) * segAngle - 90) * Math.PI / 180;
+            const lr = (r + innerR) / 2 + 8;
+            const lx = cx + lr * Math.cos(mid),
+                ly = cy + lr * Math.sin(mid);
+            const rot = (i + 0.5) * segAngle - 90;
+            labels += `<text x="${lx}" y="${ly}" font-family="Oswald,sans-serif" font-size="8" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central" transform="rotate(${rot},${lx},${ly})" opacity="0.85">${films[i].year}</text>`;
+            dividers += `<line x1="${cx + innerR * Math.cos(a1)}" y1="${cy + innerR * Math.sin(a1)}" x2="${x1}" y2="${y1}" stroke="#1a0800" stroke-width="1"/>`;
+        }
+        const rings = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2a1000" stroke-width="7"/>
+    <circle cx="${cx}" cy="${cy}" r="${r - 10}" fill="none" stroke="#8B1A00" stroke-width="3"/>
+    <circle cx="${cx}" cy="${cy}" r="${innerR}" fill="#0d0d0d" stroke="#2a1000" stroke-width="2"/>`;
+        svg.innerHTML = paths + dividers + rings + labels;
+    }
 
-// Modal (mobile) wheel — completely separate SVG, no shared elements
-let modalSpinning = false;
-let modalBuilt = false;
-function openModal() {
-  document.getElementById('wheel-overlay').classList.add('active');
-  document.getElementById('modal-result').classList.remove('show');
-  document.getElementById('modal-spin-area').style.display = 'block';
-  document.getElementById('spin-modal-btn').disabled = false;
-  modalSpinning = false;
-  if (!modalBuilt) {
-    buildWheel('wheel-modal', 150, 150, 138, 56);
-    // Build a separate mask SVG for modal (different IDs)
-    const maskEl = document.getElementById('mask-modal');
-    maskEl.innerHTML = MASK_SVG.replace(/id="gl-l"/,'id="mgl-l"').replace(/id="gl-r"/,'id="mgl-r"').replace(/id="hl-l"/,'id="mhl-l"').replace(/id="hl-r"/,'id="mhl-r"');
-    modalBuilt = true;
-  }
-}
-function closeModal() {
-  document.getElementById('wheel-overlay').classList.remove('active');
-}
-function spinModal() {
-  if (modalSpinning) return;
-  modalSpinning = true;
-  document.getElementById('spin-modal-btn').disabled = true;
-  // Reset modal eyes
-  ['mgl-l','mgl-r'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.style.opacity='0'; el.style.animation=''; }
-  });
-  const idx = Math.floor(Math.random() * films.length);
-  const n = films.length;
-  const segAngle = 360 / n;
-  const targetAngle = -(idx + 0.5) * segAngle;
-  const totalDeg = 5*360 + Math.random()*360 + targetAngle + 90;
-  const duration = 4200 + Math.random()*800;
-  const svg = document.getElementById('wheel-modal');
-  svg.style.transformOrigin = '150px 150px';
-  svg.style.setProperty('--spin-dur-m', (duration/1000)+'s');
-  svg.style.setProperty('--spin-deg-m', totalDeg+'deg');
-  svg.classList.remove('wheel-spin-modal');
-  void svg.offsetWidth;
-  svg.classList.add('wheel-spin-modal');
-  setTimeout(() => {
-    ['mgl-l','mgl-r'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.cssText = 'opacity:0.9;animation:eyePulse 0.5s ease-in-out infinite alternate';
-    });
-    setTimeout(() => {
-      const f = films[idx];
-      document.getElementById('modal-spin-area').style.display = 'none';
-      document.getElementById('mr-title').textContent = f.title;
-      document.getElementById('mr-year').textContent = f.year + ' · ' + verdictInfo((f.shannyScore+f.ryanScore)/2, f.scale).label;
-      document.getElementById('mr-ep').href = f.ep;
-      document.getElementById('mr-watch').href = f.jw;
-      document.getElementById('modal-result').classList.add('show');
-    }, 500);
-  }, duration);
-}
-function resetModal() {
-  modalSpinning = false;
-  document.getElementById('spin-modal-btn').disabled = false;
-  document.getElementById('modal-result').classList.remove('show');
-  document.getElementById('modal-spin-area').style.display = 'block';
-  const svg = document.getElementById('wheel-modal');
-  svg.classList.remove('wheel-spin-modal');
-  svg.style.transform = '';
-  ['mgl-l','mgl-r'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.style.opacity='0'; el.style.animation=''; }
-  });
-}
+    function spinWheel(svgId, maskId, spinClass, durVar, degVar, resultFn) {
+        const idx = Math.floor(Math.random() * films.length);
+        const n = films.length;
+        const segAngle = 360 / n;
+        const targetAngle = -(idx + 0.5) * segAngle;
+        const totalDeg = 5 * 360 + Math.random() * 360 + targetAngle + 90;
+        const duration = 4000 + Math.random() * 800;
+        const svg = document.getElementById(svgId);
+        const cx = svgId === 'wheel-inline' ? 140 : 150;
+        svg.style.transformOrigin = `${cx}px ${cx}px`;
+        svg.style.setProperty(durVar, (duration / 1000) + 's');
+        svg.style.setProperty(degVar, totalDeg + 'deg');
+        svg.classList.remove(spinClass);
+        void svg.offsetWidth;
+        svg.classList.add(spinClass);
+        setTimeout(() => {
+            // Glow eyes in mask
+            const gl = document.getElementById('gl-l');
+            const gr = document.getElementById('gl-r');
+            if (gl && gr) {
+                gl.style.cssText = 'opacity:0.9;animation:eyePulse 0.5s ease-in-out infinite alternate';
+                gr.style.cssText = 'opacity:0.9;animation:eyePulse 0.5s ease-in-out infinite alternate';
+            }
+            setTimeout(() => resultFn(films[idx]), 500);
+        }, duration);
+    }
 
-// ── QUIZ LOGIC ────────────────────────────────────────────────────
-const answers = {};
-// Tracks which films have been recommended to avoid repetition
-const shownFilms = new Set();
+    // Inline (desktop) wheel
+    let inlineSpinning = false;
+    function initInline() {
+        buildWheel('wheel-inline', 140, 140, 130, 52);
+        document.getElementById('mask-inline').innerHTML = MASK_SVG;
+    }
+    function spinInline() {
+        if (inlineSpinning)
+            return;
+        inlineSpinning = true;
+        document.getElementById('spin-inline-btn').disabled = true;
+        document.getElementById('wheel-result-inline').classList.remove('show');
+        // Reset eyes
+        const gl = document.getElementById('gl-l');
+        const gr = document.getElementById('gl-r');
+        if (gl) {
+            gl.style.opacity = '0';
+            gl.style.animation = '';
+        }
+        if (gr) {
+            gr.style.opacity = '0';
+            gr.style.animation = '';
+        }
+        spinWheel('wheel-inline', 'mask-inline', 'wheel-spin-inline', '--spin-dur', '--spin-deg', f => {
+            document.getElementById('wri-title').textContent = f.title;
+            document.getElementById('wri-year').textContent = f.year + ' · ' + verdictInfo((f.shannyScore + f.ryanScore) / 2, f.scale).label;
+            document.getElementById('wri-ep').href = f.ep;
+            document.getElementById('wri-watch').href = f.jw;
+            document.getElementById('wheel-result-inline').classList.add('show');
+        });
+    }
+    function resetInline() {
+        inlineSpinning = false;
+        document.getElementById('spin-inline-btn').disabled = false;
+        document.getElementById('wheel-result-inline').classList.remove('show');
+        const svg = document.getElementById('wheel-inline');
+        svg.classList.remove('wheel-spin-inline');
+        svg.style.transform = '';
+        const gl = document.getElementById('gl-l');
+        const gr = document.getElementById('gl-r');
+        if (gl) {
+            gl.style.opacity = '0';
+            gl.style.animation = '';
+        }
+        if (gr) {
+            gr.style.opacity = '0';
+            gr.style.animation = '';
+        }
+    }
 
-function scoreFilm(f) {
-  let s = 0;
-  if (f.moods.includes(answers.mood)) s += 4;
-  if (answers.company === 'any' || f.company.includes(answers.company)) s += 3;
-  if (answers.era === 'any' || f.era === answers.era) s += 3;
-  const avg = (f.shannyScore + f.ryanScore) / 2;
-  s += (avg / f.scale) * 3;
-  // Boost films not yet shown
-  if (!shownFilms.has(f.title)) s += 1.5;
-  return s;
-}
+    // Modal (mobile) wheel — completely separate SVG, no shared elements
+    let modalSpinning = false;
+    let modalBuilt = false;
+    function openModal() {
+        document.getElementById('wheel-overlay').classList.add('active');
+        document.getElementById('modal-result').classList.remove('show');
+        document.getElementById('modal-spin-area').style.display = 'block';
+        document.getElementById('spin-modal-btn').disabled = false;
+        modalSpinning = false;
+        if (!modalBuilt) {
+            buildWheel('wheel-modal', 150, 150, 138, 56);
+            // Build a separate mask SVG for modal (different IDs)
+            const maskEl = document.getElementById('mask-modal');
+            maskEl.innerHTML = MASK_SVG.replace(/id="gl-l"/, 'id="mgl-l"').replace(/id="gl-r"/, 'id="mgl-r"').replace(/id="hl-l"/, 'id="mhl-l"').replace(/id="hl-r"/, 'id="mhl-r"');
+            modalBuilt = true;
+        }
+    }
+    function closeModal() {
+        document.getElementById('wheel-overlay').classList.remove('active');
+    }
+    function spinModal() {
+        if (modalSpinning)
+            return;
+        modalSpinning = true;
+        document.getElementById('spin-modal-btn').disabled = true;
+        // Reset modal eyes
+        ['mgl-l', 'mgl-r'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.opacity = '0';
+                el.style.animation = '';
+            }
+        });
+        const idx = Math.floor(Math.random() * films.length);
+        const n = films.length;
+        const segAngle = 360 / n;
+        const targetAngle = -(idx + 0.5) * segAngle;
+        const totalDeg = 5 * 360 + Math.random() * 360 + targetAngle + 90;
+        const duration = 4200 + Math.random() * 800;
+        const svg = document.getElementById('wheel-modal');
+        svg.style.transformOrigin = '150px 150px';
+        svg.style.setProperty('--spin-dur-m', (duration / 1000) + 's');
+        svg.style.setProperty('--spin-deg-m', totalDeg + 'deg');
+        svg.classList.remove('wheel-spin-modal');
+        void svg.offsetWidth;
+        svg.classList.add('wheel-spin-modal');
+        setTimeout(() => {
+            ['mgl-l', 'mgl-r'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el)
+                    el.style.cssText = 'opacity:0.9;animation:eyePulse 0.5s ease-in-out infinite alternate';
+            });
+            setTimeout(() => {
+                const f = films[idx];
+                document.getElementById('modal-spin-area').style.display = 'none';
+                document.getElementById('mr-title').textContent = f.title;
+                document.getElementById('mr-year').textContent = f.year + ' · ' + verdictInfo((f.shannyScore + f.ryanScore) / 2, f.scale).label;
+                document.getElementById('mr-ep').href = f.ep;
+                document.getElementById('mr-watch').href = f.jw;
+                document.getElementById('modal-result').classList.add('show');
+            }, 500);
+        }, duration);
+    }
+    function resetModal() {
+        modalSpinning = false;
+        document.getElementById('spin-modal-btn').disabled = false;
+        document.getElementById('modal-result').classList.remove('show');
+        document.getElementById('modal-spin-area').style.display = 'block';
+        const svg = document.getElementById('wheel-modal');
+        svg.classList.remove('wheel-spin-modal');
+        svg.style.transform = '';
+        ['mgl-l', 'mgl-r'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.opacity = '0';
+                el.style.animation = '';
+            }
+        });
+    }
 
-function pick(btn) {
-  const key = btn.dataset.key;
-  const stepEl = btn.closest('.step');
-  const id = stepEl.id.replace('step-','');
-  stepEl.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  answers[key] = btn.dataset.val;
-  const nb = document.getElementById('next-'+id);
-  if (nb) nb.classList.add('show');
-}
+    // ── QUIZ LOGIC ────────────────────────────────────────────────────
+    const answers = {};
+    // Tracks which films have been recommended to avoid repetition
+    const shownFilms = new Set();
 
-function nextStep(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById('step-'+n).classList.add('active');
-  ['p0','p1','p2'].forEach((id,i) => {
-    const el = document.getElementById(id);
-    el.classList.remove('active','done');
-    if (i < n) el.classList.add('done');
-    if (i === n) el.classList.add('active');
-  });
-}
+    function scoreFilm(f) {
+        let s = 0;
+        if (f.moods.includes(answers.mood))
+            s += 4;
+        if (answers.company === 'any' || f.company.includes(answers.company))
+            s += 3;
+        if (answers.era === 'any' || f.era === answers.era)
+            s += 3;
+        const avg = (f.shannyScore + f.ryanScore) / 2;
+        s += (avg / f.scale) * 3;
+        // Boost films not yet shown
+        if (!shownFilms.has(f.title))
+            s += 1.5;
+        return s;
+    }
 
-function showResult() {
-  document.getElementById('prog-row').style.display = 'none';
-  document.getElementById('lucky-mobile-wrap').style.display = 'none';
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById('step-result').classList.add('active');
+    function pick(btn) {
+        const key = btn.dataset.key;
+        const stepEl = btn.closest('.step');
+        const id = stepEl.id.replace('step-', '');
+        stepEl.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[key] = btn.dataset.val;
+        const nb = document.getElementById('next-' + id);
+        if (nb)
+            nb.classList.add('show');
+    }
 
-  const sorted = [...films].sort((a,b) => scoreFilm(b) - scoreFilm(a));
-  const top = sorted[0];
-  const runner = sorted[1];
-  shownFilms.add(top.title);
+    function nextStep(n) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step-' + n).classList.add('active');
+        ['p0', 'p1', 'p2'].forEach((id, i) => {
+            const el = document.getElementById(id);
+            el.classList.remove('active', 'done');
+            if (i < n)
+                el.classList.add('done');
+            if (i === n)
+                el.classList.add('active');
+        });
+    }
 
-  const avg = (top.shannyScore + top.ryanScore) / 2;
-  const v = verdictInfo(avg, top.scale);
-  const disagreed = Math.abs(top.shannyScore - top.ryanScore) >= 1;
+    function showResult() {
+        document.getElementById('prog-row').style.display = 'none';
+        document.getElementById('lucky-mobile-wrap').style.display = 'none';
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step-result').classList.add('active');
 
-  const shareText = encodeURIComponent(`SlashBack Cinema says I should watch: ${top.title} (${top.year}) — ${avg.toFixed(1)}/${top.scale} Stabbies 🎬🔪`);
-  const shareUrl = encodeURIComponent('https://slashbackcinema.com');
+        const sorted = [...films].sort((a, b) => scoreFilm(b) - scoreFilm(a));
+        const top = sorted[0];
+        const runner = sorted[1];
+        shownFilms.add(top.title);
 
-  document.getElementById('step-result').innerHTML = `
+        const avg = (top.shannyScore + top.ryanScore) / 2;
+        const v = verdictInfo(avg, top.scale);
+        const disagreed = Math.abs(top.shannyScore - top.ryanScore) >= 1;
+
+        const shareText = encodeURIComponent(`SlashBack Cinema says I should watch: ${top.title} (${top.year}) — ${avg.toFixed(1)}/${top.scale} Stabbies 🎬🔪`);
+        const shareUrl = encodeURIComponent('https://slashbackcinema.com');
+
+        document.getElementById('step-result').innerHTML = `
     <div class="result-wrap">
       <div class="result-card">
-        <div class="poster-bg" style="background-image:url('${top.poster}')">
+        <div class="poster-bg" style="background-image:url('${
+
+        top.poster}')">
           <div class="thumb-year-badge">${top.year}</div>
         </div>
         <div class="result-body">
           <div class="rec-badge">SlashBack Recommends</div>
-          <div class="result-title">${top.title}</div>
+          <div class="result-title">${
+
+
+        top.title}</div>
           <div class="stabby-block">
             <div class="stabby-score-col">
               <div class="stabby-lbl">Stabby Score</div>
-              <div class="stabby-num">${avg%1===0?avg:avg.toFixed(1)}<span class="stabby-denom">/${top.scale}</span></div>
+              <div class="stabby-num">${
+
+
+        avg % 1 === 0 ? avg : avg.toFixed(1)}<span class="stabby-denom">/${top.scale}</span></div>
             </div>
             <div class="stabby-divider"></div>
             <div class="stabby-detail">
-              <div class="verdict-pill" style="color:${v.color};background:${v.bg}">${v.label}</div>
+              <div class="verdict-pill" style="color:${
+
+
+        v.color};background:${v.bg}">${v.label}</div>
               <div class="host-scores"><strong>Shanny</strong> ${top.shannyScore}/${top.scale} &nbsp;&nbsp;<strong>Ryan</strong> ${top.ryanScore}/${top.scale}</div>
-              ${disagreed?`<div class="disagreed-note">Hosts disagreed on this one — draw your own conclusion</div>`:''}
+              ${disagreed ? `<div class="disagreed-note">Hosts disagreed on this one — draw your own conclusion</div>` : ''}
             </div>
           </div>
-          <div class="ep-quote">"${top.quote}"</div>
+          <div class="ep-quote">"${
+
+        top.quote}"</div>
           <div class="result-desc">${top.desc}</div>
           <div class="tags">
-            <span class="tag">${eraLabel(top.era)}</span>
+            <span class="tag">${
+        eraLabel(top.era)}</span>
             <span class="tag">${moodLabel(answers.mood)}</span>
             <span class="tag">${compLabel(answers.company)}</span>
           </div>
           <div class="btn-row">
-            <a class="btn-ep" href="${top.ep}" target="_blank">🎙 Listen to Episode</a>
+            <a class="btn-ep" href="${
+
+        top.ep}" target="_blank">🎙 Listen to Episode</a>
             <a class="btn-watch" href="${top.jw}" target="_blank">📺 Where to Watch</a>
           </div>
         </div>
@@ -802,69 +2821,97 @@ function showResult() {
       <!-- Share row -->
       <div class="share-row">
         <span class="share-lbl">Share:</span>
-        <a class="share-btn" href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank">Twitter / X</a>
+        <a class="share-btn" href="https://twitter.com/intent/tweet?text=${
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        shareText}&url=${shareUrl}" target="_blank">Twitter / X</a>
         <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}" target="_blank">Facebook</a>
         <button class="share-btn" onclick="copyResult('${top.title}',${avg},'${avg.toFixed(1)}/${top.scale}')">Copy Link</button>
       </div>
 
-      ${runner?`<div class="runner">
+      ${
+
+        runner ? `<div class="runner">
         <div class="runner-img-bg" style="background-image:url('${runner.poster}')"></div>
         <div>
           <div class="runner-lbl">Also consider</div>
-          <div class="runner-title">${runner.title} (${runner.year})</div>
-          <div class="runner-score">${((runner.shannyScore+runner.ryanScore)/2).toFixed(1)}/${runner.scale} Stabbies &mdash; ${verdictInfo((runner.shannyScore+runner.ryanScore)/2,runner.scale).label}</div>
+          <div class="runner-title">${
+
+        runner.title} (${runner.year})</div>
+          <div class="runner-score">${((runner.shannyScore + runner.ryanScore) / 2).toFixed(1)}/${runner.scale} Stabbies &mdash; ${verdictInfo((runner.shannyScore + runner.ryanScore) / 2, runner.scale).label}</div>
         </div>
-      </div>`:''}
+      </div>`
+        : ''}
 
       <button class="pick-another-btn" onclick="reset()">🎬 Pick Another Movie</button>
-    </div>`;
-}
+    </div>`
 
-function submitEmail() {
-  const val = document.getElementById('email-input').value.trim();
-  if (!val || !val.includes('@')) {
-    document.getElementById('email-input').style.borderColor = '#cc1a1a';
-    return;
-  }
-  // In a real integration, POST to your email service here
-  document.getElementById('email-form').style.display = 'none';
-  document.getElementById('email-success').style.display = 'block';
-}
 
-function copyResult(title, avg, score) {
-  const text = `SlashBack Cinema recommended I watch ${title} — ${score} Stabbies 🔪 https://slashbackcinema.com`;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = event.target;
-    btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = 'Copy Link', 2000);
-  });
-}
+        ;
+    }
 
-function reset() {
-  Object.keys(answers).forEach(k => delete answers[k]);
-  document.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.next-btn').forEach(b => b.classList.remove('show'));
-  document.getElementById('prog-row').style.display = 'flex';
-  document.getElementById('lucky-mobile-wrap').style.display = 'block';
-  ['p0','p1','p2'].forEach((id,i) => {
-    const el = document.getElementById(id);
-    el.classList.remove('done','active');
-    if (i===0) el.classList.add('active');
-  });
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById('step-0').classList.add('active');
-}
+    function submitEmail() {
+        const val = document.getElementById('email-input').value.trim();
+        if (!val || !val.includes('@')) {
+            document.getElementById('email-input').style.borderColor = '#cc1a1a';
+            return;
+        }
+        // In a real integration, POST to your email service here
+        document.getElementById('email-form').style.display = 'none';
+        document.getElementById('email-success').style.display = 'block';
+    }
 
-// ── INIT ──────────────────────────────────────────────────────────
-// Inject eyePulse keyframes into a style tag
-const ks = document.createElement('style');
-ks.textContent = '@keyframes eyePulse{from{opacity:0.6}to{opacity:1}}' +
-  '.wheel-spin-modal{animation:wheelSpin var(--spin-dur-m,4s) cubic-bezier(0.17,0.67,0.12,1) forwards}';
-document.head.appendChild(ks);
+    function copyResult(title, avg, score) {
+        const text = `SlashBack Cinema recommended I watch ${title} — ${score} Stabbies 🔪 https://slashbackcinema.com`;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = event.target;
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy Link', 2000);
+        });
+    }
 
-buildSplits();
-buildPerfects();
-initInline();
-</script>
+    function reset() {
+        Object.keys(answers).forEach(k => delete answers[k]);
+        document.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
+        document.querySelectorAll('.next-btn').forEach(b => b.classList.remove('show'));
+        document.getElementById('prog-row').style.display = 'flex';
+        document.getElementById('lucky-mobile-wrap').style.display = 'block';
+        ['p0', 'p1', 'p2'].forEach((id, i) => {
+            const el = document.getElementById(id);
+            el.classList.remove('done', 'active');
+            if (i === 0)
+                el.classList.add('active');
+        });
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step-0').classList.add('active');
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────────
+    // Inject eyePulse keyframes into a style tag
+    const ks = document.createElement('style');
+    ks.textContent = '@keyframes eyePulse{from{opacity:0.6}to{opacity:1}}' +
+    '.wheel-spin-modal{animation:wheelSpin var(--spin-dur-m,4s) cubic-bezier(0.17,0.67,0.12,1) forwards}';
+    document.head.appendChild(ks);
+
+    buildSplits();
+    buildPerfects();
+    initInline();
+    </script>
 </body>
 </html>
