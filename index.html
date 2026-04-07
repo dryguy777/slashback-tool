@@ -2305,50 +2305,38 @@
     ];
 
     // ── HELPERS ───────────────────────────────────────────────────────
-    const MASK_SVG = `<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-  <!-- Classic white/cream hockey mask with red details -->
-  <ellipse cx="65" cy="66" rx="47" ry="54" fill="#e8e0d0" stroke="#c8b89a" stroke-width="2"/>
-  <!-- Forehead ridge -->
-  <path d="M32 42 Q65 32 98 42" stroke="#c8b89a" stroke-width="1.5" fill="none"/>
-  <!-- Cheek ridges -->
-  <path d="M22 65 Q28 55 32 50" stroke="#c8b89a" stroke-width="1.5" fill="none"/>
-  <path d="M108 65 Q102 55 98 50" stroke="#c8b89a" stroke-width="1.5" fill="none"/>
-  <!-- Chin ridge -->
-  <path d="M35 105 Q65 115 95 105" stroke="#c8b89a" stroke-width="1.5" fill="none"/>
-  <!-- Red slash marks (battle damage) -->
-  <path d="M50 38 L44 58" stroke="#cc2222" stroke-width="3" stroke-linecap="round"/>
-  <path d="M58 36 L52 56" stroke="#cc2222" stroke-width="2" stroke-linecap="round"/>
-  <!-- Eye holes - large oval cutouts -->
-  <ellipse id="hl-l" cx="47" cy="63" rx="12" ry="10" fill="#1a0a0a"/>
-  <ellipse id="hl-r" cx="83" cy="63" rx="12" ry="10" fill="#1a0a0a"/>
-  <!-- Eye glow (red, hidden by default) -->
-  <ellipse id="gl-l" cx="47" cy="63" rx="10" ry="8" fill="#ee0000" opacity="0"/>
-  <ellipse id="gl-r" cx="83" cy="63" rx="10" ry="8" fill="#ee0000" opacity="0"/>
-  <!-- Nose holes row -->
-  <ellipse cx="59" cy="80" rx="4.5" ry="3.5" fill="#1a0a0a"/>
-  <ellipse cx="71" cy="80" rx="4.5" ry="3.5" fill="#1a0a0a"/>
-  <!-- Mouth hole grid -->
-  <ellipse cx="49" cy="97" rx="3.5" ry="3" fill="#1a0a0a"/>
-  <ellipse cx="59" cy="100" rx="3.5" ry="3" fill="#1a0a0a"/>
-  <ellipse cx="71" cy="100" rx="3.5" ry="3" fill="#1a0a0a"/>
-  <ellipse cx="81" cy="97" rx="3.5" ry="3" fill="#1a0a0a"/>
-  <!-- Chin holes -->
-  <ellipse cx="54" cy="110" rx="3" ry="2.5" fill="#1a0a0a"/>
-  <ellipse cx="65" cy="112" rx="3" ry="2.5" fill="#1a0a0a"/>
-  <ellipse cx="76" cy="110" rx="3" ry="2.5" fill="#1a0a0a"/>
-  <!-- Rivets -->
-  <circle cx="65" cy="26" r="3" fill="#aaa" stroke="#888" stroke-width="0.5"/>
-  <circle cx="24" cy="68" r="2.5" fill="#aaa" stroke="#888" stroke-width="0.5"/>
-  <circle cx="106" cy="68" r="2.5" fill="#aaa" stroke="#888" stroke-width="0.5"/>
-  <circle cx="36" cy="45" r="2" fill="#aaa" stroke="#888" stroke-width="0.5"/>
-  <circle cx="94" cy="45" r="2" fill="#aaa" stroke="#888" stroke-width="0.5"/>
+    const MASK_SVG = `<svg viewBox="0 0 130 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main mask body: white hockey mask shape -->
+  <path d="M65 8 C35 8 18 28 16 55 C14 75 18 95 25 110 C32 124 45 138 65 142 C85 138 98 124 105 110 C112 95 116 75 114 55 C112 28 95 8 65 8 Z" fill="#f0ede6" stroke="#c8bfb0" stroke-width="2"/>
+  <!-- Forehead horizontal ridge line -->
+  <path d="M28 48 Q65 40 102 48" stroke="#b8b0a0" stroke-width="1.5" fill="none"/>
+  <!-- Left eye hole - classic teardrop/oval shape -->
+  <ellipse id="hl-l" cx="46" cy="65" rx="14" ry="11" fill="#111"/>
+  <!-- Right eye hole -->
+  <ellipse id="hl-r" cx="84" cy="65" rx="14" ry="11" fill="#111"/>
+  <!-- Eye glow - red, hidden until spin lands -->
+  <ellipse id="gl-l" cx="46" cy="65" rx="12" ry="9" fill="#dd0000" opacity="0"/>
+  <ellipse id="gl-r" cx="84" cy="65" rx="12" ry="9" fill="#dd0000" opacity="0"/>
+  <!-- Nose bridge cutout (two small ovals) -->
+  <ellipse cx="58" cy="85" rx="5" ry="4" fill="#111"/>
+  <ellipse cx="72" cy="85" rx="5" ry="4" fill="#111"/>
+  <!-- Mouth holes - two rows, classic hockey mask grid -->
+  <ellipse cx="50" cy="104" rx="4" ry="3.5" fill="#111"/>
+  <ellipse cx="62" cy="107" rx="4" ry="3.5" fill="#111"/>
+  <ellipse cx="74" cy="107" rx="4" ry="3.5" fill="#111"/>
+  <ellipse cx="86" cy="104" rx="4" ry="3.5" fill="#111"/>
+  <ellipse cx="56" cy="118" rx="3.5" ry="3" fill="#111"/>
+  <ellipse cx="68" cy="120" rx="3.5" ry="3" fill="#111"/>
+  <ellipse cx="80" cy="118" rx="3.5" ry="3" fill="#111"/>
+  <!-- Red slash marks - two parallel diagonal lines on right cheek -->
+  <line x1="88" y1="52" x2="100" y2="78" stroke="#cc1111" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="95" y1="50" x2="107" y2="74" stroke="#cc1111" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Center forehead rivet -->
+  <circle cx="65" cy="22" r="3" fill="#888"/>
+  <!-- Side rivets -->
+  <circle cx="20" cy="72" r="2.5" fill="#888"/>
+  <circle cx="110" cy="72" r="2.5" fill="#888"/>
 </svg>`
-
-
-
-
-
-
 
 
 
@@ -2866,15 +2854,43 @@
         ;
     }
 
-    function submitEmail() {
-        const val = document.getElementById('email-input').value.trim();
+    async function submitEmail() {
+        const input = document.getElementById('email-input');
+        const val = input.value.trim();
         if (!val || !val.includes('@')) {
-            document.getElementById('email-input').style.borderColor = '#cc1a1a';
+            input.style.borderColor = '#cc1a1a';
             return;
         }
-        // In a real integration, POST to your email service here
-        document.getElementById('email-form').style.display = 'none';
-        document.getElementById('email-success').style.display = 'block';
+        const btn = document.querySelector('.email-submit');
+        btn.textContent = 'Subscribing...';
+        btn.disabled = true;
+        try {
+            const res = await fetch('https://emailoctopus.com/api/1.6/lists/79b6f4f4-327f-11f1-972b-7be7a86ce308/contacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    api_key: 'eo_102af0bb8964b8c878716e863229e0a2f7468e150493f6214f5e9c56ac8d888a',
+                    email_address: val,
+                    status: 'SUBSCRIBED'
+                })
+            });
+            const data = await res.json();
+            // SUCCESS or MEMBER_EXISTS_WITH_EMAIL_ADDRESS both mean they're on the list
+            if (res.ok || (data.error && data.error.code === 'MEMBER_EXISTS_WITH_EMAIL_ADDRESS')) {
+                document.getElementById('email-form').style.display = 'none';
+                document.getElementById('email-success').style.display = 'block';
+            } else {
+                btn.textContent = 'Try again';
+                btn.disabled = false;
+                input.style.borderColor = '#cc1a1a';
+            }
+        } catch (e) {
+            btn.textContent = 'Try again';
+            btn.disabled = false;
+            input.style.borderColor = '#cc1a1a';
+        }
     }
 
     function copyResult(title, avg, score) {
