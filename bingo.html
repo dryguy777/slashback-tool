@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SlashBack Cinema Bingo</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --orange:#e85d04;
+  --orange-dark:#c44b00;
+  --orange-light:#f48c06;
+  --cream:#fdf0d5;
+  --cream-dark:#f0d9a8;
+  --black:#0a0806;
+  --card-bg:#fff8ee;
+  --marked:#e85d04;
+  --marked-text:#fff;
+  --pink:#e8186d;
+  --pink-bright:#ff1f7a;
+}
+
+body{
+  background: var(--cream);
+  font-family:'Oswald',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── HEADER ── */
+.header{
+  background: var(--orange);
+  padding: 20px 20px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(0,0,0,0.04) 8px,
+    rgba(0,0,0,0.04) 16px
+  );
+}
+
+.logo-text{
+  font-size: clamp(13px, 3.5vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.bingo-title{
+  font-size: clamp(64px, 18vw, 110px);
+  font-weight: 900;
+  color: white;
+  line-height: 0.85;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  position: relative;
+  text-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+.bingo-title span{
+  color: white;
+  -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+}
+
+.header-sub{
+  font-size: clamp(11px, 3vw, 14px);
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 0 16px;
+  position: relative;
+}
+
+/* ── CONTROLS ── */
+.controls{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 14px 16px;
+  background: var(--orange-dark);
+  position: relative;
+}
+
+.btn{
+  font-family:'Oswald',sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.btn:hover{ background: rgba(255,255,255,0.25); }
+.btn:active{ transform: scale(0.97); }
+
+.btn-new{
+  background: var(--black);
+  border-color: var(--black);
+}
+.btn-new:hover{ background: #1a1a1a; }
+
+/* ── BINGO COUNTER ── */
+.score-bar{
+  background: var(--orange-light);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+}
+
+.score-bar strong{ font-size: 18px; font-weight: 900; }
+
+/* ── GRID ── */
+.grid-wrap{
+  padding: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.cell{
+  aspect-ratio: 1;
+  background: var(--card-bg);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px;
+  cursor: pointer;
+  border: 2px solid var(--cream-dark);
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cell:hover{
+  border-color: var(--orange);
+  transform: scale(1.03);
+}
+
+.cell:active{ transform: scale(0.96); }
+
+.cell-text{
+  font-size: clamp(8px, 2.2vw, 11px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--orange-dark);
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+/* FREE SPACE */
+.cell.free-space{
+  background: var(--orange);
+  border-color: var(--orange-dark);
+  cursor: default;
+}
+.cell.free-space .cell-text{ color: white; font-size: clamp(8px, 2vw, 10px); }
+.cell.free-space:hover{ transform: none; }
+
+/* MARKED */
+.cell.marked{
+  background: var(--orange);
+  border-color: var(--orange-dark);
+  transform: scale(1.0);
+}
+.cell.marked .cell-text{ color: white; }
+.cell.marked::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%);
+}
+
+/* BINGO LINE */
+.cell.bingo-line{
+  background: var(--black);
+  border-color: var(--black);
+  animation: bingoFlash 0.4s ease forwards;
+}
+.cell.bingo-line .cell-text{ color: var(--orange-light); }
+
+@keyframes bingoFlash{
+  0%{ transform: scale(1); }
+  50%{ transform: scale(1.12); }
+  100%{ transform: scale(1.05); }
+}
+
+/* stamp effect */
+@keyframes stamp{
+  0%{ transform: scale(1.4); opacity:0.7; }
+  60%{ transform: scale(0.95); opacity:1; }
+  100%{ transform: scale(1); opacity:1; }
+}
+.cell.just-marked{ animation: stamp 0.25s ease forwards; }
+
+/* ── BINGO WIN OVERLAY ── */
+.win-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,6,0.88);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.win-overlay.show{ display: flex; }
+
+.win-box{
+  background: var(--orange);
+  border-radius: 12px;
+  padding: 32px 28px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: winPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+@keyframes winPop{
+  from{ transform: scale(0.7); opacity:0; }
+  to{ transform: scale(1); opacity:1; }
+}
+
+.win-box::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(0,0,0,0.05) 6px,rgba(0,0,0,0.05) 12px);
+}
+
+.win-emoji{ font-size: 48px; margin-bottom: 8px; position:relative; }
+
+.win-title{
+  font-size: 52px;
+  font-weight: 900;
+  color: white;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.win-sub{
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Email form */
+.win-form{ position: relative; }
+
+.win-form-label{
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.win-form-sub{
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.win-input{
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  background: white;
+  color: var(--black);
+  margin-bottom: 10px;
+  outline: none;
+}
+.win-input::placeholder{ color: #aaa; }
+
+.win-submit{
+  width: 100%;
+  padding: 13px;
+  background: var(--black);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-bottom: 10px;
+}
+.win-submit:hover{ background: #222; }
+
+.win-skip{
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  padding: 4px;
+}
+.win-skip:hover{ color: white; }
+
+.win-episode-link{
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  padding: 6px 0;
+  margin-bottom: 4px;
+}
+.win-episode-link:hover{ color: white; }
+
+.win-sent{
+  display: none;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px 0;
+}
+
+/* ── FOOTER ── */
+.footer{
+  text-align: center;
+  padding: 16px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange-dark);
+  opacity: 0.7;
+}
+
+/* ── CONFETTI ── */
+.confetti-wrap{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  overflow: hidden;
+}
+.confetti-piece{
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  top: -20px;
+  animation: confettiFall linear forwards;
+  border-radius: 2px;
+}
+@keyframes confettiFall{
+  to{ transform: translateY(110vh) rotate(720deg); opacity:0; }
+}
+
+/* ── MOBILE REFINEMENTS ── */
+@media(max-width:400px){
+  .grid{ gap: 4px; }
+  .grid-wrap{ padding: 8px; }
+  .cell{ border-radius: 6px; }
+}
+
+@media(min-width:520px){
+  .cell-text{ font-size: 12px; }
+  .grid{ gap: 8px; }
+  .grid-wrap{ padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-text">SlashBack Cinema</div>
+  <div class="bingo-title">Bing<span>O</span></div>
+  <div class="header-sub">Listen along &amp; tap when you hear it</div>
+</div>
+
+<div class="controls">
+  <button class="btn btn-new" onclick="newCard()">🎲 New Card</button>
+  <button class="btn" onclick="resetMarks()">↺ Reset Marks</button>
+</div>
+
+<div class="score-bar">
+  <span>Squares marked: <strong id="mark-count">1</strong></span>
+  <span id="bingo-status">Get 5 in a row!</span>
+</div>
+
+<div class="grid-wrap">
+  <div class="grid" id="bingo-grid"></div>
+</div>
+
+<div class="footer">
+  Email wins to ryan@slashbackcinema.com · IG @slashbackcinema · TT @slashback.cinema
+</div>
+
+<!-- WIN OVERLAY -->
+<div class="win-overlay" id="win-overlay">
+  <div class="win-box">
+    <div class="win-emoji">🔪</div>
+    <div class="win-title">BINGO!</div>
+    <div class="win-sub">You got five in a row!</div>
+    <div class="win-form" id="win-form-wrap">
+      <span class="win-form-label">Enter the monthly prize draw!</span>
+      <div class="win-form-sub">Drop your email and we'll enter you to win — Ryan &amp; Shanny pick a winner every month.</div>
+      <input type="email" class="win-input" id="win-email" placeholder="your@email.com">
+      <input type="text" class="win-input" id="win-episode" placeholder="Which episode were you listening to? (optional)" style="margin-top:-2px">
+      <textarea class="win-input" id="win-note" placeholder="Send us a note! (optional)" rows="3" style="margin-top:-2px;resize:none;line-height:1.5"></textarea>
+      <button class="win-submit" onclick="submitEmail()">Enter me to win 🎬</button>
+      <a href="https://slashbackcinema.com/episodes" target="_top" class="win-episode-link">🎬 Browse episodes instead →</a>
+      <button class="win-skip" onclick="closeWin()">No thanks, just keep playing</button>
+    </div>
+    <div class="win-sent" id="win-sent">
+      🎉 You're entered! Good luck!<br><br>
+      <a class="win-submit" href="https://slashbackcinema.com/episodes" target="_top" style="display:block;text-decoration:none;margin-bottom:8px">🎬 Listen to an episode →</a>
+      <button class="win-submit" onclick="closeWin()" style="background:#444">Keep playing</button>
+    </div>
+  </div>
+</div>
+<div id="eo-bingo-wrap" style="display:none"></div>
+
+<!-- CONFETTI -->
+<div class="confetti-wrap" id="confetti-wrap"></div>
+
+<script>
+// ── ALL PHRASES (pool of 50 — 24 drawn randomly + FREE SPACE) ──
+const ALL_PHRASES = [
+  // From existing card
+  "ICONIC",
+  "CREEPY",
+  "MASTERPIECE",
+  "CAMPY",
+  "VHS VIBES",
+  "EYE CANDY",
+  "DEEP DIVE",
+  "UNSETTLING",
+  "OVER THE TOP",
+  "WOW!",
+  "BIZARRE",
+  "B-MOVIE",
+  "CULT CLASSIC",
+  "GORE",
+  "STEPHEN KING",
+  "NIGHTMARE",
+  "REWIND",
+  "SCHLOCKY",
+  "ZOMBIE",
+  "BAD ACTING",
+  "STABBY SCORE",
+  "EPIC!!",
+  "BLOOD",
+  // New from transcripts
+  "RUBBER MONSTER",
+  "PRACTICAL EFFECTS",
+  "IN CAMERA",
+  "THIRD ACT",
+  "SEQUEL",
+  "TRAUMA",
+  "VIETNAM",
+  "GOVERNMENT COVER-UP",
+  "SATIRE",
+  "HAUNTED",
+  "SLASHER",
+  "STILL HOLDS UP",
+  "SO BAD IT'S GOOD",
+  "MUST WATCH",
+  "CHILDHOOD MEMORY",
+  "GEN X",
+  "OPENING SCENE",
+  "REMAKE",
+  "FRANCHISE",
+  "SLOW BURN",
+  "FINAL GIRL",
+  "HOLY COW",
+  "MIND BLOWN",
+  "NEVER SEEN IT",
+  "WATCH IT AGAIN",
+  "POSTER ART",
+  "JUMP SCARE",
+  "SOUNDTRACK",
+];
+
+// ── STATE ──
+let board = [];   // 25 items (index 12 = FREE SPACE)
+let marked = new Set([12]);  // free space pre-marked
+let bingoLines = new Set();
+let wonAlready = false;
+
+// ── INIT ──
+function newCard() {
+  // Shuffle and pick 24 from pool
+  const shuffled = [...ALL_PHRASES].sort(() => Math.random() - 0.5);
+  const picked = shuffled.slice(0, 24);
+  // Insert FREE SPACE at index 12
+  board = [...picked.slice(0,12), 'FREE SPACE', ...picked.slice(12)];
+  marked = new Set([12]);
+  bingoLines = new Set();
+  wonAlready = false;
+  render();
+  updateScore();
+}
+
+function resetMarks() {
+  marked = new Set([12]);
+  bingoLines = new Set();
+  wonAlready = false;
+  render();
+  updateScore();
+}
+
+// ── RENDER ──
+function render() {
+  const grid = document.getElementById('bingo-grid');
+  grid.innerHTML = '';
+  board.forEach((phrase, i) => {
+    const cell = document.createElement('div');
+    const isFree = i === 12;
+    const isMarked = marked.has(i);
+    const isBingo = bingoLines.has(i);
+
+    cell.className = 'cell' + 
+      (isFree ? ' free-space' : '') +
+      (isMarked && !isFree ? ' marked' : '') +
+      (isBingo ? ' bingo-line' : '');
+
+    cell.innerHTML = `<span class="cell-text">${phrase}</span>`;
+
+    if (!isFree) {
+      cell.addEventListener('click', () => toggle(i, cell));
+    }
+    grid.appendChild(cell);
+  });
+}
+
+function toggle(i, cell) {
+  if (marked.has(i)) {
+    marked.delete(i);
+  } else {
+    marked.add(i);
+    cell.classList.add('just-marked');
+    setTimeout(() => cell.classList.remove('just-marked'), 300);
+  }
+  checkBingo();
+  updateScore();
+  // Re-render to reflect bingo lines
+  render();
+}
+
+// ── BINGO CHECK ──
+function checkBingo() {
+  const lines = [
+    // Rows
+    [0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],
+    // Cols
+    [0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],
+    // Diagonals
+    [0,6,12,18,24],[4,8,12,16,20]
+  ];
+
+  let newBingo = false;
+  const prevSize = bingoLines.size;
+
+  lines.forEach(line => {
+    if (line.every(i => marked.has(i))) {
+      line.forEach(i => bingoLines.add(i));
+      newBingo = true;
+    }
+  });
+
+  if (newBingo && bingoLines.size > prevSize && !wonAlready) {
+    wonAlready = true;
+    setTimeout(() => showWin(), 400);
+  }
+}
+
+function updateScore() {
+  document.getElementById('mark-count').textContent = marked.size;
+  const remaining = 25 - marked.size;
+  document.getElementById('bingo-status').textContent = 
+    bingoLines.size > 0 ? '🔪 BINGO!' : 
+    remaining === 0 ? 'Full card!' : 
+    `${remaining} to go`;
+}
+
+// ── WIN ──
+function showWin() {
+  confetti();
+  document.getElementById('win-overlay').classList.add('show');
+}
+
+function closeWin() {
+  document.getElementById('win-overlay').classList.remove('show');
+  // Keep playing with same card
+  render();
+  updateScore();
+}
+
+async function submitEmail() {
+  const email = document.getElementById('win-email').value.trim();
+  const input = document.getElementById('win-email');
+  if (!email || !email.includes('@')) {
+    input.style.border = '2px solid white';
+    input.placeholder = 'Enter a valid email!';
+    return;
+  }
+
+  const btn = document.querySelector('.win-submit');
+  btn.textContent = 'Entering...';
+  btn.disabled = true;
+
+  try {
+    await fetch('https://emailoctopus.com/api/1.6/lists/0e0fe442-328c-11f1-9364-3160c7a5eb81/contacts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: 'eo_102af0bb8964b8c878716e863229e0a2f7468e150493f6214f5e9c56ac8d888a',
+        email_address: email,
+        status: 'SUBSCRIBED',
+        fields: { Notes: 'Bingo winner — episode: ' + (document.getElementById('win-episode').value.trim() || 'not specified') + ' | note: ' + (document.getElementById('win-note').value.trim() || 'none') }
+      })
+    });
+  } catch(e) {
+    // Silently continue even if API call fails
+  }
+
+  // Notify Ryan of prize draw entry
+  const episode = document.getElementById('win-episode').value.trim() || 'Not specified';
+  const note = document.getElementById('win-note').value.trim() || 'None';
+  const subject = encodeURIComponent('SlashBack Bingo Winner 🔪');
+  const body = encodeURIComponent('New bingo winner — enter in monthly prize draw!\n\nEmail: ' + email + '\nEpisode: ' + episode + '\nNote: ' + note);
+  window.open('mailto:ryan@slashbackcinema.com?subject=' + subject + '&body=' + body);
+
+  document.getElementById('win-form-wrap').style.display = 'none';
+  document.getElementById('win-sent').style.display = 'block';
+}
+
+// ── CONFETTI ──
+function confetti() {
+  const wrap = document.getElementById('confetti-wrap');
+  wrap.innerHTML = '';
+  const colors = ['#e85d04','#f48c06','#fff','#0a0806','#e8186d','#fdf0d5'];
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.cssText = `
+      left: ${Math.random()*100}%;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration: ${1.5 + Math.random()*2}s;
+      animation-delay: ${Math.random()*0.5}s;
+      transform: rotate(${Math.random()*360}deg);
+      width: ${6 + Math.random()*6}px;
+      height: ${10 + Math.random()*8}px;
+    `;
+    wrap.appendChild(piece);
+  }
+  setTimeout(() => wrap.innerHTML = '', 4000);
+}
+
+// ── START ──
+newCard();
+</script>
+</body>
+</html>
