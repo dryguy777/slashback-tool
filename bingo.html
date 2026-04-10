@@ -9,21 +9,21 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 
 :root{
-  --orange:#e85d04;
-  --orange-dark:#c44b00;
-  --orange-light:#f48c06;
-  --cream:#fdf0d5;
-  --cream-dark:#f0d9a8;
+  --orange:#e8186d;
+  --orange-dark:#b50f54;
+  --orange-light:#ff1f7a;
+  --cream:#0a0806;
+  --cream-dark:#16120e;
   --black:#0a0806;
-  --card-bg:#fff8ee;
-  --marked:#e85d04;
+  --card-bg:#16120e;
+  --marked:#e8186d;
   --marked-text:#fff;
   --pink:#e8186d;
   --pink-bright:#ff1f7a;
 }
 
 body{
-  background: var(--cream);
+  background: var(--black);
   font-family:'Oswald',sans-serif;
   min-height:100vh;
   overflow-x:hidden;
@@ -31,7 +31,7 @@ body{
 
 /* ── HEADER ── */
 .header{
-  background: var(--orange);
+  background: var(--pink);
   padding: 20px 20px 0;
   text-align: center;
   position: relative;
@@ -59,6 +59,14 @@ body{
   color: white;
   position: relative;
   margin-bottom: 4px;
+}
+
+.bingo-title-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  position:relative;
 }
 
 .bingo-title{
@@ -92,7 +100,7 @@ body{
   gap: 8px;
   justify-content: center;
   padding: 14px 16px;
-  background: var(--orange-dark);
+  background: #b50f54;
   position: relative;
 }
 
@@ -122,7 +130,7 @@ body{
 
 /* ── BINGO COUNTER ── */
 .score-bar{
-  background: var(--orange-light);
+  background: #b50f54;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -158,7 +166,7 @@ body{
   text-align: center;
   padding: 4px;
   cursor: pointer;
-  border: 2px solid var(--cream-dark);
+  border: 2px solid rgba(255,255,255,0.08);
   transition: all 0.15s;
   position: relative;
   overflow: hidden;
@@ -178,7 +186,7 @@ body{
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--orange-dark);
+  color: #cacaca;
   line-height: 1.2;
   position: relative;
   z-index: 2;
@@ -186,8 +194,8 @@ body{
 
 /* FREE SPACE */
 .cell.free-space{
-  background: var(--orange);
-  border-color: var(--orange-dark);
+  background: var(--pink);
+  border-color: #cacaca;
   cursor: default;
 }
 .cell.free-space .cell-text{ color: white; font-size: clamp(8px, 2vw, 10px); }
@@ -195,8 +203,8 @@ body{
 
 /* MARKED */
 .cell.marked{
-  background: var(--orange);
-  border-color: var(--orange-dark);
+  background: var(--pink);
+  border-color: #cacaca;
   transform: scale(1.0);
 }
 .cell.marked .cell-text{ color: white; }
@@ -243,7 +251,7 @@ body{
 .win-overlay.show{ display: flex; }
 
 .win-box{
-  background: var(--orange);
+  background: var(--pink);
   border-radius: 12px;
   padding: 32px 28px;
   max-width: 380px;
@@ -263,7 +271,7 @@ body{
   content:'';
   position:absolute;
   inset:0;
-  background: repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(0,0,0,0.05) 6px,rgba(0,0,0,0.05) 12px);
+  background: repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(0,0,0,0.08) 6px,rgba(0,0,0,0.08) 12px);
 }
 
 .win-emoji{ font-size: 48px; margin-bottom: 8px; position:relative; }
@@ -386,7 +394,7 @@ body{
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--orange-dark);
+  color: #cacaca;
   opacity: 0.7;
 }
 
@@ -428,7 +436,29 @@ body{
 
 <div class="header">
   <div class="logo-text">SlashBack Cinema</div>
-  <div class="bingo-title">Bing<span>O</span></div>
+  <div class="bingo-title-wrap">
+    <svg width="56" height="64" viewBox="0 0 130 150" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;filter:drop-shadow(2px 2px 6px rgba(0,0,0,0.3))">
+      <path d="M65 8 C35 8 18 28 16 55 C14 75 18 95 25 110 C32 124 45 138 65 142 C85 138 98 124 105 110 C112 95 116 75 114 55 C112 28 95 8 65 8 Z" fill="#f0ede6" stroke="#c8bfb0" stroke-width="2"/>
+      <path d="M28 48 Q65 40 102 48" stroke="#b8b0a0" stroke-width="1.5" fill="none"/>
+      <ellipse cx="46" cy="65" rx="14" ry="11" fill="#111"/>
+      <ellipse cx="84" cy="65" rx="14" ry="11" fill="#111"/>
+      <ellipse cx="46" cy="65" rx="10" ry="7" fill="#cc0000" opacity="0.8"/>
+      <ellipse cx="84" cy="65" rx="10" ry="7" fill="#cc0000" opacity="0.8"/>
+      <ellipse cx="58" cy="85" rx="5" ry="4" fill="#111"/>
+      <ellipse cx="72" cy="85" rx="5" ry="4" fill="#111"/>
+      <ellipse cx="50" cy="104" rx="4" ry="3.5" fill="#111"/>
+      <ellipse cx="62" cy="107" rx="4" ry="3.5" fill="#111"/>
+      <ellipse cx="74" cy="107" rx="4" ry="3.5" fill="#111"/>
+      <ellipse cx="86" cy="104" rx="4" ry="3.5" fill="#111"/>
+      <ellipse cx="56" cy="118" rx="3.5" ry="3" fill="#111"/>
+      <ellipse cx="68" cy="120" rx="3.5" ry="3" fill="#111"/>
+      <ellipse cx="80" cy="118" rx="3.5" ry="3" fill="#111"/>
+      <circle cx="65" cy="22" r="3" fill="#888"/>
+      <circle cx="20" cy="72" r="2.5" fill="#888"/>
+      <circle cx="110" cy="72" r="2.5" fill="#888"/>
+    </svg>
+    <div class="bingo-title">Bing<span>O</span></div>
+  </div>
   <div class="header-sub">Listen along &amp; tap when you hear it</div>
 </div>
 
@@ -694,7 +724,7 @@ async function submitEmail() {
 function confetti() {
   const wrap = document.getElementById('confetti-wrap');
   wrap.innerHTML = '';
-  const colors = ['#e85d04','#f48c06','#fff','#0a0806','#e8186d','#fdf0d5'];
+  const colors = ['#e8186d','#ff1f7a','#fff','#0a0806','#dedede','#16120e'];
   for (let i = 0; i < 60; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
