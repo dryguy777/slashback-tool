@@ -1484,7 +1484,7 @@
                         <span>Back</span>
                     </div>
                     <div class="tagline">What Should I Watch Tonight?</div>
-                    <div class="sub">3 questions · Real Stabby Scores · 47 films from the vault</div>
+                    <div class="sub">3 questions · Real Stabby Scores · 48 films from the vault</div>
                 </div>
 
                 <div class="prog-row" id="prog-row">
@@ -2335,6 +2335,22 @@
         epPage: "https://slashbackcinema.com/the-stuff-1985",
         jw: "https://www.justwatch.com/us/search?q=The+Stuff+1985",
         poster: "https://storage.buzzsprout.com/6utic5umhq7dwonicniepu0ijrwx?.jpg"
+    },
+    {
+        title: "They Live",
+        year: 1988,
+        era: "late80s",
+        moods: ["brain", "laugh"],
+        company: ["solo", "partner", "friends"],
+        shannyScore: 2,
+        ryanScore: 2.5,
+        scale: 4,
+        desc: "A drifter finds sunglasses that reveal aliens running the world — and the word OBEY plastered everywhere. John Carpenter Reagan-era satire. Uneven but unforgettable. The six-minute alley fight alone earns its cult status.",
+        quote: "The problem: a little thin, on the nose. But that poster is one of the coolest ever. Two and a half stabbies. — Ryan",
+        ep: "https://podcasts.apple.com/us/podcast/slashback-cinema/id1776917613?i=1000761667938",
+        epPage: "https://slashbackcinema.com/they-live-1988",
+        jw: "https://www.justwatch.com/us/search?q=They+Live+1988",
+        poster: "https://img1.wsimg.com/isteam/ip/0554ae68-b048-40ea-ac7f-d562ac44e85a/they%20live%20sq-v2.png"
     }
     ];
 
@@ -2555,7 +2571,7 @@
         const rings = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2a1000" stroke-width="7"/>
     <circle cx="${cx}" cy="${cy}" r="${r - 10}" fill="none" stroke="#8B1A00" stroke-width="3"/>
     <circle cx="${cx}" cy="${cy}" r="${innerR}" fill="#0d0d0d" stroke="#2a1000" stroke-width="2"/>`;
-        svg.innerHTML = paths + dividers + rings + labels;
+        svg.innerHTML = paths + dividers + rings;
     }
 
     function spinWheel(svgId, maskId, spinClass, durVar, degVar, resultFn) {
