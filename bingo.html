@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SlashBack Cinema Bingo</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -240,7 +240,7 @@ body{
 /* ── BINGO WIN OVERLAY ── */
 .win-overlay{
   display: none;
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: rgba(10,8,6,0.88);
   z-index: 100;
@@ -400,7 +400,7 @@ body{
 
 /* ── CONFETTI ── */
 .confetti-wrap{
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 99;
@@ -433,6 +433,7 @@ body{
 </style>
 </head>
 <body>
+<div id="bingo-root" style="position:relative;min-height:100vh;overflow:hidden">
 
 <div class="header">
   <div class="logo-text">SlashBack Cinema</div>
@@ -503,7 +504,6 @@ body{
     </div>
   </div>
 </div>
-<div id="eo-bingo-wrap" style="display:none"></div>
 
 <!-- CONFETTI -->
 <div class="confetti-wrap" id="confetti-wrap"></div>
@@ -681,7 +681,7 @@ function closeWin() {
   updateScore();
 }
 
-async function submitEmail() {
+function submitEmail() {
   const email = document.getElementById('win-email').value.trim();
   const input = document.getElementById('win-email');
   if (!email || !email.includes('@')) {
@@ -690,30 +690,10 @@ async function submitEmail() {
     return;
   }
 
-  const btn = document.querySelector('.win-submit');
-  btn.textContent = 'Entering...';
-  btn.disabled = true;
-
-  try {
-    await fetch('https://emailoctopus.com/api/1.6/lists/0e0fe442-328c-11f1-9364-3160c7a5eb81/contacts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        api_key: 'eo_102af0bb8964b8c878716e863229e0a2f7468e150493f6214f5e9c56ac8d888a',
-        email_address: email,
-        status: 'SUBSCRIBED',
-        fields: { Notes: 'Bingo winner — episode: ' + (document.getElementById('win-episode').value.trim() || 'not specified') + ' | note: ' + (document.getElementById('win-note').value.trim() || 'none') }
-      })
-    });
-  } catch(e) {
-    // Silently continue even if API call fails
-  }
-
-  // Notify Ryan of prize draw entry
   const episode = document.getElementById('win-episode').value.trim() || 'Not specified';
   const note = document.getElementById('win-note').value.trim() || 'None';
-  const subject = encodeURIComponent('SlashBack Bingo Winner 🔪');
-  const body = encodeURIComponent('New bingo winner — enter in monthly prize draw!\n\nEmail: ' + email + '\nEpisode: ' + episode + '\nNote: ' + note);
+  const subject = encodeURIComponent('SlashBack Bingo Winner');
+  const body = encodeURIComponent('New bingo winner - enter in monthly prize draw!' + '\n\n' + 'Email: ' + email + '\n' + 'Episode: ' + episode + '\n' + 'Note: ' + note);
   window.open('mailto:ryan@slashbackcinema.com?subject=' + subject + '&body=' + body);
 
   document.getElementById('win-form-wrap').style.display = 'none';
@@ -723,6 +703,8 @@ async function submitEmail() {
 // ── CONFETTI ──
 function confetti() {
   const wrap = document.getElementById('confetti-wrap');
+  const root = document.getElementById('bingo-root');
+  if(root) wrap.style.height = root.offsetHeight + 'px';
   wrap.innerHTML = '';
   const colors = ['#e8186d','#ff1f7a','#fff','#0a0806','#dedede','#16120e'];
   for (let i = 0; i < 60; i++) {
@@ -745,5 +727,6 @@ function confetti() {
 // ── START ──
 newCard();
 </script>
+</div>
 </body>
 </html>
